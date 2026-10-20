@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">হিসাব - Smart Ledger</string>
 
@@ -358,4 +358,32 @@
     <string name="reports_profit_per_unit">প্রতি ইউনিটে লাভ</string>
     <string name="reports_profit_total_margin">মোট মার্জিন</string>
     <string name="reports_profit_empty">কোনো পণ্য ডেটা নেই</string>
+    <!-- Invoices F3 -->
+    <string name="invoices_title">চালান / Invoice</string>
+    <string name="invoices_empty">কোনো চালান তৈরি করা হয়নি</string>
+    <string name="invoices_add_fab">নতুন চালান</string>
+    <string name="dialog_create_invoice_title">নতুন চালান তৈরি করুন</string>
+    <string name="dialog_invoice_customer_name_hint">গ্রাহকের নাম</string>
+    <string name="dialog_invoice_customer_phone_hint">মোবাইল নম্বর (ঐচ্ছিক)</string>
+    <string name="dialog_invoice_add_item">পণ্য যোগ করুন</string>
+    <string name="dialog_invoice_quantity_hint">পরিমাণ</string>
+    <string name="dialog_invoice_total_label">মোট</string>
+    <string name="dialog_invoice_note_hint">নোট (ঐচ্ছিক)</string>
+    <string name="dialog_invoice_save">চালান সংরক্ষণ করুন</string>
+    <string name="dialog_invoice_save_and_pdf">সংরক্ষণ ও PDF তৈরি</string>
+    <string name="snackbar_invoice_saved">চালান সংরক্ষিত হয়েছে</string>
+    <string name="snackbar_invoice_deleted">চালান মুছে ফেলা হয়েছে</string>
+    <!-- SMS F4 -->
+    <string name="dialog_sms_title">SMS মার্কেটিং</string>
+    <string name="dialog_sms_group_label">গ্রাহক গ্রুপ নির্বাচন করুন</string>
+    <string name="dialog_sms_group_all">সকল পার্টি</string>
+    <string name="dialog_sms_group_payable">শুধু দেনাদার</string>
+    <string name="dialog_sms_group_receivable">শুধু পাওনাদার</string>
+    <string name="dialog_sms_template_hint">মেসেজ লিখুন...</string>
+    <string name="dialog_sms_preview_label">প্রিভিউ:</string>
+    <string name="dialog_sms_send_button">পাঠান</string>
+    <string name="dialog_sms_sending_progress">পাঠানো হচ্ছে %1$d / %2$d</string>
+    <string name="dialog_sms_done">%1$d SMS পাঠানো হয়েছে</string>
+    <string name="dialog_sms_permission_required">SMS অনুমতি প্রয়োজন</string>
+    <string name="snackbar_sms_sent">SMS পাঠানো সম্পন্ন</string>
 </resources>

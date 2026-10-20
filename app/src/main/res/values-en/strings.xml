@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Hisab - Smart Ledger</string>
 
@@ -358,4 +358,32 @@
     <string name="reports_profit_per_unit">Profit per unit</string>
     <string name="reports_profit_total_margin">Total Margin</string>
     <string name="reports_profit_empty">No product data</string>
+    <!-- Invoices F3 -->
+    <string name="invoices_title">Invoices</string>
+    <string name="invoices_empty">No invoices created</string>
+    <string name="invoices_add_fab">New Invoice</string>
+    <string name="dialog_create_invoice_title">Create New Invoice</string>
+    <string name="dialog_invoice_customer_name_hint">Customer name</string>
+    <string name="dialog_invoice_customer_phone_hint">Mobile number (optional)</string>
+    <string name="dialog_invoice_add_item">Add Item</string>
+    <string name="dialog_invoice_quantity_hint">Quantity</string>
+    <string name="dialog_invoice_total_label">Total</string>
+    <string name="dialog_invoice_note_hint">Note (optional)</string>
+    <string name="dialog_invoice_save">Save Invoice</string>
+    <string name="dialog_invoice_save_and_pdf">Save and Generate PDF</string>
+    <string name="snackbar_invoice_saved">Invoice saved</string>
+    <string name="snackbar_invoice_deleted">Invoice deleted</string>
+    <!-- SMS F4 -->
+    <string name="dialog_sms_title">SMS Marketing</string>
+    <string name="dialog_sms_group_label">Select customer group</string>
+    <string name="dialog_sms_group_all">All Parties</string>
+    <string name="dialog_sms_group_payable">Payable only</string>
+    <string name="dialog_sms_group_receivable">Receivable only</string>
+    <string name="dialog_sms_template_hint">Write message...</string>
+    <string name="dialog_sms_preview_label">Preview:</string>
+    <string name="dialog_sms_send_button">Send</string>
+    <string name="dialog_sms_sending_progress">Sending %1$d / %2$d</string>
+    <string name="dialog_sms_done">%1$d SMS sent</string>
+    <string name="dialog_sms_permission_required">SMS permission required</string>
+    <string name="snackbar_sms_sent">SMS sending complete</string>
 </resources>

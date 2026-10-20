@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">حساب - Smart Ledger</string>
 
@@ -358,4 +358,30 @@
     <string name="reports_profit_per_unit">فی یونٹ منافع</string>
     <string name="reports_profit_total_margin">کل مارجن</string>
     <string name="reports_profit_empty">کوئی پروڈکٹ ڈیٹا نہیں</string>
+    <string name="invoices_title">انوائس</string>
+    <string name="invoices_empty">کوئی انوائس نہیں</string>
+    <string name="invoices_add_fab">نئی انوائس</string>
+    <string name="dialog_create_invoice_title">انوائس بنائیں</string>
+    <string name="dialog_invoice_customer_name_hint">گاہک کا نام</string>
+    <string name="dialog_invoice_customer_phone_hint">موبائل</string>
+    <string name="dialog_invoice_add_item">آئٹم شامل کریں</string>
+    <string name="dialog_invoice_quantity_hint">مقدار</string>
+    <string name="dialog_invoice_total_label">کل</string>
+    <string name="dialog_invoice_note_hint">نوٹ</string>
+    <string name="dialog_invoice_save">انوائس محفوظ</string>
+    <string name="dialog_invoice_save_and_pdf">محفوظ اور PDF</string>
+    <string name="snackbar_invoice_saved">انوائس محفوظ</string>
+    <string name="snackbar_invoice_deleted">انوائس حذف</string>
+    <string name="dialog_sms_title">SMS مارکیٹنگ</string>
+    <string name="dialog_sms_group_label">گروپ منتخب</string>
+    <string name="dialog_sms_group_all">سب</string>
+    <string name="dialog_sms_group_payable">ادائیگی والے</string>
+    <string name="dialog_sms_group_receivable">وصولی والے</string>
+    <string name="dialog_sms_template_hint">پیغام لکھیں</string>
+    <string name="dialog_sms_preview_label">پیش نظارہ</string>
+    <string name="dialog_sms_send_button">بھیجیں</string>
+    <string name="dialog_sms_sending_progress">بھیج رہے %1$d / %2$d</string>
+    <string name="dialog_sms_done">%1$d SMS بھیجے</string>
+    <string name="dialog_sms_permission_required">SMS اجازت</string>
+    <string name="snackbar_sms_sent">SMS مکمل</string>
 </resources>

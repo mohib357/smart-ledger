@@ -8,6 +8,7 @@ import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.data.dao.AuditSnapshotDao
 import com.example.data.dao.ChatMessageDao
+import com.example.data.dao.InvoiceDao
 import com.example.data.dao.NomineeDao
 import com.example.data.dao.PartyDao
 import com.example.data.dao.PartyLedgerEntryDao
@@ -16,6 +17,8 @@ import com.example.data.dao.TransactionDao
 import com.example.data.dao.WalletDao
 import com.example.data.model.AuditSnapshotEntity
 import com.example.data.model.ChatMessageEntity
+import com.example.data.model.InvoiceEntity
+import com.example.data.model.InvoiceItemEntity
 import com.example.data.model.NomineeEntity
 import com.example.data.model.PartyEntity
 import com.example.data.model.PartyLedgerEntryEntity
@@ -32,9 +35,11 @@ import com.example.data.model.WalletEntity
         AuditSnapshotEntity::class,
         NomineeEntity::class,
         ChatMessageEntity::class,
-        ProductEntity::class
+        ProductEntity::class,
+        InvoiceEntity::class,
+        InvoiceItemEntity::class
     ],
-    version = 4,
+    version = 5,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -46,6 +51,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun nomineeDao(): NomineeDao
     abstract fun chatMessageDao(): ChatMessageDao
     abstract fun productDao(): ProductDao
+    abstract fun invoiceDao(): InvoiceDao
 
     companion object {
         @Volatile
@@ -76,6 +82,34 @@ abstract class AppDatabase : RoomDatabase() {
             }
         }
 
+        val MIGRATION_4_5 = object : Migration(4, 5) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL(
+                    """CREATE TABLE IF NOT EXISTS `invoices` (
+                        `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                        `invoiceNumber` TEXT NOT NULL,
+                        `customerName` TEXT NOT NULL,
+                        `customerPhone` TEXT NOT NULL DEFAULT '',
+                        `totalAmount` REAL NOT NULL,
+                        `dateMillis` INTEGER NOT NULL,
+                        `note` TEXT NOT NULL DEFAULT ''
+                    )"""
+                )
+                db.execSQL(
+                    """CREATE TABLE IF NOT EXISTS `invoice_items` (
+                        `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                        `invoiceId` INTEGER NOT NULL,
+                        `productId` INTEGER NOT NULL,
+                        `productName` TEXT NOT NULL,
+                        `quantity` INTEGER NOT NULL,
+                        `unitPrice` REAL NOT NULL,
+                        `totalPrice` REAL NOT NULL,
+                        FOREIGN KEY(`invoiceId`) REFERENCES `invoices`(`id`) ON DELETE CASCADE
+                    )"""
+                )
+            }
+        }
+
         fun getDatabase(context: Context): AppDatabase {
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
@@ -83,7 +117,7 @@ abstract class AppDatabase : RoomDatabase() {
                     AppDatabase::class.java,
                     "shohoj_hisab_database"
                 )
-                    .addMigrations(MIGRATION_2_3, MIGRATION_3_4)
+                    .addMigrations(MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5)
                     .build()
                 INSTANCE = instance
                 instance

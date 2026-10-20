@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">حساب - Smart Ledger</string>
 
@@ -358,4 +358,30 @@
     <string name="reports_profit_per_unit">الربح لكل وحدة</string>
     <string name="reports_profit_total_margin">الهامش الإجمالي</string>
     <string name="reports_profit_empty">لا توجد بيانات منتج</string>
+    <string name="invoices_title">الفواتير</string>
+    <string name="invoices_empty">لا فواتير</string>
+    <string name="invoices_add_fab">فاتورة جديدة</string>
+    <string name="dialog_create_invoice_title">انشاء فاتورة</string>
+    <string name="dialog_invoice_customer_name_hint">اسم العميل</string>
+    <string name="dialog_invoice_customer_phone_hint">رقم الهاتف</string>
+    <string name="dialog_invoice_add_item">اضافة بند</string>
+    <string name="dialog_invoice_quantity_hint">الكمية</string>
+    <string name="dialog_invoice_total_label">الاجمالي</string>
+    <string name="dialog_invoice_note_hint">ملاحظة</string>
+    <string name="dialog_invoice_save">حفظ الفاتورة</string>
+    <string name="dialog_invoice_save_and_pdf">حفظ وانشاء PDF</string>
+    <string name="snackbar_invoice_saved">تم حفظ الفاتورة</string>
+    <string name="snackbar_invoice_deleted">تم حذف الفاتورة</string>
+    <string name="dialog_sms_title">تسويق SMS</string>
+    <string name="dialog_sms_group_label">اختر المجموعة</string>
+    <string name="dialog_sms_group_all">الجميع</string>
+    <string name="dialog_sms_group_payable">المدينون</string>
+    <string name="dialog_sms_group_receivable">الدائنون</string>
+    <string name="dialog_sms_template_hint">اكتب الرسالة</string>
+    <string name="dialog_sms_preview_label">معاينة</string>
+    <string name="dialog_sms_send_button">ارسال</string>
+    <string name="dialog_sms_sending_progress">ارسال %1$d / %2$d</string>
+    <string name="dialog_sms_done">%1$d SMS تم الارسال</string>
+    <string name="dialog_sms_permission_required">اذن SMS</string>
+    <string name="snackbar_sms_sent">SMS مكتمل</string>
 </resources>

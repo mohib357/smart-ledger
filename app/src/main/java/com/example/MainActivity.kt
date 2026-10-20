@@ -63,6 +63,8 @@ import com.example.ui.components.AddTransactionDialog
 import com.example.ui.components.AppTopBar
 import com.example.ui.components.BackupRestoreDialog
 import com.example.ui.components.FeedbackDialog
+import com.example.ui.components.CreateInvoiceDialog
+import com.example.ui.components.SmsMarketingDialog
 import com.example.ui.components.PartyPaymentDialog
 import com.example.ui.components.PinConfirmDialog
 import com.example.ui.components.QuickCalculatorDialog
@@ -76,6 +78,7 @@ import com.example.ui.screens.KhataScreen
 import com.example.ui.screens.NomineesScreen
 import com.example.ui.screens.PartyDetailScreen
 import com.example.ui.screens.ProductsScreen
+import com.example.ui.screens.InvoicesScreen
 import com.example.ui.screens.ReportsScreen
 import com.example.ui.screens.TransactionsScreen
 import com.example.ui.screens.WalletsScreen
@@ -199,6 +202,7 @@ fun MainAppContent(viewModel: MainViewModel) {
 
     // Phase 3 state
     val allProducts by viewModel.allProducts.collectAsStateWithLifecycle()
+    val allInvoices by viewModel.allInvoices.collectAsStateWithLifecycle()
     val showAddProduct by viewModel.showAddProduct.collectAsStateWithLifecycle()
     val editingProduct by viewModel.editingProduct.collectAsStateWithLifecycle()
     val productProfitSummary by viewModel.productProfitSummary.collectAsStateWithLifecycle()
@@ -506,6 +510,17 @@ fun MainAppContent(viewModel: MainViewModel) {
                                 }
                             }
                         )
+                        9 -> InvoicesScreen(
+                            invoices = allInvoices,
+                            useBengaliDigits = useBengaliDigits,
+                            onCreateInvoice = { viewModel.showCreateInvoice.value = true },
+                            onDeleteInvoice = { invoice ->
+                                viewModel.deleteInvoice(invoice)
+                                coroutineScope.launch {
+                                    snackbarHostState.showSnackbar(context.getString(R.string.snackbar_invoice_deleted))
+                                }
+                            }
+                        )
                     }
                 }
             }
@@ -723,6 +738,38 @@ fun MainAppContent(viewModel: MainViewModel) {
                 onExpiryNotifEnabledChange = { enabled ->
                     viewModel.setExpiryNotifEnabled(context, enabled)
                     viewModel.scheduleOrCancelExpiryCheck(context, enabled)
+                }
+            )
+        }
+
+        // Phase 3 F3: Create Invoice dialog
+        val showCreateInvoice by viewModel.showCreateInvoice.collectAsStateWithLifecycle()
+        if (showCreateInvoice) {
+            CreateInvoiceDialog(
+                products = allProducts,
+                useBengaliDigits = useBengaliDigits,
+                onDismiss = { viewModel.showCreateInvoice.value = false },
+                onSave = { customerName, customerPhone, items, note ->
+                    viewModel.createInvoice(customerName, customerPhone, items, note)
+                    coroutineScope.launch {
+                        snackbarHostState.showSnackbar(context.getString(R.string.snackbar_invoice_saved))
+                    }
+                }
+            )
+        }
+
+        // Phase 3 F4: SMS Marketing dialog
+        if (showSmsMarketing) {
+            SmsMarketingDialog(
+                parties = parties,
+                onDismiss = { viewModel.showSmsMarketing.value = false },
+                onSmsDone = { count ->
+                    viewModel.showSmsMarketing.value = false
+                    coroutineScope.launch {
+                        snackbarHostState.showSnackbar(
+                            String.format(context.getString(R.string.dialog_sms_done), count)
+                        )
+                    }
                 }
             )
         }

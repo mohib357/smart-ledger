@@ -35,6 +35,7 @@ class AccountRepository(private val database: AppDatabase) {
     private val nomineeDao: NomineeDao = database.nomineeDao()
     private val chatMessageDao: ChatMessageDao = database.chatMessageDao()
     private val productDao: ProductDao = database.productDao()
+    private val invoiceDao: com.example.data.dao.InvoiceDao = database.invoiceDao()
 
     val allTransactions: Flow<List<TransactionEntity>> = transactionDao.getAllTransactions()
     val allParties: Flow<List<PartyEntity>> = partyDao.getAllParties()
@@ -44,6 +45,7 @@ class AccountRepository(private val database: AppDatabase) {
     val allChatMessages: Flow<List<ChatMessageEntity>> = chatMessageDao.getAllMessages()
 
     val allProducts: Flow<List<ProductEntity>> = productDao.getAllProducts()
+    val allInvoices: Flow<List<com.example.data.model.InvoiceEntity>> = invoiceDao.getAllInvoices()
 
     suspend fun insertChatMessage(content: String, isFromUser: Boolean) {
         chatMessageDao.insertMessage(ChatMessageEntity(content = content, isFromUser = isFromUser))
@@ -332,6 +334,38 @@ class AccountRepository(private val database: AppDatabase) {
         walletDao.clearAll()
         auditSnapshotDao.clearAll()
         nomineeDao.clearAll()
+    }
+
+    // ── Invoice CRUD ────────────────────────────────────────────────────────
+    suspend fun createInvoice(
+        customerName: String,
+        customerPhone: String,
+        items: List<com.example.data.model.InvoiceItemEntity>,
+        note: String
+    ): Long {
+        val total = items.sumOf { it.totalPrice }
+        val dateStr = java.text.SimpleDateFormat("yyyyMMdd", java.util.Locale.US)
+            .format(java.util.Date())
+        val suffix = (1000..9999).random()
+        val invoiceNumber = "INV-$dateStr-$suffix"
+        val invoice = com.example.data.model.InvoiceEntity(
+            invoiceNumber = invoiceNumber,
+            customerName = customerName,
+            customerPhone = customerPhone,
+            totalAmount = total,
+            dateMillis = System.currentTimeMillis(),
+            note = note
+        )
+        invoiceDao.insertInvoiceWithItems(invoice, items)
+        return invoiceDao.getInvoiceCount().toLong()
+    }
+
+    suspend fun deleteInvoice(invoice: com.example.data.model.InvoiceEntity) {
+        invoiceDao.deleteInvoice(invoice)
+    }
+
+    suspend fun getItemsForInvoice(invoiceId: Long): List<com.example.data.model.InvoiceItemEntity> {
+        return invoiceDao.getItemsForInvoice(invoiceId)
     }
 
     suspend fun initializeDefaultWalletsIfEmpty() {

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">हिसाब - Smart Ledger</string>
 
@@ -358,4 +358,30 @@
     <string name="reports_profit_per_unit">प्रति यूनिट लाभ</string>
     <string name="reports_profit_total_margin">कुल मार्जिन</string>
     <string name="reports_profit_empty">कोई उत्पाद डेटा नहीं</string>
+    <string name="invoices_title">चालान</string>
+    <string name="invoices_empty">कोई चालान नहीं</string>
+    <string name="invoices_add_fab">नया चालान</string>
+    <string name="dialog_create_invoice_title">चालान बनाएं</string>
+    <string name="dialog_invoice_customer_name_hint">ग्राहक का नाम</string>
+    <string name="dialog_invoice_customer_phone_hint">मोबाइल</string>
+    <string name="dialog_invoice_add_item">आइटम जोड़ें</string>
+    <string name="dialog_invoice_quantity_hint">मात्रा</string>
+    <string name="dialog_invoice_total_label">कुल</string>
+    <string name="dialog_invoice_note_hint">नोट</string>
+    <string name="dialog_invoice_save">चालान सहेजें</string>
+    <string name="dialog_invoice_save_and_pdf">सहेजें और PDF</string>
+    <string name="snackbar_invoice_saved">चालान सहेजा गया</string>
+    <string name="snackbar_invoice_deleted">चालान हटाया गया</string>
+    <string name="dialog_sms_title">SMS मार्केटिंग</string>
+    <string name="dialog_sms_group_label">समूह चुनें</string>
+    <string name="dialog_sms_group_all">सभी</string>
+    <string name="dialog_sms_group_payable">देनदार</string>
+    <string name="dialog_sms_group_receivable">प्राप्य</string>
+    <string name="dialog_sms_template_hint">संदेश लिखें</string>
+    <string name="dialog_sms_preview_label">पूर्वावलोकन</string>
+    <string name="dialog_sms_send_button">भेजें</string>
+    <string name="dialog_sms_sending_progress">भेज रहे %1$d / %2$d</string>
+    <string name="dialog_sms_done">%1$d SMS भेजे</string>
+    <string name="dialog_sms_permission_required">SMS अनुमति</string>
+    <string name="snackbar_sms_sent">SMS पूर्ण</string>
 </resources>

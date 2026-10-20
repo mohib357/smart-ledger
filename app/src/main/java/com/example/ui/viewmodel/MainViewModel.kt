@@ -425,6 +425,39 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    // ── Invoice StateFlow & functions (Phase 3 F3) ──────────────────────────
+    val allInvoices: StateFlow<List<com.example.data.model.InvoiceEntity>> by lazy {
+        repository.allInvoices.stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = emptyList()
+        )
+    }
+
+    val showCreateInvoice = MutableStateFlow(false)
+
+    fun createInvoice(
+        customerName: String,
+        customerPhone: String,
+        items: List<com.example.data.model.InvoiceItemEntity>,
+        note: String
+    ) {
+        viewModelScope.launch {
+            repository.createInvoice(customerName, customerPhone, items, note)
+            showCreateInvoice.value = false
+        }
+    }
+
+    fun deleteInvoice(invoice: com.example.data.model.InvoiceEntity) {
+        viewModelScope.launch {
+            repository.deleteInvoice(invoice)
+        }
+    }
+
+    suspend fun getItemsForInvoice(invoiceId: Long): List<com.example.data.model.InvoiceItemEntity> {
+        return repository.getItemsForInvoice(invoiceId)
+    }
+
     // Feature 5 — PDF Export
     suspend fun exportReportPdf(fromMillis: Long, toMillis: Long): PdfExportResult {
         val txList = allTransactions.first()
