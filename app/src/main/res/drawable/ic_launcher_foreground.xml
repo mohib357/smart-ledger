@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Group centered in 108dp (66dp safe zone) -->
+    <group
+        android:pivotX="54"
+        android:pivotY="54">
+        <!-- Notebook shadow -->
+        <path
+            android:fillColor="#1A000000"
+            android:pathData="M31,27 h46 c3.3,0 6,2.7 6,6 v48 c0,3.3 -2.7,6 -6,6 H31 c-3.3,0 -6,-2.7 -6,-6 V33 c0,-3.3 2.7,-6 6,-6 z" />
+        <!-- Notebook cover: rich warm amber/leather or teal -->
+        <path
+            android:fillColor="#FFFFFF"
+            android:pathData="M29,25 h46 c3.3,0 6,2.7 6,6 v48 c0,3.3 -2.7,6 -6,6 H29 c-3.3,0 -6,-2.7 -6,-6 V31 c0,-3.3 2.7,-6 6,-6 z" />
+        <!-- Spine binder band on left -->
+        <path
+            android:fillColor="#E0E0E0"
+            android:pathData="M23,31 c0,-3.3 2.7,-6 6,-6 h5 v60 h-5 c-3.3,0 -6,-2.7 -6,-6 z" />
+        <!-- Inner page accent -->
+        <path
+            android:fillColor="#F4FBF7"
+            android:pathData="M37,28 h35 c1.7,0 3,1.3 3,3 v48 c0,1.7 -1.3,3 -3,3 H37 z" />
+        <!-- Golden Ribbon Bookmark -->
+        <path
+            android:fillColor="#F59E0B"
+            android:pathData="M61,25 v24 l-4,-3 l-4,3 V25 z" />
+        <!-- Accounting ledger row 1 (Income/Expense indicator green/red) -->
+        <path
+            android:fillColor="#10B981"
+            android:pathData="M41,36 h15 v4 H41 z" />
+        <path
+            android:fillColor="#CBD5E1"
+            android:pathData="M41,45 h26 v3 H41 z" />
+        <path
+            android:fillColor="#EF4444"
+            android:pathData="M41,53 h14 v4 H41 z" />
+        <path
+            android:fillColor="#CBD5E1"
+            android:pathData="M41,62 h26 v3 H41 z" />
+        <!-- Coin / Taka badge in bottom right -->
+        <path
+            android:fillColor="#F59E0B"
+            android:pathData="M62,62 m -10,0 a 10,10 0 1,0 20,0 a 10,10 0 1,0 -20,0" />
+        <path
+            android:fillColor="#FFFFFF"
+            android:pathData="M60,56 h4 v3 h-4 z M60,60 h4 v7 h-4 z" />
+    </group>
+</vector>

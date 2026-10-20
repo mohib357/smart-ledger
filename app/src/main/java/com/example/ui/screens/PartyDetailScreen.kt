@@ -1,0 +1,335 @@
+package com.example.ui.screens
+
+import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Payments
+import androidx.compose.material.icons.filled.Phone
+import androidx.compose.material.icons.filled.RemoveCircle
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.compose.ui.res.stringResource
+import com.example.R
+import com.example.data.model.PartyEntity
+import com.example.data.model.PartyLedgerEntryEntity
+import com.example.ui.theme.ExpenseRed
+import com.example.ui.theme.ExpenseRedLight
+import com.example.ui.theme.IncomeGreen
+import com.example.ui.theme.IncomeGreenLight
+import com.example.ui.theme.PayableAmber
+import com.example.ui.theme.ReceivableBlue
+import com.example.util.Formatters
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun PartyDetailScreen(
+    party: PartyEntity,
+    entries: List<PartyLedgerEntryEntity>,
+    useBengaliDigits: Boolean,
+    onBack: () -> Unit,
+    onOpenPayment: (type: String) -> Unit,
+    onDeleteParty: (PartyEntity) -> Unit
+) {
+    BackHandler { onBack() }
+
+    var showDeleteConfirm by remember { mutableStateOf(false) }
+
+    val isPayable = party.partyType == "PAYABLE"
+
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = {
+                    Column {
+                        Text(party.name, fontWeight = FontWeight.Bold, style = MaterialTheme.typography.titleMedium)
+                        Text(
+                            text = if (isPayable) "দেনা খাতা (সে পাবে)" else "পাওনা খাতা (আমি পাবো)",
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
+                },
+                navigationIcon = {
+                    IconButton(onClick = onBack) {
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "ফিরে যান")
+                    }
+                },
+                actions = {
+                    IconButton(onClick = { showDeleteConfirm = true }) {
+                        Icon(
+                            Icons.Default.Delete,
+                            contentDescription = stringResource(R.string.party_detail_delete),
+                            tint = MaterialTheme.colorScheme.error
+                        )
+                    }
+                },
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.surface
+                )
+            )
+        }
+    ) { innerPadding ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding)
+                .testTag("party_detail_screen")
+        ) {
+            // Balance Card
+            Card(
+                shape = RoundedCornerShape(20.dp),
+                colors = CardDefaults.cardColors(
+                    containerColor = if (isPayable) MaterialTheme.colorScheme.errorContainer else MaterialTheme.colorScheme.primaryContainer
+                ),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp)
+            ) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(20.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text(
+                        text = if (isPayable) "বর্তমান দেনা (সে পাবে)" else "বর্তমান পাওনা (আমি পাবো)",
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = if (isPayable) MaterialTheme.colorScheme.onErrorContainer else MaterialTheme.colorScheme.onPrimaryContainer
+                    )
+                    Spacer(modifier = Modifier.height(4.dp))
+                    Text(
+                        text = Formatters.formatTaka(party.currentAmount, useBengali = useBengaliDigits),
+                        style = MaterialTheme.typography.displayMedium,
+                        fontWeight = FontWeight.Bold,
+                        color = if (isPayable) ExpenseRed else IncomeGreen
+                    )
+                    if (party.phone.isNotBlank()) {
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Icon(Icons.Default.Phone, contentDescription = null, modifier = Modifier.size(14.dp))
+                            Spacer(modifier = Modifier.width(4.dp))
+                            Text(party.phone, style = MaterialTheme.typography.bodySmall)
+                        }
+                    }
+                }
+            }
+
+            // Quick Payment Action Buttons
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp),
+                horizontalArrangement = Arrangement.spacedBy(10.dp)
+            ) {
+                Button(
+                    onClick = { onOpenPayment("GIVE") },
+                    colors = ButtonDefaults.buttonColors(containerColor = IncomeGreen),
+                    shape = RoundedCornerShape(14.dp),
+                    modifier = Modifier
+                        .weight(1f)
+                        .height(48.dp)
+                ) {
+                    Icon(Icons.Default.Payments, contentDescription = null, modifier = Modifier.size(18.dp))
+                    Spacer(modifier = Modifier.width(4.dp))
+                    Text(if (isPayable) "টাকা পরিশোধ" else "টাকা আদায়", fontWeight = FontWeight.Bold)
+                }
+
+                Button(
+                    onClick = { onOpenPayment("TAKE") },
+                    colors = ButtonDefaults.buttonColors(containerColor = ExpenseRed),
+                    shape = RoundedCornerShape(14.dp),
+                    modifier = Modifier
+                        .weight(1f)
+                        .height(48.dp)
+                ) {
+                    Icon(Icons.Default.Add, contentDescription = null, modifier = Modifier.size(18.dp))
+                    Spacer(modifier = Modifier.width(4.dp))
+                    Text(if (isPayable) "বাকি নেওয়া" else "নতুন বাকি", fontWeight = FontWeight.Bold)
+                }
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // History Header
+            Text(
+                text = "লেনদেনের ইতিহাস (${entries.size})",
+                style = MaterialTheme.typography.titleSmall,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.padding(horizontal = 16.dp)
+            )
+
+            Spacer(modifier = Modifier.height(8.dp))
+
+            if (entries.isEmpty()) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(32.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        text = "কোনো লেনদেনের ইতিহাস নেই।\nউপরের বোতাম দিয়ে নতুন লেনদেন যোগ করুন।",
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        textAlign = androidx.compose.ui.text.style.TextAlign.Center
+                    )
+                }
+            } else {
+                LazyColumn(
+                    modifier = Modifier.fillMaxSize(),
+                    contentPadding = PaddingValues(horizontal = 16.dp, vertical = 6.dp),
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    items(entries, key = { it.id }) { entry ->
+                        PartyEntryCard(
+                            entry = entry,
+                            isPayable = isPayable,
+                            useBengaliDigits = useBengaliDigits
+                        )
+                    }
+                    item {
+                        Spacer(modifier = Modifier.height(60.dp))
+                    }
+                }
+            }
+        }
+    }
+
+    if (showDeleteConfirm) {
+        AlertDialog(
+            onDismissRequest = { showDeleteConfirm = false },
+            title = { Text("খাতা মুছে ফেলবেন?") },
+            text = { Text("'${party.name}' এর পুরো খাতা এবং লেনদেনের সকল রেকর্ড মুছে ফেলা হবে।") },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        onDeleteParty(party)
+                        showDeleteConfirm = false
+                    }
+                ) {
+                    Text(stringResource(R.string.transactions_delete_confirm), color = MaterialTheme.colorScheme.error)
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { showDeleteConfirm = false }) {
+                    Text(stringResource(R.string.action_cancel))
+                }
+            }
+        )
+    }
+}
+
+@Composable
+private fun PartyEntryCard(
+    entry: PartyLedgerEntryEntity,
+    isPayable: Boolean,
+    useBengaliDigits: Boolean
+) {
+    val isGive = entry.entryType == "GIVE"
+    val isSettlement = if (isPayable) isGive else isGive
+    val typeTitle = if (isPayable) {
+        if (isGive) "টাকা পরিশোধ করা হলো" else "বাকি নেওয়া হলো"
+    } else {
+        if (isGive) "টাকা আদায় হলো" else "নতুন বাকি দেওয়া হলো"
+    }
+
+    Card(
+        shape = RoundedCornerShape(14.dp),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+        elevation = CardDefaults.cardElevation(defaultElevation = 1.dp),
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(14.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Box(
+                    modifier = Modifier
+                        .size(36.dp)
+                        .clip(CircleShape)
+                        .background(if (isSettlement) IncomeGreenLight else ExpenseRedLight),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Icon(
+                        imageVector = if (isSettlement) Icons.Default.CheckCircle else Icons.Default.RemoveCircle,
+                        contentDescription = null,
+                        tint = if (isSettlement) IncomeGreen else ExpenseRed,
+                        modifier = Modifier.size(20.dp)
+                    )
+                }
+
+                Spacer(modifier = Modifier.width(12.dp))
+
+                Column {
+                    Text(
+                        text = typeTitle,
+                        style = MaterialTheme.typography.bodyMedium,
+                        fontWeight = FontWeight.Bold
+                    )
+                    Text(
+                        text = "${Formatters.formatDate(entry.dateMillis, useBengali = useBengaliDigits)}${if (entry.note.isNotBlank()) " • " + entry.note else ""}",
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                }
+            }
+
+            Text(
+                text = Formatters.formatTaka(entry.amount, useBengali = useBengaliDigits),
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.Bold,
+                color = if (isSettlement) IncomeGreen else ExpenseRed
+            )
+        }
+    }
+}

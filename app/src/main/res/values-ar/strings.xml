@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">حساب - Smart Ledger</string>
+
+    <!-- Navigation -->
+    <string name="nav_dashboard">لوحة التحكم</string>
+    <string name="nav_transactions">الدخل والمصروف</string>
+    <string name="nav_khata">دفتر الحسابات</string>
+    <string name="nav_wallets">المحافظ</string>
+    <string name="nav_nominees">الورثة</string>
+
+    <!-- Top Bar -->
+    <string name="topbar_title">حساب - Smart Ledger</string>
+    <string name="topbar_bengali_digits">বাংলা ১২৩</string>
+    <string name="topbar_english_digits">Eng 123</string>
+    <string name="topbar_backup">النسخ الاحتياطي والاستعادة</string>
+    <string name="topbar_calculator">الآلة الحاسبة</string>
+    <string name="topbar_more">المزيد</string>
+    <string name="topbar_settings">⚙️ الإعدادات</string>
+    <string name="topbar_calendar">📅 التقويم</string>
+    <string name="topbar_reports">📊 التقارير</string>
+    <string name="topbar_nominees_menu">🛡️ الورثة والتحكم في الوصول</string>
+    <string name="topbar_snapshot">📊 حفظ رصيد اليوم</string>
+    <string name="topbar_load_sample">📋 تحميل البيانات النموذجية</string>
+    <string name="topbar_reset">🗑️ إعادة تعيين جميع البيانات</string>
+    <string name="topbar_backup_menu">💾 النسخ الاحتياطي والاستعادة</string>
+
+    <!-- Actions -->
+    <string name="action_add_income">➕ إضافة دخل</string>
+    <string name="action_add_expense">➖ إضافة مصروف</string>
+    <string name="action_add_party">حساب جديد</string>
+    <string name="action_save">حفظ</string>
+    <string name="action_cancel">إلغاء</string>
+    <string name="action_delete">حذف</string>
+    <string name="action_close">إغلاق</string>
+    <string name="action_ok">موافق</string>
+    <string name="action_share">مشاركة</string>
+    <string name="action_export_pdf">إنشاء تقرير PDF</string>
+    <string name="action_export_csv">تحميل CSV</string>
+    <string name="action_export_json">مشاركة النسخة الاحتياطية JSON</string>
+    <string name="action_restore">الاستعادة من ملف</string>
+    <string name="action_add">إضافة</string>
+    <string name="action_transfer">تحويل</string>
+    <string name="action_back">رجوع</string>
+    <string name="action_today">اليوم</string>
+
+    <!-- Snackbar messages -->
+    <string name="snackbar_sample_loaded">تم تحميل البيانات النموذجية!</string>
+    <string name="snackbar_data_reset">تم إعادة تعيين جميع البيانات.</string>
+    <string name="snackbar_snapshot_saved">تم حفظ رصيد اليوم!</string>
+    <string name="snackbar_income_added">تم إضافة الدخل</string>
+    <string name="snackbar_expense_added">تم إضافة المصروف</string>
+    <string name="snackbar_party_deleted">تم حذف الحساب</string>
+    <string name="snackbar_nominee_added">تم إضافة وريث جديد!</string>
+    <string name="snackbar_backup_restored">تم استعادة البيانات من النسخة الاحتياطية!</string>
+    <string name="snackbar_transfer_done">تم التحويل بنجاح!</string>
+    <string name="snackbar_transaction_deleted">تم حذف المعاملة</string>
+    <string name="snackbar_payment_done">تمت المعاملة!</string>
+    <string name="snackbar_date_range_error">لا يمكن أن يكون تاريخ الانتهاء قبل تاريخ البداية</string>
+    <string name="snackbar_pdf_no_transactions">لا توجد معاملات في هذه الفترة</string>
+    <string name="snackbar_pdf_error">فشل إنشاء PDF</string>
+    <string name="snackbar_no_share_app">لم يتم العثور على تطبيق مشاركة</string>
+
+    <!-- Dashboard -->
+    <string name="dashboard_net_balance">الرصيد الصافي الحالي</string>
+    <string name="dashboard_live_badge">رصيد مباشر</string>
+    <string name="dashboard_assets_label">إجمالي الأصول</string>
+    <string name="dashboard_liabilities_label">إجمالي الديون</string>
+    <string name="dashboard_nominee_title">الورثة والوصول الطارئ</string>
+    <string name="dashboard_nominee_subtitle">منح الوصول لتسوية الديون في حالات الطوارئ</string>
+    <string name="dashboard_nominee_action">إدارة →</string>
+    <string name="dashboard_ai_title">مساعد الذكاء الاصطناعي</string>
+    <string name="dashboard_ai_subtitle">اسأل عن أموالك أو احصل على نصيحة</string>
+    <string name="dashboard_ai_action">محادثة →</string>
+    <string name="dashboard_calendar_title">عرض التقويم</string>
+    <string name="dashboard_calendar_subtitle">تقويم المعاملات الشهرية</string>
+    <string name="dashboard_calendar_action">عرض →</string>
+    <string name="dashboard_reports_title">التقارير وPDF</string>
+    <string name="dashboard_reports_subtitle">رسوم بيانية وتقارير شهرية</string>
+    <string name="dashboard_reports_action">عرض →</string>
+    <string name="dashboard_monthly_title">ملخص الدخل والمصروف</string>
+    <string name="dashboard_wallets_title">النقد والأرصدة</string>
+    <string name="dashboard_wallets_total">الإجمالي:</string>
+    <string name="dashboard_parties_title">الديون والمستحقات الرئيسية</string>
+    <string name="dashboard_parties_all">عرض الكل →</string>
+    <string name="dashboard_recent_title">المعاملات الأخيرة</string>
+    <string name="dashboard_recent_all">عرض الكل →</string>
+    <string name="dashboard_empty_transactions">لم يتم تسجيل أي دخل أو مصروف بعد.</string>
+    <string name="dashboard_empty_parties">لم يتم إضافة أي ديون أو مستحقات بعد.</string>
+    <string name="dashboard_load_sample">تحميل بيانات نموذجية</string>
+    <string name="dashboard_chart_title">المصروفات حسب الفئة</string>
+    <string name="dashboard_chart_empty">لا توجد بيانات مصروفات</string>
+    <string name="dashboard_party_payable_label">يستحق (ديني)</string>
+    <string name="dashboard_party_receivable_label">أستحق (مستحقاتي)</string>
+    <string name="dashboard_surplus_label">الفائض / الربح</string>
+    <string name="dashboard_total_income">إجمالي الدخل</string>
+    <string name="dashboard_total_expense">إجمالي المصروف</string>
+    <string name="dashboard_view_all">التفاصيل →</string>
+
+    <!-- Transactions screen -->
+    <string name="transactions_search_hint">البحث بالعنوان أو الوصف...</string>
+    <string name="transactions_filter_all">جميع المعاملات</string>
+    <string name="transactions_filter_income">الدخل</string>
+    <string name="transactions_filter_expense">المصروف</string>
+    <string name="transactions_summary_income">الدخل:</string>
+    <string name="transactions_summary_expense">المصروف:</string>
+    <string name="transactions_empty">لم يتم العثور على معاملات.</string>
+    <string name="transactions_category_all">الكل</string>
+    <string name="transactions_date_from">اختر تاريخ البداية</string>
+    <string name="transactions_date_to">اختر تاريخ الانتهاء</string>
+    <string name="transactions_date_clear">مسح التواريخ</string>
+    <string name="transactions_delete_title">حذف المعاملة؟</string>
+    <string name="transactions_delete_confirm">حذف</string>
+
+    <!-- AddTransaction dialog -->
+    <string name="dialog_add_income_title">➕ إضافة دخل جديد</string>
+    <string name="dialog_add_expense_title">➖ إضافة مصروف جديد</string>
+    <string name="dialog_income_toggle">دخل</string>
+    <string name="dialog_expense_toggle">مصروف</string>
+    <string name="dialog_title_hint">العنوان أو الوصف</string>
+    <string name="dialog_amount_label">المبلغ (৳)</string>
+    <string name="dialog_amount_hint">مثال: 1250</string>
+    <string name="dialog_category_prompt">اختر الفئة:</string>
+    <string name="dialog_wallet_label">الحساب / المحفظة</string>
+    <string name="dialog_note_label">ملاحظة (اختياري)</string>
+    <string name="dialog_save_income">حفظ الدخل</string>
+    <string name="dialog_save_expense">حفظ المصروف</string>
+
+    <!-- AddParty dialog -->
+    <string name="dialog_add_party_title">إضافة حساب جديد</string>
+    <string name="dialog_party_name_hint">الاسم</string>
+    <string name="dialog_party_phone_hint">الهاتف (اختياري)</string>
+    <string name="dialog_party_type_payable">دين علي</string>
+    <string name="dialog_party_type_receivable">مستحق لي</string>
+    <string name="dialog_party_amount_hint">المبلغ الحالي (৳)</string>
+    <string name="dialog_party_note_hint">ملاحظة (اختياري)</string>
+    <string name="dialog_save_party">حفظ الحساب</string>
+
+    <!-- AddNominee dialog -->
+    <string name="dialog_add_nominee_title">إضافة وريث جديد</string>
+    <string name="dialog_nominee_name_hint">الاسم</string>
+    <string name="dialog_nominee_relation_hint">صلة القرابة</string>
+    <string name="dialog_nominee_phone_hint">رقم الهاتف</string>
+    <string name="dialog_nominee_email_hint">البريد الإلكتروني (اختياري)</string>
+    <string name="dialog_nominee_scope_all">وصول كامل</string>
+    <string name="dialog_nominee_scope_payable">الديون فقط</string>
+    <string name="dialog_nominee_scope_receivable">المستحقات فقط</string>
+    <string name="dialog_nominee_scope_debts">الديون والمستحقات</string>
+    <string name="dialog_nominee_cash_access">السماح بعرض رصيد النقد</string>
+    <string name="dialog_nominee_note_hint">تعليمات خاصة (اختياري)</string>
+    <string name="dialog_save_nominee">حفظ الوريث</string>
+
+    <!-- BackupRestore dialog -->
+    <string name="dialog_backup_title">النسخ الاحتياطي والاستعادة</string>
+    <string name="dialog_backup_export_json">مشاركة نسخة JSON الاحتياطية</string>
+    <string name="dialog_backup_export_csv">تحميل تقرير CSV</string>
+    <string name="dialog_backup_restore">الاستعادة من ملف</string>
+    <string name="dialog_backup_restore_hint">الصق محتوى ملف JSON هنا</string>
+
+    <!-- NomineeAccessPreview dialog -->
+    <string name="dialog_access_preview_title">معاينة الوصول</string>
+    <string name="dialog_access_preview_share">مشاركة بطاقة الوصول</string>
+
+    <!-- PartyPayment dialog -->
+    <string name="dialog_payment_give">دفع</string>
+    <string name="dialog_payment_take">تحصيل</string>
+    <string name="dialog_payment_amount_hint">المبلغ (৳)</string>
+    <string name="dialog_payment_wallet_label">الحساب</string>
+    <string name="dialog_payment_note_hint">ملاحظة (اختياري)</string>
+    <string name="dialog_payment_save">حفظ</string>
+
+    <!-- QuickCalculator dialog -->
+    <string name="dialog_calculator_title">🧮 الآلة الحاسبة السريعة</string>
+    <string name="dialog_calculator_use_result">استخدام هذا المبلغ</string>
+
+    <!-- Transfer dialog -->
+    <string name="dialog_transfer_title">تحويل بين الحسابات</string>
+    <string name="dialog_transfer_from">من</string>
+    <string name="dialog_transfer_to">إلى</string>
+    <string name="dialog_transfer_amount_hint">المبلغ (৳)</string>
+    <string name="dialog_transfer_save">تحويل</string>
+
+    <!-- Settings dialog -->
+    <string name="settings_title">⚙️ الإعدادات</string>
+    <string name="settings_theme_section">المظهر</string>
+    <string name="settings_theme_system">اتباع النظام</string>
+    <string name="settings_theme_light">مظهر فاتح</string>
+    <string name="settings_theme_dark">مظهر داكن</string>
+    <string name="settings_digits_section">تنسيق الأرقام</string>
+    <string name="settings_language_section">اللغة</string>
+    <string name="settings_lang_bengali">বাংলা</string>
+    <string name="settings_lang_english">English</string>
+    <string name="settings_lang_arabic">العربية</string>
+    <string name="settings_lang_hindi">हिन्दी</string>
+    <string name="settings_lang_urdu">اردو</string>
+    <string name="settings_lang_system">النظام</string>
+
+    <!-- Khata screen -->
+    <string name="khata_search_hint">البحث بالاسم أو الملاحظة...</string>
+    <string name="khata_filter_all">الكل</string>
+    <string name="khata_filter_payable">المدفوعات</string>
+    <string name="khata_filter_receivable">المستحقات</string>
+    <string name="khata_empty">لم يتم العثور على حسابات.</string>
+    <string name="khata_payable_label">يستحق (ديني)</string>
+    <string name="khata_receivable_label">أستحق</string>
+
+    <!-- Wallets screen -->
+    <string name="wallets_title">النقد والحسابات</string>
+    <string name="wallets_transfer">تحويل</string>
+    <string name="wallets_snapshot">حفظ لقطة</string>
+    <string name="wallets_empty">لا توجد حسابات.</string>
+
+    <!-- Nominees screen -->
+    <string name="nominees_title">الورثة والتحكم في الوصول</string>
+    <string name="nominees_add">+ إضافة وريث</string>
+    <string name="nominees_empty">لم يتم إضافة ورثاء بعد.</string>
+    <string name="nominees_delete_confirm">تم إلغاء الوصول</string>
+
+    <!-- PartyDetail screen -->
+    <string name="party_detail_give">دفع</string>
+    <string name="party_detail_take">تحصيل</string>
+    <string name="party_detail_delete">حذف الحساب</string>
+    <string name="party_detail_entries_empty">لا توجد معاملات.</string>
+
+    <!-- Calendar screen -->
+    <string name="calendar_title">📅 التقويم</string>
+    <string name="calendar_today">اليوم</string>
+    <string name="calendar_selected_day">اليوم المحدد</string>
+    <string name="calendar_no_transactions">لا توجد معاملات في هذا اليوم.</string>
+    <string name="calendar_select_prompt">حدد تاريخاً.</string>
+    <string name="calendar_weekday_sat">سبت</string>
+    <string name="calendar_weekday_sun">أحد</string>
+    <string name="calendar_weekday_mon">اثن</string>
+    <string name="calendar_weekday_tue">ثلا</string>
+    <string name="calendar_weekday_wed">أرب</string>
+    <string name="calendar_weekday_thu">خمي</string>
+    <string name="calendar_weekday_fri">جمع</string>
+
+    <!-- Reports screen -->
+    <string name="reports_title">📊 التقارير والتحليل</string>
+    <string name="reports_chart_empty">لا توجد معاملات</string>
+    <string name="reports_pdf_from">اختر البداية</string>
+    <string name="reports_pdf_to">اختر النهاية</string>
+    <string name="reports_pdf_generate">إنشاء تقرير PDF</string>
+    <string name="reports_chart_income_legend">الدخل</string>
+    <string name="reports_chart_expense_legend">المصروف</string>
+    <string name="reports_monthly_title">الدخل والمصروف الشهري</string>
+    <string name="reports_pdf_section">📄 تقرير PDF</string>
+
+    <!-- Chat screen -->
+    <string name="chat_title">مساعد الذكاء الاصطناعي</string>
+    <string name="chat_input_hint">اسأل عن أموالك...</string>
+    <string name="chat_send">إرسال</string>
+    <string name="chat_clear">مسح المحادثة</string>
+    <string name="chat_empty">لا توجد رسائل. اسأل عن أموالك.</string>
+    <string name="chat_error">خطأ:</string>
+
+    <!-- Common -->
+    <string name="common_income">الدخل</string>
+    <string name="common_expense">المصروف</string>
+    <string name="common_taka_symbol">৳</string>
+    <string name="common_loading">جارٍ التحميل...</string>
+    <string name="common_all">الكل</string>
+    <string name="common_date_select">اختر التاريخ</string>
+    <string name="common_no_data">لا توجد بيانات</string>
+
+    <!-- Feedback (F5) -->
+    <string name="feedback_button_label">📝 أرسل ملاحظاتك</string>
+    <string name="feedback_dialog_title">إرسال ملاحظات</string>
+    <string name="feedback_rating_label">قيّمنا (١–٥ نجوم):</string>
+    <string name="feedback_text_hint">اكتب ملاحظاتك (اختياري)</string>
+    <string name="feedback_send_button">إرسال</string>
+    <string name="feedback_email_subject">হিসাব App Feedback</string>
+    <string name="feedback_no_email_app">لم يتم العثور على تطبيق بريد</string>
+    <string name="feedback_sent_toast">تم إرسال ملاحظاتك، شكراً!</string>
+    <string name="settings_feedback_section">ملاحظات</string>
+
+    <!-- Daily Reminder (F2) -->
+    <string name="settings_reminder_section">التذكير اليومي</string>
+    <string name="settings_reminder_toggle">تفعيل التذكير اليومي</string>
+    <string name="settings_reminder_time">وقت التذكير</string>
+    <string name="settings_reminder_time_format">%1$d:%2$02d</string>
+
+    <!-- Monthly Summary (F3) -->
+    <string name="settings_monthly_summary_section">إشعار الملخص الشهري</string>
+    <string name="settings_monthly_summary_toggle">تفعيل الملخص الشهري</string>
+
+    <!-- Transaction PIN (F4) -->
+    <string name="settings_txn_pin_section">رمز المعاملة</string>
+    <string name="settings_txn_pin_toggle">تفعيل رمز المعاملة</string>
+    <string name="settings_txn_pin_setup">تعيين الرمز (٤ أرقام)</string>
+    <string name="pin_dialog_title">أدخل الرمز</string>
+    <string name="pin_dialog_wrong">رمز خاطئ! حاول مرة أخرى.</string>
+    <string name="pin_dialog_locked">٣ محاولات خاطئة — مقفل %1$d دقيقة</string>
+    <string name="pin_setup_label">تعيين رمز مكون من ٤ أرقام</string>
+
+    <!-- App Lock (F1) -->
+    <string name="settings_app_lock_section">قفل التطبيق</string>
+    <string name="settings_app_lock_toggle">تفعيل قفل التطبيق</string>
+    <string name="settings_app_lock_pin_setup">تعيين رمز التطبيق (٤–٦ أرقام)</string>
+    <string name="app_lock_title">فتح التطبيق</string>
+    <string name="app_lock_biometric_prompt_title">التحقق البيومتري</string>
+    <string name="app_lock_biometric_prompt_subtitle">استخدم بصمة الإصبع أو الوجه</string>
+    <string name="app_lock_use_pin">استخدم الرمز بدلاً من ذلك</string>
+    <string name="app_lock_wrong_pin">رمز خاطئ! حاول مرة أخرى.</string>
+    <string name="app_lock_locked">٣ محاولات خاطئة — مقفل %1$d دقيقة</string>
+
+    <!-- Notification content -->
+    <string name="notification_daily_title">حساب</string>
+    <string name="notification_daily_text">أضف معاملات اليوم</string>
+    <string name="notification_monthly_title">الملخص الشهري</string>
+</resources>

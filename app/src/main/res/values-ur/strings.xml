@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">حساب - Smart Ledger</string>
+
+    <!-- Navigation -->
+    <string name="nav_dashboard">ڈیش بورڈ</string>
+    <string name="nav_transactions">آمدنی و اخراجات</string>
+    <string name="nav_khata">کھاتہ</string>
+    <string name="nav_wallets">بٹوا</string>
+    <string name="nav_nominees">ورثاء</string>
+
+    <!-- Top Bar -->
+    <string name="topbar_title">حساب - Smart Ledger</string>
+    <string name="topbar_bengali_digits">বাংলা ১২৩</string>
+    <string name="topbar_english_digits">Eng 123</string>
+    <string name="topbar_backup">بیک اپ اور ریسٹور</string>
+    <string name="topbar_calculator">کیلکولیٹر</string>
+    <string name="topbar_more">مزید اختیارات</string>
+    <string name="topbar_settings">⚙️ ترتیبات</string>
+    <string name="topbar_calendar">📅 کیلنڈر</string>
+    <string name="topbar_reports">📊 رپورٹ</string>
+    <string name="topbar_nominees_menu">🛡️ ورثاء اور رسائی</string>
+    <string name="topbar_snapshot">📊 آج کا بیلنس محفوظ کریں</string>
+    <string name="topbar_load_sample">📋 نمونہ ڈیٹا لوڈ کریں</string>
+    <string name="topbar_reset">🗑️ تمام ڈیٹا ری سیٹ کریں</string>
+    <string name="topbar_backup_menu">💾 بیک اپ اور ریسٹور</string>
+
+    <!-- Actions -->
+    <string name="action_add_income">➕ آمدنی شامل کریں</string>
+    <string name="action_add_expense">➖ خرچ شامل کریں</string>
+    <string name="action_add_party">نیا کھاتہ</string>
+    <string name="action_save">محفوظ کریں</string>
+    <string name="action_cancel">منسوخ</string>
+    <string name="action_delete">حذف کریں</string>
+    <string name="action_close">بند کریں</string>
+    <string name="action_ok">ٹھیک ہے</string>
+    <string name="action_share">شیئر کریں</string>
+    <string name="action_export_pdf">PDF رپورٹ بنائیں</string>
+    <string name="action_export_csv">CSV ڈاؤن لوڈ کریں</string>
+    <string name="action_export_json">JSON بیک اپ شیئر کریں</string>
+    <string name="action_restore">فائل سے ریسٹور کریں</string>
+    <string name="action_add">شامل کریں</string>
+    <string name="action_transfer">منتقلی</string>
+    <string name="action_back">واپس</string>
+    <string name="action_today">آج</string>
+
+    <!-- Snackbar messages -->
+    <string name="snackbar_sample_loaded">نمونہ ڈیٹا لوڈ ہو گیا!</string>
+    <string name="snackbar_data_reset">تمام ڈیٹا ری سیٹ ہو گیا۔</string>
+    <string name="snackbar_snapshot_saved">آج کا بیلنس محفوظ ہو گیا!</string>
+    <string name="snackbar_income_added">آمدنی شامل ہو گئی</string>
+    <string name="snackbar_expense_added">خرچ شامل ہو گیا</string>
+    <string name="snackbar_party_deleted">کھاتہ حذف ہو گیا</string>
+    <string name="snackbar_nominee_added">نیا وارث شامل ہو گیا!</string>
+    <string name="snackbar_backup_restored">بیک اپ سے ڈیٹا بحال ہو گیا!</string>
+    <string name="snackbar_transfer_done">منتقلی کامیاب!</string>
+    <string name="snackbar_transaction_deleted">لین دین حذف ہو گیا</string>
+    <string name="snackbar_payment_done">لین دین مکمل ہو گیا!</string>
+    <string name="snackbar_date_range_error">اختتامی تاریخ ابتدائی تاریخ سے پہلے نہیں ہو سکتی</string>
+    <string name="snackbar_pdf_no_transactions">اس مدت میں کوئی لین دین نہیں</string>
+    <string name="snackbar_pdf_error">PDF بنانے میں ناکامی</string>
+    <string name="snackbar_no_share_app">کوئی شیئر ایپ نہیں ملی</string>
+
+    <!-- Dashboard -->
+    <string name="dashboard_net_balance">موجودہ خالص بیلنس</string>
+    <string name="dashboard_live_badge">لائیو بیلنس</string>
+    <string name="dashboard_assets_label">کل اثاثے</string>
+    <string name="dashboard_liabilities_label">کل واجبات</string>
+    <string name="dashboard_nominee_title">ورثاء اور ہنگامی رسائی</string>
+    <string name="dashboard_nominee_subtitle">ہنگامی حالات میں قرض ادائیگی کے لیے رسائی دیں</string>
+    <string name="dashboard_nominee_action">انتظام →</string>
+    <string name="dashboard_ai_title">AI معاون (Gemini)</string>
+    <string name="dashboard_ai_subtitle">اپنے مالیات کے بارے میں پوچھیں</string>
+    <string name="dashboard_ai_action">چیٹ →</string>
+    <string name="dashboard_calendar_title">کیلنڈر دیکھیں</string>
+    <string name="dashboard_calendar_subtitle">ماہانہ لین دین کیلنڈر</string>
+    <string name="dashboard_calendar_action">دیکھیں →</string>
+    <string name="dashboard_reports_title">رپورٹ اور PDF</string>
+    <string name="dashboard_reports_subtitle">ماہانہ چارٹ اور رپورٹ</string>
+    <string name="dashboard_reports_action">دیکھیں →</string>
+    <string name="dashboard_monthly_title">آمدنی و اخراجات خلاصہ</string>
+    <string name="dashboard_wallets_title">نقد اور اکاؤنٹ بیلنس</string>
+    <string name="dashboard_wallets_total">کل:</string>
+    <string name="dashboard_parties_title">اہم قابل ادائیگی اور وصولی</string>
+    <string name="dashboard_parties_all">سب دیکھیں →</string>
+    <string name="dashboard_recent_title">حالیہ لین دین</string>
+    <string name="dashboard_recent_all">سب دیکھیں →</string>
+    <string name="dashboard_empty_transactions">ابھی تک کوئی آمدنی یا خرچ درج نہیں۔</string>
+    <string name="dashboard_empty_parties">ابھی تک کوئی واجبات نہیں۔</string>
+    <string name="dashboard_load_sample">نمونہ ڈیٹا لوڈ کریں</string>
+    <string name="dashboard_chart_title">زمرے کے مطابق خرچ</string>
+    <string name="dashboard_chart_empty">خرچ کا کوئی ڈیٹا نہیں</string>
+    <string name="dashboard_party_payable_label">انہیں ملے گا (میرا قرض)</string>
+    <string name="dashboard_party_receivable_label">مجھے ملے گا (وصولی)</string>
+    <string name="dashboard_surplus_label">فاضل / منافع</string>
+    <string name="dashboard_total_income">کل آمدنی</string>
+    <string name="dashboard_total_expense">کل خرچ</string>
+    <string name="dashboard_view_all">تفصیلات →</string>
+
+    <!-- Transactions screen -->
+    <string name="transactions_search_hint">عنوان یا تفصیل تلاش کریں...</string>
+    <string name="transactions_filter_all">تمام لین دین</string>
+    <string name="transactions_filter_income">آمدنی</string>
+    <string name="transactions_filter_expense">خرچ</string>
+    <string name="transactions_summary_income">آمدنی:</string>
+    <string name="transactions_summary_expense">خرچ:</string>
+    <string name="transactions_empty">کوئی لین دین نہیں ملا۔</string>
+    <string name="transactions_category_all">سب</string>
+    <string name="transactions_date_from">ابتدائی تاریخ چنیں</string>
+    <string name="transactions_date_to">اختتامی تاریخ چنیں</string>
+    <string name="transactions_date_clear">تاریخ صاف کریں</string>
+    <string name="transactions_delete_title">لین دین حذف کریں؟</string>
+    <string name="transactions_delete_confirm">حذف کریں</string>
+
+    <!-- AddTransaction dialog -->
+    <string name="dialog_add_income_title">➕ نئی آمدنی شامل کریں</string>
+    <string name="dialog_add_expense_title">➖ نیا خرچ شامل کریں</string>
+    <string name="dialog_income_toggle">آمدنی</string>
+    <string name="dialog_expense_toggle">خرچ</string>
+    <string name="dialog_title_hint">عنوان یا تفصیل</string>
+    <string name="dialog_amount_label">رقم (৳)</string>
+    <string name="dialog_amount_hint">مثال: 1250</string>
+    <string name="dialog_category_prompt">زمرہ چنیں:</string>
+    <string name="dialog_wallet_label">اکاؤنٹ / بٹوا</string>
+    <string name="dialog_note_label">نوٹ (اختیاری)</string>
+    <string name="dialog_save_income">آمدنی محفوظ کریں</string>
+    <string name="dialog_save_expense">خرچ محفوظ کریں</string>
+
+    <!-- AddParty dialog -->
+    <string name="dialog_add_party_title">نیا کھاتہ شامل کریں</string>
+    <string name="dialog_party_name_hint">نام</string>
+    <string name="dialog_party_phone_hint">فون (اختیاری)</string>
+    <string name="dialog_party_type_payable">واجب الادا (میں دوں گا)</string>
+    <string name="dialog_party_type_receivable">وصولی (مجھے ملے گا)</string>
+    <string name="dialog_party_amount_hint">موجودہ رقم (৳)</string>
+    <string name="dialog_party_note_hint">نوٹ (اختیاری)</string>
+    <string name="dialog_save_party">کھاتہ محفوظ کریں</string>
+
+    <!-- AddNominee dialog -->
+    <string name="dialog_add_nominee_title">نیا وارث شامل کریں</string>
+    <string name="dialog_nominee_name_hint">نام</string>
+    <string name="dialog_nominee_relation_hint">تعلق</string>
+    <string name="dialog_nominee_phone_hint">فون نمبر</string>
+    <string name="dialog_nominee_email_hint">ای میل (اختیاری)</string>
+    <string name="dialog_nominee_scope_all">مکمل رسائی</string>
+    <string name="dialog_nominee_scope_payable">صرف واجبات</string>
+    <string name="dialog_nominee_scope_receivable">صرف وصولی</string>
+    <string name="dialog_nominee_scope_debts">واجبات اور وصولی دونوں</string>
+    <string name="dialog_nominee_cash_access">نقد بیلنس دیکھنے کی اجازت</string>
+    <string name="dialog_nominee_note_hint">خصوصی ہدایات (اختیاری)</string>
+    <string name="dialog_save_nominee">وارث محفوظ کریں</string>
+
+    <!-- BackupRestore dialog -->
+    <string name="dialog_backup_title">بیک اپ اور ریسٹور</string>
+    <string name="dialog_backup_export_json">JSON بیک اپ شیئر کریں</string>
+    <string name="dialog_backup_export_csv">CSV رپورٹ ڈاؤن لوڈ کریں</string>
+    <string name="dialog_backup_restore">فائل سے ریسٹور کریں</string>
+    <string name="dialog_backup_restore_hint">JSON فائل مواد یہاں پیسٹ کریں</string>
+
+    <!-- NomineeAccessPreview dialog -->
+    <string name="dialog_access_preview_title">رسائی کا پیش نظارہ</string>
+    <string name="dialog_access_preview_share">رسائی سلپ شیئر کریں</string>
+
+    <!-- PartyPayment dialog -->
+    <string name="dialog_payment_give">ادائیگی کریں</string>
+    <string name="dialog_payment_take">وصول کریں</string>
+    <string name="dialog_payment_amount_hint">رقم (৳)</string>
+    <string name="dialog_payment_wallet_label">اکاؤنٹ</string>
+    <string name="dialog_payment_note_hint">نوٹ (اختیاری)</string>
+    <string name="dialog_payment_save">محفوظ کریں</string>
+
+    <!-- QuickCalculator dialog -->
+    <string name="dialog_calculator_title">🧮 فوری کیلکولیٹر</string>
+    <string name="dialog_calculator_use_result">یہ رقم استعمال کریں</string>
+
+    <!-- Transfer dialog -->
+    <string name="dialog_transfer_title">اکاؤنٹ منتقلی</string>
+    <string name="dialog_transfer_from">سے</string>
+    <string name="dialog_transfer_to">کو</string>
+    <string name="dialog_transfer_amount_hint">رقم (৳)</string>
+    <string name="dialog_transfer_save">منتقلی کریں</string>
+
+    <!-- Settings dialog -->
+    <string name="settings_title">⚙️ ترتیبات</string>
+    <string name="settings_theme_section">تھیم</string>
+    <string name="settings_theme_system">سسٹم کی پیروی کریں</string>
+    <string name="settings_theme_light">ہلکی تھیم</string>
+    <string name="settings_theme_dark">گہری تھیم</string>
+    <string name="settings_digits_section">نمبر فارمیٹ</string>
+    <string name="settings_language_section">زبان</string>
+    <string name="settings_lang_bengali">বাংলা</string>
+    <string name="settings_lang_english">English</string>
+    <string name="settings_lang_arabic">العربية</string>
+    <string name="settings_lang_hindi">हिन्दी</string>
+    <string name="settings_lang_urdu">اردو</string>
+    <string name="settings_lang_system">سسٹم</string>
+
+    <!-- Khata screen -->
+    <string name="khata_search_hint">نام یا نوٹ تلاش کریں...</string>
+    <string name="khata_filter_all">سب</string>
+    <string name="khata_filter_payable">واجب الادا</string>
+    <string name="khata_filter_receivable">وصولی</string>
+    <string name="khata_empty">کوئی کھاتہ نہیں ملا۔</string>
+    <string name="khata_payable_label">انہیں ملے گا (قرض)</string>
+    <string name="khata_receivable_label">مجھے ملے گا</string>
+
+    <!-- Wallets screen -->
+    <string name="wallets_title">نقد اور اکاؤنٹ</string>
+    <string name="wallets_transfer">منتقلی</string>
+    <string name="wallets_snapshot">سنیپ شاٹ محفوظ کریں</string>
+    <string name="wallets_empty">کوئی اکاؤنٹ نہیں۔</string>
+
+    <!-- Nominees screen -->
+    <string name="nominees_title">ورثاء اور رسائی کنٹرول</string>
+    <string name="nominees_add">+ وارث شامل کریں</string>
+    <string name="nominees_empty">ابھی تک کوئی وارث نہیں۔</string>
+    <string name="nominees_delete_confirm">رسائی منسوخ کی گئی</string>
+
+    <!-- PartyDetail screen -->
+    <string name="party_detail_give">ادائیگی کریں</string>
+    <string name="party_detail_take">وصول کریں</string>
+    <string name="party_detail_delete">کھاتہ حذف کریں</string>
+    <string name="party_detail_entries_empty">کوئی لین دین نہیں۔</string>
+
+    <!-- Calendar screen -->
+    <string name="calendar_title">📅 کیلنڈر</string>
+    <string name="calendar_today">آج</string>
+    <string name="calendar_selected_day">منتخب دن</string>
+    <string name="calendar_no_transactions">اس دن کوئی لین دین نہیں۔</string>
+    <string name="calendar_select_prompt">ایک تاریخ چنیں۔</string>
+    <string name="calendar_weekday_sat">ہفتہ</string>
+    <string name="calendar_weekday_sun">اتوار</string>
+    <string name="calendar_weekday_mon">پیر</string>
+    <string name="calendar_weekday_tue">منگل</string>
+    <string name="calendar_weekday_wed">بدھ</string>
+    <string name="calendar_weekday_thu">جمعرات</string>
+    <string name="calendar_weekday_fri">جمعہ</string>
+
+    <!-- Reports screen -->
+    <string name="reports_title">📊 رپورٹ اور تجزیہ</string>
+    <string name="reports_chart_empty">کوئی لین دین نہیں</string>
+    <string name="reports_pdf_from">شروع چنیں</string>
+    <string name="reports_pdf_to">اختتام چنیں</string>
+    <string name="reports_pdf_generate">PDF رپورٹ بنائیں</string>
+    <string name="reports_chart_income_legend">آمدنی</string>
+    <string name="reports_chart_expense_legend">خرچ</string>
+    <string name="reports_monthly_title">ماہانہ آمدنی اور خرچ</string>
+    <string name="reports_pdf_section">📄 PDF رپورٹ</string>
+
+    <!-- Chat screen -->
+    <string name="chat_title">AI معاون</string>
+    <string name="chat_input_hint">اپنے مالیات کے بارے میں پوچھیں...</string>
+    <string name="chat_send">بھیجیں</string>
+    <string name="chat_clear">چیٹ صاف کریں</string>
+    <string name="chat_empty">کوئی پیغام نہیں۔ اپنے مالیات کے بارے میں پوچھیں۔</string>
+    <string name="chat_error">خطا:</string>
+
+    <!-- Common -->
+    <string name="common_income">آمدنی</string>
+    <string name="common_expense">خرچ</string>
+    <string name="common_taka_symbol">৳</string>
+    <string name="common_loading">لوڈ ہو رہا ہے...</string>
+    <string name="common_all">سب</string>
+    <string name="common_date_select">تاریخ چنیں</string>
+    <string name="common_no_data">کوئی ڈیٹا نہیں</string>
+
+    <!-- Feedback (F5) -->
+    <string name="feedback_button_label">📝 رائے دیں</string>
+    <string name="feedback_dialog_title">رائے بھیجیں</string>
+    <string name="feedback_rating_label">ریٹنگ دیں (١–٥ ستارے):</string>
+    <string name="feedback_text_hint">اپنی رائے لکھیں (اختیاری)</string>
+    <string name="feedback_send_button">بھیجیں</string>
+    <string name="feedback_email_subject">হিসাব App Feedback</string>
+    <string name="feedback_no_email_app">ای میل ایپ نہیں ملی</string>
+    <string name="feedback_sent_toast">رائے بھیج دی گئی، شکریہ!</string>
+    <string name="settings_feedback_section">رائے</string>
+
+    <!-- Daily Reminder (F2) -->
+    <string name="settings_reminder_section">روزانہ یاددہانی</string>
+    <string name="settings_reminder_toggle">روزانہ یاددہانی فعال کریں</string>
+    <string name="settings_reminder_time">یاددہانی کا وقت</string>
+    <string name="settings_reminder_time_format">%1$d:%2$02d</string>
+
+    <!-- Monthly Summary (F3) -->
+    <string name="settings_monthly_summary_section">ماہانہ خلاصہ اطلاع</string>
+    <string name="settings_monthly_summary_toggle">ماہانہ خلاصہ فعال کریں</string>
+
+    <!-- Transaction PIN (F4) -->
+    <string name="settings_txn_pin_section">ٹرانزیکشن پن</string>
+    <string name="settings_txn_pin_toggle">ٹرانزیکشن پن فعال کریں</string>
+    <string name="settings_txn_pin_setup">پن سیٹ کریں (۴ ہندسے)</string>
+    <string name="pin_dialog_title">پن درج کریں</string>
+    <string name="pin_dialog_wrong">غلط پن! دوبارہ کوشش کریں۔</string>
+    <string name="pin_dialog_locked">۳ غلط کوششیں — %1$d منٹ بند</string>
+    <string name="pin_setup_label">۴ ہندسوں کا پن سیٹ کریں</string>
+
+    <!-- App Lock (F1) -->
+    <string name="settings_app_lock_section">ایپ لاک</string>
+    <string name="settings_app_lock_toggle">ایپ لاک فعال کریں</string>
+    <string name="settings_app_lock_pin_setup">ایپ پن سیٹ کریں (۴–۶ ہندسے)</string>
+    <string name="app_lock_title">ایپ انلاک کریں</string>
+    <string name="app_lock_biometric_prompt_title">بایومیٹرک تصدیق</string>
+    <string name="app_lock_biometric_prompt_subtitle">داخل ہونے کے لیے فنگرپرنٹ یا چہرہ استعمال کریں</string>
+    <string name="app_lock_use_pin">پن استعمال کریں</string>
+    <string name="app_lock_wrong_pin">غلط پن! دوبارہ کوشش کریں۔</string>
+    <string name="app_lock_locked">۳ غلط کوششیں — %1$d منٹ بند</string>
+
+    <!-- Notification content -->
+    <string name="notification_daily_title">حساب</string>
+    <string name="notification_daily_text">آج کے لین دین شامل کریں</string>
+    <string name="notification_monthly_title">ماہانہ خلاصہ</string>
+</resources>

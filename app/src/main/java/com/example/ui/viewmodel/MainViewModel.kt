@@ -1,0 +1,586 @@
+package com.example.ui.viewmodel
+
+import android.app.Application
+import android.content.Context
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.data.database.AppDatabase
+import com.example.data.model.AuditSnapshotEntity
+import com.example.data.model.NomineeEntity
+import com.example.data.model.PartyEntity
+import com.example.data.model.PartyLedgerEntryEntity
+import com.example.data.model.TransactionEntity
+import com.example.data.model.WalletEntity
+import com.example.data.repository.AccountRepository
+import com.example.data.ai.ChatMessage
+import com.example.data.ai.GeminiService
+import com.example.data.ai.MessageSender
+import com.example.util.Formatters
+import com.example.util.PdfExporter
+import com.example.util.PdfExportResult
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
+
+enum class ThemeMode { SYSTEM, LIGHT, DARK }
+
+class MainViewModel(application: Application) : AndroidViewModel(application) {
+
+    private val repository: AccountRepository
+
+    val allTransactions: StateFlow<List<TransactionEntity>>
+    val allParties: StateFlow<List<PartyEntity>>
+    val allWallets: StateFlow<List<WalletEntity>>
+    val allSnapshots: StateFlow<List<AuditSnapshotEntity>>
+    val allNominees: StateFlow<List<NomineeEntity>>
+    val dashboardStats: StateFlow<AccountRepository.DashboardStats>
+
+    // Navigation and Filters
+    private val _currentTab = MutableStateFlow(0)
+    val currentTab: StateFlow<Int> = _currentTab.asStateFlow()
+
+    private val _useBengaliDigits = MutableStateFlow(true)
+    val useBengaliDigits: StateFlow<Boolean> = _useBengaliDigits.asStateFlow()
+
+    private val _transactionFilter = MutableStateFlow("ALL") // "ALL", "INCOME", "EXPENSE"
+    val transactionFilter: StateFlow<String> = _transactionFilter.asStateFlow()
+
+    private val _partyFilter = MutableStateFlow("ALL") // "ALL", "PAYABLE", "RECEIVABLE"
+    val partyFilter: StateFlow<String> = _partyFilter.asStateFlow()
+
+    private val _searchQuery = MutableStateFlow("")
+    val searchQuery: StateFlow<String> = _searchQuery.asStateFlow()
+
+    // Feature 1 — Category filter
+    private val _transactionCategoryFilter = MutableStateFlow("ALL")
+    val transactionCategoryFilter: StateFlow<String> = _transactionCategoryFilter.asStateFlow()
+
+    // Feature 6 — Theme mode
+    private val _themeMode = MutableStateFlow(ThemeMode.SYSTEM)
+    val themeMode: StateFlow<ThemeMode> = _themeMode.asStateFlow()
+
+    // Feature 2 — Date range filter
+    private val _transactionDateFrom = MutableStateFlow<Long?>(null)
+    val transactionDateFrom: StateFlow<Long?> = _transactionDateFrom.asStateFlow()
+
+    private val _transactionDateTo = MutableStateFlow<Long?>(null)
+    val transactionDateTo: StateFlow<Long?> = _transactionDateTo.asStateFlow()
+
+    // Feature 7 — App locale
+    private val _appLocale = MutableStateFlow("bn")
+    val appLocale: StateFlow<String> = _appLocale.asStateFlow()
+
+    // Dialog states
+    val showAddTransaction = MutableStateFlow(false)
+    val addTransactionInitialType = MutableStateFlow("EXPENSE")
+
+    val showAddParty = MutableStateFlow(false)
+    val showAddNominee = MutableStateFlow(false)
+    val showBackupRestore = MutableStateFlow(false)
+    val showCalculator = MutableStateFlow(false)
+    val showTransfer = MutableStateFlow(false)
+    val showSettings = MutableStateFlow(false)
+
+    // Phase 2 dialog state
+    val showFeedback = MutableStateFlow(false)
+
+    // Phase 2: F2 — Daily Reminder
+    private val _reminderEnabled = MutableStateFlow(false)
+    val reminderEnabled: StateFlow<Boolean> = _reminderEnabled.asStateFlow()
+    private val _reminderHour = MutableStateFlow(20)
+    val reminderHour: StateFlow<Int> = _reminderHour.asStateFlow()
+    private val _reminderMinute = MutableStateFlow(0)
+    val reminderMinute: StateFlow<Int> = _reminderMinute.asStateFlow()
+
+    // Phase 2: F3 — Monthly Summary
+    private val _monthlySummaryEnabled = MutableStateFlow(true)
+    val monthlySummaryEnabled: StateFlow<Boolean> = _monthlySummaryEnabled.asStateFlow()
+
+    // Phase 2: F4 — Transaction PIN
+    private val _txnPinEnabled = MutableStateFlow(false)
+    val txnPinEnabled: StateFlow<Boolean> = _txnPinEnabled.asStateFlow()
+
+    // Phase 2: F1 — App Lock
+    private val _appLockEnabled = MutableStateFlow(false)
+    val appLockEnabled: StateFlow<Boolean> = _appLockEnabled.asStateFlow()
+
+    // Party Detail view
+    private val _selectedParty = MutableStateFlow<PartyEntity?>(null)
+    val selectedParty: StateFlow<PartyEntity?> = _selectedParty.asStateFlow()
+
+    val showPartyPayment = MutableStateFlow(false)
+    val partyPaymentType = MutableStateFlow("GIVE") // "GIVE" or "TAKE"
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    val selectedPartyEntries: StateFlow<List<PartyLedgerEntryEntity>> = _selectedParty
+        .flatMapLatest { party ->
+            if (party != null) repository.getPartyEntries(party.id)
+            else flowOf(emptyList())
+        }
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = emptyList()
+        )
+
+    init {
+        val prefs = getApplication<Application>().getSharedPreferences("app_settings", Context.MODE_PRIVATE)
+
+        // Read theme mode
+        _themeMode.value = try {
+            ThemeMode.valueOf(prefs.getString("theme_mode", "SYSTEM") ?: "SYSTEM")
+        } catch (_: Exception) { ThemeMode.SYSTEM }
+
+        // Read app locale
+        _appLocale.value = prefs.getString("app_locale", "bn") ?: "bn"
+
+        // Phase 2 prefs
+        _reminderEnabled.value = prefs.getBoolean("reminder_enabled", false)
+        _reminderHour.value = prefs.getInt("reminder_hour", 20)
+        _reminderMinute.value = prefs.getInt("reminder_minute", 0)
+        _monthlySummaryEnabled.value = prefs.getBoolean("monthly_summary_enabled", true)
+        _txnPinEnabled.value = prefs.getBoolean("txn_pin_enabled", false)
+        _appLockEnabled.value = prefs.getBoolean("app_lock_enabled", false)
+
+        val database = AppDatabase.getDatabase(application)
+        repository = AccountRepository(database)
+
+        allTransactions = repository.allTransactions.stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = emptyList()
+        )
+
+        allParties = repository.allParties.stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = emptyList()
+        )
+
+        allWallets = repository.allWallets.stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = emptyList()
+        )
+
+        allSnapshots = repository.allSnapshots.stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = emptyList()
+        )
+
+        allNominees = repository.allNominees.stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = emptyList()
+        )
+
+        dashboardStats = repository.dashboardStats.stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = AccountRepository.DashboardStats()
+        )
+
+        viewModelScope.launch {
+            repository.initializeDefaultWalletsIfEmpty()
+        }
+    }
+
+    fun setTab(index: Int) {
+        _currentTab.value = index
+    }
+
+    fun toggleBengaliDigits() {
+        _useBengaliDigits.value = !_useBengaliDigits.value
+    }
+
+    fun setTransactionFilter(filter: String) {
+        _transactionFilter.value = filter
+    }
+
+    fun setPartyFilter(filter: String) {
+        _partyFilter.value = filter
+    }
+
+    fun setSearchQuery(query: String) {
+        _searchQuery.value = query
+    }
+
+    // Feature 1
+    fun setTransactionCategoryFilter(cat: String) {
+        _transactionCategoryFilter.value = cat
+    }
+
+    // Feature 6
+    fun setThemeMode(mode: ThemeMode) {
+        _themeMode.value = mode
+        getApplication<Application>()
+            .getSharedPreferences("app_settings", Context.MODE_PRIVATE)
+            .edit().putString("theme_mode", mode.name).apply()
+    }
+
+    // Feature 2
+    fun setTransactionDateFrom(millis: Long?) {
+        _transactionDateFrom.value = millis
+    }
+
+    fun setTransactionDateTo(millis: Long?) {
+        _transactionDateTo.value = millis
+    }
+
+    // Feature 7
+    fun setAppLocale(tag: String) {
+        _appLocale.value = tag
+        getApplication<Application>()
+            .getSharedPreferences("app_settings", Context.MODE_PRIVATE)
+            .edit().putString("app_locale", tag).apply()
+    }
+
+    fun selectParty(party: PartyEntity?) {
+        _selectedParty.value = party
+    }
+
+    fun openAddTransaction(initialType: String = "EXPENSE") {
+        addTransactionInitialType.value = initialType
+        showAddTransaction.value = true
+    }
+
+    fun addTransaction(
+        type: String,
+        title: String,
+        amount: Double,
+        category: String,
+        walletId: Long,
+        dateMillis: Long,
+        note: String
+    ) {
+        viewModelScope.launch {
+            repository.addTransaction(
+                type = type,
+                title = title,
+                amount = amount,
+                category = category,
+                walletId = walletId,
+                dateMillis = dateMillis,
+                note = note
+            )
+            showAddTransaction.value = false
+        }
+    }
+
+    fun deleteTransaction(transaction: TransactionEntity) {
+        viewModelScope.launch {
+            repository.deleteTransaction(transaction)
+        }
+    }
+
+    fun addParty(
+        name: String,
+        phone: String,
+        partyType: String,
+        amount: Double,
+        note: String
+    ) {
+        viewModelScope.launch {
+            repository.addParty(name, phone, partyType, amount, note)
+            showAddParty.value = false
+        }
+    }
+
+    fun deleteParty(party: PartyEntity) {
+        viewModelScope.launch {
+            repository.deleteParty(party)
+            if (_selectedParty.value?.id == party.id) {
+                _selectedParty.value = null
+            }
+        }
+    }
+
+    fun recordPartyPayment(
+        amount: Double,
+        walletId: Long?,
+        note: String
+    ) {
+        val party = _selectedParty.value ?: return
+        val type = partyPaymentType.value
+        viewModelScope.launch {
+            repository.recordPartyTransaction(
+                party = party,
+                entryType = type,
+                amount = amount,
+                walletId = walletId,
+                note = note
+            )
+            // Refresh party in state
+            val updated = repository.allParties.stateIn(viewModelScope).value.find { it.id == party.id }
+            if (updated != null) {
+                _selectedParty.value = updated
+            }
+            showPartyPayment.value = false
+        }
+    }
+
+    fun transferBetweenWallets(fromId: Long, toId: Long, amount: Double) {
+        viewModelScope.launch {
+            repository.transferBetweenWallets(fromId, toId, amount)
+            showTransfer.value = false
+        }
+    }
+
+    fun saveTodaySnapshot(note: String = "") {
+        viewModelScope.launch {
+            repository.recordAuditSnapshot(note)
+        }
+    }
+
+    fun loadSampleData() {
+        viewModelScope.launch {
+            repository.prepopulateSampleData()
+        }
+    }
+
+    fun clearAllData() {
+        viewModelScope.launch {
+            repository.clearAllData()
+            repository.initializeDefaultWalletsIfEmpty()
+            _selectedParty.value = null
+        }
+    }
+
+    // Feature 5 — PDF Export
+    suspend fun exportReportPdf(fromMillis: Long, toMillis: Long): PdfExportResult {
+        val txList = allTransactions.first()
+        return PdfExporter.generateTransactionReport(
+            context = getApplication<Application>(),
+            transactions = txList,
+            fromMillis = fromMillis,
+            toMillis = toMillis
+        )
+    }
+
+    // Nominees & Emergency Access Management
+    fun addNominee(
+        name: String,
+        relation: String,
+        phone: String,
+        email: String,
+        accessScope: String,
+        canViewCash: Boolean,
+        note: String
+    ) {
+        viewModelScope.launch {
+            repository.addNominee(
+                name = name,
+                relation = relation,
+                phone = phone,
+                email = email,
+                accessScope = accessScope,
+                canViewCash = canViewCash,
+                note = note
+            )
+            showAddNominee.value = false
+        }
+    }
+
+    fun deleteNominee(nominee: NomineeEntity) {
+        viewModelScope.launch {
+            repository.deleteNominee(nominee)
+        }
+    }
+
+    // Backup & Restore
+    suspend fun exportJsonBackup(): String {
+        return repository.exportDatabaseToJson()
+    }
+
+    suspend fun exportCsvReport(): String {
+        val txCsv = repository.exportTransactionsToCsv()
+        val partyCsv = repository.exportPartiesToCsv()
+        return "=== লেনদেনের তালিকা ===\n$txCsv\n\n=== দেনা-পাওনা খতিয়ান ===\n$partyCsv"
+    }
+
+    fun restoreJsonBackup(jsonString: String) {
+        viewModelScope.launch {
+            repository.restoreDatabaseFromJson(jsonString)
+        }
+    }
+
+    // Chat State and Actions
+    val chatMessages: StateFlow<List<ChatMessage>> = repository.allChatMessages
+        .map { entities ->
+            entities.map { entity ->
+                ChatMessage(
+                    id = entity.id.toString(),
+                    sender = if (entity.isFromUser) MessageSender.USER else MessageSender.ASSISTANT,
+                    text = entity.content,
+                    timestamp = entity.timestamp
+                )
+            }
+        }
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = emptyList()
+        )
+
+    private val _isChatLoading = MutableStateFlow(false)
+    val isChatLoading: StateFlow<Boolean> = _isChatLoading.asStateFlow()
+
+    private val _chatErrorMessage = MutableStateFlow<String?>(null)
+    val chatErrorMessage: StateFlow<String?> = _chatErrorMessage.asStateFlow()
+
+    fun sendChatMessage(userText: String) {
+        _isChatLoading.value = true
+        _chatErrorMessage.value = null
+
+        viewModelScope.launch {
+            val currentHistory = chatMessages.value
+            repository.insertChatMessage(userText, true)
+
+            val stats = dashboardStats.value
+            val contextSummary = """
+মোট ক্যাশ ও জমা: ${Formatters.formatTaka(stats.totalWalletBalance, useBengali = false)}
+মোট পাওনা (আমার প্রাপ্য): ${Formatters.formatTaka(stats.totalReceivable, useBengali = false)}
+মোট দেনা (অন্যরা পাবে): ${Formatters.formatTaka(stats.totalPayable, useBengali = false)}
+বর্তমান নিট স্থিতি: ${Formatters.formatTaka(stats.netBalance, useBengali = false)}
+মোট আয়: ${Formatters.formatTaka(stats.totalIncome, useBengali = false)}
+মোট ব্যয়: ${Formatters.formatTaka(stats.totalExpense, useBengali = false)}
+মোট লাভ/উদ্বৃত্ত: ${Formatters.formatTaka(stats.surplus, useBengali = false)}
+            """.trimIndent()
+
+            val result = GeminiService.sendMessage(
+                history = currentHistory,
+                userMessage = userText,
+                contextSummary = contextSummary
+            )
+
+            _isChatLoading.value = false
+            result.onSuccess { reply ->
+                repository.insertChatMessage(reply, false)
+            }.onFailure { err ->
+                _chatErrorMessage.value = err.message ?: "উত্তরে ত্রুটি দেখা দিয়েছে।"
+            }
+        }
+    }
+
+    fun clearChat() {
+        viewModelScope.launch {
+            repository.clearChatMessages()
+        }
+        _chatErrorMessage.value = null
+    }
+
+    // ── Phase 2: F5 — Feedback ──────────────────────────────────────────────
+
+    // (showFeedback declared above near dialog states)
+
+    // ── Phase 2: F2 — Daily Reminder ───────────────────────────────────────
+
+    fun setReminderEnabled(context: Context, enabled: Boolean) {
+        _reminderEnabled.value = enabled
+        context.getSharedPreferences("app_settings", Context.MODE_PRIVATE)
+            .edit().putBoolean("reminder_enabled", enabled).apply()
+    }
+
+    fun setReminderTime(context: Context, hour: Int, minute: Int) {
+        _reminderHour.value = hour
+        _reminderMinute.value = minute
+        context.getSharedPreferences("app_settings", Context.MODE_PRIVATE)
+            .edit().putInt("reminder_hour", hour).putInt("reminder_minute", minute).apply()
+    }
+
+    fun scheduleOrCancelDailyReminder(context: Context, enabled: Boolean, hour: Int, minute: Int) {
+        val workManager = androidx.work.WorkManager.getInstance(context)
+        if (!enabled) {
+            workManager.cancelUniqueWork("daily_reminder")
+            return
+        }
+        val now = java.util.Calendar.getInstance()
+        val target = java.util.Calendar.getInstance().apply {
+            set(java.util.Calendar.HOUR_OF_DAY, hour)
+            set(java.util.Calendar.MINUTE, minute)
+            set(java.util.Calendar.SECOND, 0)
+            if (before(now)) add(java.util.Calendar.DAY_OF_YEAR, 1)
+        }
+        val initialDelay = target.timeInMillis - now.timeInMillis
+        val request = androidx.work.PeriodicWorkRequestBuilder<com.example.worker.DailyReminderWorker>(
+            24, java.util.concurrent.TimeUnit.HOURS,
+            1, java.util.concurrent.TimeUnit.HOURS
+        )
+            .setInitialDelay(initialDelay, java.util.concurrent.TimeUnit.MILLISECONDS)
+            .build()
+        workManager.enqueueUniquePeriodicWork(
+            "daily_reminder",
+            androidx.work.ExistingPeriodicWorkPolicy.UPDATE,
+            request
+        )
+    }
+
+    // ── Phase 2: F3 — Monthly Summary ──────────────────────────────────────
+
+    fun setMonthlySummaryEnabled(context: Context, enabled: Boolean) {
+        _monthlySummaryEnabled.value = enabled
+        context.getSharedPreferences("app_settings", Context.MODE_PRIVATE)
+            .edit().putBoolean("monthly_summary_enabled", enabled).apply()
+    }
+
+    fun getMonthlySummaryEnabled(context: Context): Boolean =
+        context.getSharedPreferences("app_settings", Context.MODE_PRIVATE)
+            .getBoolean("monthly_summary_enabled", true)
+
+    fun scheduleOrCancelMonthlySummary(context: Context, enabled: Boolean) {
+        val workManager = androidx.work.WorkManager.getInstance(context)
+        if (!enabled) {
+            workManager.cancelUniqueWork("monthly_summary")
+            return
+        }
+        val request = androidx.work.PeriodicWorkRequestBuilder<com.example.worker.MonthlySummaryWorker>(
+            30, java.util.concurrent.TimeUnit.DAYS
+        ).build()
+        workManager.enqueueUniquePeriodicWork(
+            "monthly_summary",
+            androidx.work.ExistingPeriodicWorkPolicy.UPDATE,
+            request
+        )
+    }
+
+    // ── Phase 2: F4 — Transaction PIN ──────────────────────────────────────
+
+    fun setTxnPinEnabled(context: Context, enabled: Boolean) {
+        _txnPinEnabled.value = enabled
+        context.getSharedPreferences("app_settings", Context.MODE_PRIVATE)
+            .edit().putBoolean("txn_pin_enabled", enabled).apply()
+    }
+
+    fun saveTxnPin(context: Context, rawPin: String) {
+        val hash = com.example.util.PinHelper.hash(rawPin)
+        context.getSharedPreferences("app_settings", Context.MODE_PRIVATE)
+            .edit().putString("txn_pin", hash).apply()
+    }
+
+    fun isTxnPinEnabled(context: Context): Boolean =
+        context.getSharedPreferences("app_settings", Context.MODE_PRIVATE)
+            .getBoolean("txn_pin_enabled", false)
+
+    // ── Phase 2: F1 — App Lock ──────────────────────────────────────────────
+
+    fun setAppLockEnabled(context: Context, enabled: Boolean) {
+        _appLockEnabled.value = enabled
+        context.getSharedPreferences("app_settings", Context.MODE_PRIVATE)
+            .edit().putBoolean("app_lock_enabled", enabled).apply()
+    }
+
+    fun saveAppPin(context: Context, rawPin: String) {
+        val hash = com.example.util.PinHelper.hash(rawPin)
+        context.getSharedPreferences("app_settings", Context.MODE_PRIVATE)
+            .edit().putString("app_pin", hash).apply()
+    }
+}

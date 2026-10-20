@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Hisab - Smart Ledger</string>
+
+    <!-- Navigation -->
+    <string name="nav_dashboard">Dashboard</string>
+    <string name="nav_transactions">Income &amp; Expense</string>
+    <string name="nav_khata">Ledger</string>
+    <string name="nav_wallets">Wallets</string>
+    <string name="nav_nominees">Nominees</string>
+
+    <!-- Top Bar -->
+    <string name="topbar_title">Hisab - Smart Ledger</string>
+    <string name="topbar_bengali_digits">বাংলা ১২৩</string>
+    <string name="topbar_english_digits">Eng 123</string>
+    <string name="topbar_backup">Backup &amp; Restore</string>
+    <string name="topbar_calculator">Calculator</string>
+    <string name="topbar_more">More Options</string>
+    <string name="topbar_settings">⚙️ Settings</string>
+    <string name="topbar_calendar">📅 Calendar</string>
+    <string name="topbar_reports">📊 Reports</string>
+    <string name="topbar_nominees_menu">🛡️ Nominees &amp; Access Control</string>
+    <string name="topbar_snapshot">📊 Save Today\'s Balance</string>
+    <string name="topbar_load_sample">📋 Load Sample Data</string>
+    <string name="topbar_reset">🗑️ Reset All Data</string>
+    <string name="topbar_backup_menu">💾 Backup &amp; Restore</string>
+
+    <!-- Actions -->
+    <string name="action_add_income">➕ Add Income</string>
+    <string name="action_add_expense">➖ Add Expense</string>
+    <string name="action_add_party">New Ledger</string>
+    <string name="action_save">Save</string>
+    <string name="action_cancel">Cancel</string>
+    <string name="action_delete">Delete</string>
+    <string name="action_close">Close</string>
+    <string name="action_ok">OK</string>
+    <string name="action_share">Share</string>
+    <string name="action_export_pdf">Generate PDF Report</string>
+    <string name="action_export_csv">Download CSV</string>
+    <string name="action_export_json">Share JSON Backup</string>
+    <string name="action_restore">Restore from File</string>
+    <string name="action_add">Add</string>
+    <string name="action_transfer">Transfer</string>
+    <string name="action_back">Back</string>
+    <string name="action_today">Today</string>
+
+    <!-- Snackbar messages -->
+    <string name="snackbar_sample_loaded">Sample data loaded!</string>
+    <string name="snackbar_data_reset">All data has been reset.</string>
+    <string name="snackbar_snapshot_saved">Today\'s net balance saved!</string>
+    <string name="snackbar_income_added">Income added</string>
+    <string name="snackbar_expense_added">Expense added</string>
+    <string name="snackbar_party_deleted">ledger deleted</string>
+    <string name="snackbar_nominee_added">New nominee added!</string>
+    <string name="snackbar_backup_restored">Data restored from backup!</string>
+    <string name="snackbar_transfer_done">Transfer successful!</string>
+    <string name="snackbar_transaction_deleted">Transaction deleted</string>
+    <string name="snackbar_payment_done">Transaction completed!</string>
+    <string name="snackbar_date_range_error">End date cannot be before start date</string>
+    <string name="snackbar_pdf_no_transactions">No transactions in this period</string>
+    <string name="snackbar_pdf_error">Failed to generate PDF</string>
+    <string name="snackbar_no_share_app">No share app found</string>
+
+    <!-- Dashboard -->
+    <string name="dashboard_net_balance">Current Net Balance</string>
+    <string name="dashboard_live_badge">Live Balance</string>
+    <string name="dashboard_assets_label">Total Assets (Cash + Receivable)</string>
+    <string name="dashboard_liabilities_label">Total Payable (Debt)</string>
+    <string name="dashboard_nominee_title">Nominees &amp; Emergency Access</string>
+    <string name="dashboard_nominee_subtitle">Grant access to settle debts after death or emergency</string>
+    <string name="dashboard_nominee_action">Manage →</string>
+    <string name="dashboard_ai_title">AI Assistant (Gemini)</string>
+    <string name="dashboard_ai_subtitle">Ask about your finances or get advice</string>
+    <string name="dashboard_ai_action">Chat →</string>
+    <string name="dashboard_calendar_title">View Calendar</string>
+    <string name="dashboard_calendar_subtitle">Monthly transaction calendar</string>
+    <string name="dashboard_calendar_action">View →</string>
+    <string name="dashboard_reports_title">Reports &amp; PDF</string>
+    <string name="dashboard_reports_subtitle">Monthly charts and report downloads</string>
+    <string name="dashboard_reports_action">View →</string>
+    <string name="dashboard_monthly_title">Income &amp; Expense Summary</string>
+    <string name="dashboard_wallets_title">Cash &amp; Account Balances</string>
+    <string name="dashboard_wallets_total">Total:</string>
+    <string name="dashboard_parties_title">Key Payables &amp; Receivables</string>
+    <string name="dashboard_parties_all">View all →</string>
+    <string name="dashboard_recent_title">Recent Transactions</string>
+    <string name="dashboard_recent_all">View all →</string>
+    <string name="dashboard_empty_transactions">No income or expense recorded yet.</string>
+    <string name="dashboard_empty_parties">No payables or receivables added yet.</string>
+    <string name="dashboard_load_sample">Load Sample Data</string>
+    <string name="dashboard_chart_title">Expense by Category</string>
+    <string name="dashboard_chart_empty">No expense data</string>
+    <string name="dashboard_party_payable_label">They get (my debt)</string>
+    <string name="dashboard_party_receivable_label">I get (my receivable)</string>
+    <string name="dashboard_surplus_label">Surplus / Profit</string>
+    <string name="dashboard_total_income">Total Income</string>
+    <string name="dashboard_total_expense">Total Expense</string>
+    <string name="dashboard_view_all">Details →</string>
+
+    <!-- Transactions screen -->
+    <string name="transactions_search_hint">Search by title or description...</string>
+    <string name="transactions_filter_all">All Transactions</string>
+    <string name="transactions_filter_income">Income</string>
+    <string name="transactions_filter_expense">Expense</string>
+    <string name="transactions_summary_income">Income:</string>
+    <string name="transactions_summary_expense">Expense:</string>
+    <string name="transactions_empty">No transactions found.\nUse the \'+\' button to add income or expense.</string>
+    <string name="transactions_category_all">All</string>
+    <string name="transactions_date_from">Select Start Date</string>
+    <string name="transactions_date_to">Select End Date</string>
+    <string name="transactions_date_clear">Clear Dates</string>
+    <string name="transactions_delete_title">Delete Transaction?</string>
+    <string name="transactions_delete_confirm">Delete</string>
+
+    <!-- AddTransaction dialog -->
+    <string name="dialog_add_income_title">➕ Add New Income</string>
+    <string name="dialog_add_expense_title">➖ Add New Expense</string>
+    <string name="dialog_income_toggle">Income</string>
+    <string name="dialog_expense_toggle">Expense</string>
+    <string name="dialog_title_hint">Title or description</string>
+    <string name="dialog_amount_label">Amount (৳)</string>
+    <string name="dialog_amount_hint">e.g. 1250</string>
+    <string name="dialog_category_prompt">Select Category:</string>
+    <string name="dialog_wallet_label">Account / Wallet</string>
+    <string name="dialog_note_label">Note (optional)</string>
+    <string name="dialog_save_income">Save Income</string>
+    <string name="dialog_save_expense">Save Expense</string>
+
+    <!-- AddParty dialog -->
+    <string name="dialog_add_party_title">Add New Party / Ledger</string>
+    <string name="dialog_party_name_hint">Name</string>
+    <string name="dialog_party_phone_hint">Phone (optional)</string>
+    <string name="dialog_party_type_payable">Payable (I owe them)</string>
+    <string name="dialog_party_type_receivable">Receivable (They owe me)</string>
+    <string name="dialog_party_amount_hint">Current Amount (৳)</string>
+    <string name="dialog_party_note_hint">Note (optional)</string>
+    <string name="dialog_save_party">Save Ledger</string>
+
+    <!-- AddNominee dialog -->
+    <string name="dialog_add_nominee_title">Add New Nominee</string>
+    <string name="dialog_nominee_name_hint">Name</string>
+    <string name="dialog_nominee_relation_hint">Relation (e.g. Brother, Wife)</string>
+    <string name="dialog_nominee_phone_hint">Phone Number</string>
+    <string name="dialog_nominee_email_hint">Email (optional)</string>
+    <string name="dialog_nominee_scope_all">Full Account Access</string>
+    <string name="dialog_nominee_scope_payable">Payables Only</string>
+    <string name="dialog_nominee_scope_receivable">Receivables Only</string>
+    <string name="dialog_nominee_scope_debts">Debts &amp; Receivables</string>
+    <string name="dialog_nominee_cash_access">Allow Cash Balance View</string>
+    <string name="dialog_nominee_note_hint">Special Instructions (optional)</string>
+    <string name="dialog_save_nominee">Save Nominee</string>
+
+    <!-- BackupRestore dialog -->
+    <string name="dialog_backup_title">Backup &amp; Restore</string>
+    <string name="dialog_backup_export_json">Share JSON Backup</string>
+    <string name="dialog_backup_export_csv">Download CSV Report</string>
+    <string name="dialog_backup_restore">Restore from File</string>
+    <string name="dialog_backup_restore_hint">Paste JSON file contents here</string>
+
+    <!-- NomineeAccessPreview dialog -->
+    <string name="dialog_access_preview_title">Access Preview</string>
+    <string name="dialog_access_preview_share">Share Access Slip</string>
+
+    <!-- PartyPayment dialog -->
+    <string name="dialog_payment_give">Pay (Giving)</string>
+    <string name="dialog_payment_take">Collect (Receiving)</string>
+    <string name="dialog_payment_amount_hint">Amount (৳)</string>
+    <string name="dialog_payment_wallet_label">Account</string>
+    <string name="dialog_payment_note_hint">Note (optional)</string>
+    <string name="dialog_payment_save">Save</string>
+
+    <!-- QuickCalculator dialog -->
+    <string name="dialog_calculator_title">🧮 Quick Calculator</string>
+    <string name="dialog_calculator_use_result">Use this amount</string>
+
+    <!-- Transfer dialog -->
+    <string name="dialog_transfer_title">Account Transfer</string>
+    <string name="dialog_transfer_from">From</string>
+    <string name="dialog_transfer_to">To</string>
+    <string name="dialog_transfer_amount_hint">Amount (৳)</string>
+    <string name="dialog_transfer_save">Transfer</string>
+
+    <!-- Settings dialog -->
+    <string name="settings_title">⚙️ Settings</string>
+    <string name="settings_theme_section">Theme</string>
+    <string name="settings_theme_system">Follow System</string>
+    <string name="settings_theme_light">Light Theme</string>
+    <string name="settings_theme_dark">Dark Theme</string>
+    <string name="settings_digits_section">Number Format</string>
+    <string name="settings_language_section">Language</string>
+    <string name="settings_lang_bengali">বাংলা</string>
+    <string name="settings_lang_english">English</string>
+    <string name="settings_lang_arabic">العربية</string>
+    <string name="settings_lang_hindi">हिन्दी</string>
+    <string name="settings_lang_urdu">اردو</string>
+    <string name="settings_lang_system">System</string>
+
+    <!-- Khata screen -->
+    <string name="khata_search_hint">Search by name or note...</string>
+    <string name="khata_filter_all">All</string>
+    <string name="khata_filter_payable">Payable</string>
+    <string name="khata_filter_receivable">Receivable</string>
+    <string name="khata_empty">No ledger entries found.</string>
+    <string name="khata_payable_label">They get (my debt)</string>
+    <string name="khata_receivable_label">I get (receivable)</string>
+
+    <!-- Wallets screen -->
+    <string name="wallets_title">Cash &amp; Accounts</string>
+    <string name="wallets_transfer">Transfer</string>
+    <string name="wallets_snapshot">Save Snapshot</string>
+    <string name="wallets_empty">No accounts found.</string>
+
+    <!-- Nominees screen -->
+    <string name="nominees_title">Nominees &amp; Access Control</string>
+    <string name="nominees_add">+ Add Nominee</string>
+    <string name="nominees_empty">No nominees added yet.</string>
+    <string name="nominees_delete_confirm">access revoked</string>
+
+    <!-- PartyDetail screen -->
+    <string name="party_detail_give">Pay</string>
+    <string name="party_detail_take">Collect</string>
+    <string name="party_detail_delete">Delete Ledger</string>
+    <string name="party_detail_entries_empty">No transactions.</string>
+
+    <!-- Calendar screen -->
+    <string name="calendar_title">📅 Calendar</string>
+    <string name="calendar_today">Today</string>
+    <string name="calendar_selected_day">Selected Day</string>
+    <string name="calendar_no_transactions">No transactions on this day.</string>
+    <string name="calendar_select_prompt">Select a date.</string>
+    <string name="calendar_weekday_sat">Sat</string>
+    <string name="calendar_weekday_sun">Sun</string>
+    <string name="calendar_weekday_mon">Mon</string>
+    <string name="calendar_weekday_tue">Tue</string>
+    <string name="calendar_weekday_wed">Wed</string>
+    <string name="calendar_weekday_thu">Thu</string>
+    <string name="calendar_weekday_fri">Fri</string>
+
+    <!-- Reports screen -->
+    <string name="reports_title">📊 Reports &amp; Analysis</string>
+    <string name="reports_chart_empty">No transactions</string>
+    <string name="reports_pdf_from">Select Start</string>
+    <string name="reports_pdf_to">Select End</string>
+    <string name="reports_pdf_generate">Generate PDF Report</string>
+    <string name="reports_chart_income_legend">Income</string>
+    <string name="reports_chart_expense_legend">Expense</string>
+    <string name="reports_monthly_title">Monthly Income &amp; Expense</string>
+    <string name="reports_pdf_section">📄 PDF Report</string>
+
+    <!-- Chat screen -->
+    <string name="chat_title">AI Assistant</string>
+    <string name="chat_input_hint">Ask about your finances...</string>
+    <string name="chat_send">Send</string>
+    <string name="chat_clear">Clear Chat</string>
+    <string name="chat_empty">No messages. Ask about your finances.</string>
+    <string name="chat_error">Error:</string>
+
+    <!-- Common -->
+    <string name="common_income">Income</string>
+    <string name="common_expense">Expense</string>
+    <string name="common_taka_symbol">৳</string>
+    <string name="common_loading">Loading...</string>
+    <string name="common_all">All</string>
+    <string name="common_date_select">Select Date</string>
+    <string name="common_no_data">No data</string>
+
+    <!-- Feedback (F5) -->
+    <string name="feedback_button_label">📝 Give Feedback</string>
+    <string name="feedback_dialog_title">Send Feedback</string>
+    <string name="feedback_rating_label">Rate us (1–5 stars):</string>
+    <string name="feedback_text_hint">Write your feedback (optional)</string>
+    <string name="feedback_send_button">Send</string>
+    <string name="feedback_email_subject">হিসাব App Feedback</string>
+    <string name="feedback_no_email_app">No email app found</string>
+    <string name="feedback_sent_toast">Feedback sent, thank you!</string>
+    <string name="settings_feedback_section">Feedback</string>
+
+    <!-- Daily Reminder (F2) -->
+    <string name="settings_reminder_section">Daily Reminder</string>
+    <string name="settings_reminder_toggle">Enable Daily Reminder</string>
+    <string name="settings_reminder_time">Reminder Time</string>
+    <string name="settings_reminder_time_format">%1$d:%2$02d</string>
+
+    <!-- Monthly Summary (F3) -->
+    <string name="settings_monthly_summary_section">Monthly Summary Notification</string>
+    <string name="settings_monthly_summary_toggle">Enable Monthly Summary</string>
+
+    <!-- Transaction PIN (F4) -->
+    <string name="settings_txn_pin_section">Transaction PIN</string>
+    <string name="settings_txn_pin_toggle">Enable Transaction PIN</string>
+    <string name="settings_txn_pin_setup">Set PIN (4 digits)</string>
+    <string name="pin_dialog_title">Enter PIN</string>
+    <string name="pin_dialog_wrong">Wrong PIN! Try again.</string>
+    <string name="pin_dialog_locked">3 wrong attempts — locked %1$d min</string>
+    <string name="pin_setup_label">Set 4-digit PIN</string>
+
+    <!-- App Lock (F1) -->
+    <string name="settings_app_lock_section">App Lock</string>
+    <string name="settings_app_lock_toggle">Enable App Lock</string>
+    <string name="settings_app_lock_pin_setup">Set App PIN (4–6 digits)</string>
+    <string name="app_lock_title">Unlock App</string>
+    <string name="app_lock_biometric_prompt_title">Biometric Verification</string>
+    <string name="app_lock_biometric_prompt_subtitle">Use fingerprint or face to enter</string>
+    <string name="app_lock_use_pin">Use PIN instead</string>
+    <string name="app_lock_wrong_pin">Wrong PIN! Try again.</string>
+    <string name="app_lock_locked">3 wrong attempts — locked %1$d min</string>
+
+    <!-- Notification content -->
+    <string name="notification_daily_title">Hisab</string>
+    <string name="notification_daily_text">Add today\'s transactions</string>
+    <string name="notification_monthly_title">Monthly Summary</string>
+</resources>
