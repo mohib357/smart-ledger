@@ -142,6 +142,10 @@ class MainActivity : ComponentActivity() {
         if (prefs.getBoolean("monthly_summary_enabled", true)) {
             viewModel.scheduleOrCancelMonthlySummary(this, true)
         }
+        // Schedule expiry check on launch (if enabled)
+        if (prefs.getBoolean("expiry_notif_enabled", true)) {
+            viewModel.scheduleOrCancelExpiryCheck(this, true)
+        }
     }
 }
 
@@ -199,6 +203,7 @@ fun MainAppContent(viewModel: MainViewModel) {
     val editingProduct by viewModel.editingProduct.collectAsStateWithLifecycle()
     val productProfitSummary by viewModel.productProfitSummary.collectAsStateWithLifecycle()
     val showSmsMarketing by viewModel.showSmsMarketing.collectAsStateWithLifecycle()
+    val expiryNotifEnabled by viewModel.expiryNotifEnabled.collectAsStateWithLifecycle()
 
     // Product search query (local to MainActivity)
     var productSearchQuery by remember { mutableStateOf("") }
@@ -453,6 +458,8 @@ fun MainAppContent(viewModel: MainViewModel) {
                         7 -> ReportsScreen(
                             transactions = transactions,
                             useBengaliDigits = useBengaliDigits,
+                            productProfitSummary = productProfitSummary,
+                            products = allProducts,
                             onExportPdf = { fromMillis, toMillis ->
                                 coroutineScope.launch {
                                     when (val result = viewModel.exportReportPdf(fromMillis, toMillis)) {
@@ -710,7 +717,13 @@ fun MainAppContent(viewModel: MainViewModel) {
                     }
                     viewModel.setAppLockEnabled(context, enabled)
                 },
-                onAppLockPinSetup = { pin -> viewModel.saveAppPin(context, pin) }
+                onAppLockPinSetup = { pin -> viewModel.saveAppPin(context, pin) },
+                // Phase 3: F2
+                expiryNotifEnabled = expiryNotifEnabled,
+                onExpiryNotifEnabledChange = { enabled ->
+                    viewModel.setExpiryNotifEnabled(context, enabled)
+                    viewModel.scheduleOrCancelExpiryCheck(context, enabled)
+                }
             )
         }
 

@@ -130,6 +130,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     private val _appLockEnabled = MutableStateFlow(false)
     val appLockEnabled: StateFlow<Boolean> = _appLockEnabled.asStateFlow()
 
+    // Phase 3: F2 — Expiry Notification
+    private val _expiryNotifEnabled = MutableStateFlow(true)
+    val expiryNotifEnabled: StateFlow<Boolean> = _expiryNotifEnabled.asStateFlow()
+
     // Party Detail view
     private val _selectedParty = MutableStateFlow<PartyEntity?>(null)
     val selectedParty: StateFlow<PartyEntity?> = _selectedParty.asStateFlow()
@@ -167,6 +171,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         _monthlySummaryEnabled.value = prefs.getBoolean("monthly_summary_enabled", true)
         _txnPinEnabled.value = prefs.getBoolean("txn_pin_enabled", false)
         _appLockEnabled.value = prefs.getBoolean("app_lock_enabled", false)
+        _expiryNotifEnabled.value = prefs.getBoolean("expiry_notif_enabled", true)
 
         val database = AppDatabase.getDatabase(application)
         repository = AccountRepository(database)
@@ -647,5 +652,29 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         val hash = com.example.util.PinHelper.hash(rawPin)
         context.getSharedPreferences("app_settings", Context.MODE_PRIVATE)
             .edit().putString("app_pin", hash).apply()
+    }
+
+    // ── Phase 3: F2 — Expiry Notification ─────────────────────────────────
+
+    fun setExpiryNotifEnabled(context: Context, enabled: Boolean) {
+        _expiryNotifEnabled.value = enabled
+        context.getSharedPreferences("app_settings", Context.MODE_PRIVATE)
+            .edit().putBoolean("expiry_notif_enabled", enabled).apply()
+    }
+
+    fun scheduleOrCancelExpiryCheck(context: Context, enabled: Boolean) {
+        val wm = androidx.work.WorkManager.getInstance(context)
+        if (!enabled) {
+            wm.cancelUniqueWork("expiry_check")
+            return
+        }
+        val req = androidx.work.PeriodicWorkRequestBuilder<com.example.worker.ExpiryCheckWorker>(
+            24, java.util.concurrent.TimeUnit.HOURS
+        ).build()
+        wm.enqueueUniquePeriodicWork(
+            "expiry_check",
+            androidx.work.ExistingPeriodicWorkPolicy.UPDATE,
+            req
+        )
     }
 }

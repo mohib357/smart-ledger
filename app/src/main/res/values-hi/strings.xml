@@ -342,4 +342,20 @@
     <string name="dashboard_invoices_title">चालान</string>
     <string name="dashboard_invoices_subtitle">चालान बनाएं और साझा करें</string>
     <string name="dashboard_invoices_action">देखें →</string>
+
+    <!-- Phase 3: Expiry Notification (F2) -->
+    <string name="settings_expiry_notif_section">समाप्ति अधिसूचना</string>
+    <string name="settings_expiry_notif_toggle">समाप्ति अधिसूचना सक्षम करें</string>
+    <string name="notification_expiry_title">उत्पाद समाप्ति चेतावनी</string>
+    <string name="notification_expiry_text">%1$d उत्पाद 7 दिनों में समाप्त होंगे</string>
+
+    <!-- Phase 3: Profit/Loss (F5) -->
+    <string name="reports_profit_title">उत्पाद लाभ/हानि विश्लेषण</string>
+    <string name="reports_profit_filter_all">सभी</string>
+    <string name="reports_profit_filter_week">इस सप्ताह</string>
+    <string name="reports_profit_filter_month">इस महीने</string>
+    <string name="reports_profit_filter_year">इस साल</string>
+    <string name="reports_profit_per_unit">प्रति यूनिट लाभ</string>
+    <string name="reports_profit_total_margin">कुल मार्जिन</string>
+    <string name="reports_profit_empty">कोई उत्पाद डेटा नहीं</string>
 </resources>

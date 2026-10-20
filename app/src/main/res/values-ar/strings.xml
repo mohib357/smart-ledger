@@ -342,4 +342,20 @@
     <string name="dashboard_invoices_title">الفاتورة</string>
     <string name="dashboard_invoices_subtitle">إنشاء الفواتير ومشاركتها</string>
     <string name="dashboard_invoices_action">عرض →</string>
+
+    <!-- Phase 3: Expiry Notification (F2) -->
+    <string name="settings_expiry_notif_section">إشعار انتهاء الصلاحية</string>
+    <string name="settings_expiry_notif_toggle">تمكين إشعار انتهاء الصلاحية</string>
+    <string name="notification_expiry_title">تحذير انتهاء صلاحية المنتج</string>
+    <string name="notification_expiry_text">%1$d منتجات تنتهي خلال 7 أيام</string>
+
+    <!-- Phase 3: Profit/Loss (F5) -->
+    <string name="reports_profit_title">تحليل ربح/خسارة المنتج</string>
+    <string name="reports_profit_filter_all">الكل</string>
+    <string name="reports_profit_filter_week">هذا الأسبوع</string>
+    <string name="reports_profit_filter_month">هذا الشهر</string>
+    <string name="reports_profit_filter_year">هذا العام</string>
+    <string name="reports_profit_per_unit">الربح لكل وحدة</string>
+    <string name="reports_profit_total_margin">الهامش الإجمالي</string>
+    <string name="reports_profit_empty">لا توجد بيانات منتج</string>
 </resources>

@@ -342,4 +342,20 @@
     <string name="dashboard_invoices_title">Invoice</string>
     <string name="dashboard_invoices_subtitle">Create and share customer invoices</string>
     <string name="dashboard_invoices_action">View →</string>
+
+    <!-- Phase 3: Expiry Notification (F2) -->
+    <string name="settings_expiry_notif_section">Expiry Notification</string>
+    <string name="settings_expiry_notif_toggle">Enable expiry notification</string>
+    <string name="notification_expiry_title">Product Expiry Warning</string>
+    <string name="notification_expiry_text">%1$d products expiring within 7 days</string>
+
+    <!-- Phase 3: Profit/Loss (F5) -->
+    <string name="reports_profit_title">Product Profit/Loss Analysis</string>
+    <string name="reports_profit_filter_all">All</string>
+    <string name="reports_profit_filter_week">This Week</string>
+    <string name="reports_profit_filter_month">This Month</string>
+    <string name="reports_profit_filter_year">This Year</string>
+    <string name="reports_profit_per_unit">Profit per unit</string>
+    <string name="reports_profit_total_margin">Total Margin</string>
+    <string name="reports_profit_empty">No product data</string>
 </resources>

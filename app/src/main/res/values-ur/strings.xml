@@ -342,4 +342,20 @@
     <string name="dashboard_invoices_title">انوائس</string>
     <string name="dashboard_invoices_subtitle">انوائس بنائیں اور شیئر کریں</string>
     <string name="dashboard_invoices_action">دیکھیں →</string>
+
+    <!-- Phase 3: Expiry Notification (F2) -->
+    <string name="settings_expiry_notif_section">میعاد اطلاع</string>
+    <string name="settings_expiry_notif_toggle">میعاد اطلاع فعال کریں</string>
+    <string name="notification_expiry_title">پروڈکٹ میعاد وارننگ</string>
+    <string name="notification_expiry_text">%1$d پروڈکٹس 7 دنوں میں ختم ہوں گے</string>
+
+    <!-- Phase 3: Profit/Loss (F5) -->
+    <string name="reports_profit_title">پروڈکٹ منافع/نقصان تجزیہ</string>
+    <string name="reports_profit_filter_all">سب</string>
+    <string name="reports_profit_filter_week">اس ہفتے</string>
+    <string name="reports_profit_filter_month">اس مہینے</string>
+    <string name="reports_profit_filter_year">اس سال</string>
+    <string name="reports_profit_per_unit">فی یونٹ منافع</string>
+    <string name="reports_profit_total_margin">کل مارجن</string>
+    <string name="reports_profit_empty">کوئی پروڈکٹ ڈیٹا نہیں</string>
 </resources>

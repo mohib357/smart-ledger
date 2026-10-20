@@ -8,6 +8,7 @@ import android.os.Build
 object NotificationHelper {
     const val CHANNEL_DAILY_REMINDER = "daily_reminder"
     const val CHANNEL_MONTHLY_SUMMARY = "monthly_summary"
+    const val CHANNEL_EXPIRY_WARNING = "expiry_warning"
 
     fun createNotificationChannels(context: Context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -30,6 +31,15 @@ object NotificationHelper {
                 description = "প্রতি মাসে আয়-ব্যয়ের সারসংক্ষেপ"
             }
             manager.createNotificationChannel(monthlyChannel)
+
+            val expiryChannel = NotificationChannel(
+                CHANNEL_EXPIRY_WARNING,
+                "পণ্যের মেয়াদ সতর্কতা",
+                NotificationManager.IMPORTANCE_HIGH
+            ).apply {
+                description = "মেয়াদোত্তীর্ণ পণ্যের বিজ্ঞপ্তি"
+            }
+            manager.createNotificationChannel(expiryChannel)
         }
     }
 }

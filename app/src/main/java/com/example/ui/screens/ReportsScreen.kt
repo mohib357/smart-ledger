@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -26,6 +27,8 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FilterChip
+import androidx.compose.material3.FilterChipDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Surface
@@ -49,10 +52,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.res.stringResource
 import com.example.R
+import com.example.data.model.ProductEntity
 import com.example.data.model.TransactionEntity
 import com.example.ui.theme.ChartPalette
 import com.example.ui.theme.ExpenseRed
 import com.example.ui.theme.IncomeGreen
+import com.example.ui.viewmodel.MainViewModel
 import com.example.util.Formatters
 import com.example.util.MonthBucket
 import com.example.util.monthlyIncomeExpense
@@ -64,7 +69,9 @@ import kotlin.math.max
 fun ReportsScreen(
     transactions: List<TransactionEntity>,
     useBengaliDigits: Boolean,
-    onExportPdf: (fromMillis: Long, toMillis: Long) -> Unit
+    onExportPdf: (fromMillis: Long, toMillis: Long) -> Unit,
+    productProfitSummary: List<MainViewModel.ProductProfitSummary> = emptyList(),
+    products: List<ProductEntity> = emptyList()
 ) {
     val buckets = monthlyIncomeExpense(transactions)
 
@@ -211,6 +218,106 @@ fun ReportsScreen(
                         modifier = Modifier.fillMaxWidth()
                     ) {
                         Text("PDF রিপোর্ট তৈরি করুন", fontWeight = FontWeight.Bold)
+                    }
+                }
+            }
+        }
+
+        // F5 — Profit/Loss section
+        item {
+            var selectedRange by remember { mutableStateOf("সব") }
+            val profitRanges = listOf(
+                stringResource(R.string.reports_profit_filter_all),
+                stringResource(R.string.reports_profit_filter_week),
+                stringResource(R.string.reports_profit_filter_month),
+                stringResource(R.string.reports_profit_filter_year)
+            )
+
+            Card(
+                shape = RoundedCornerShape(16.dp),
+                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+                elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp, vertical = 6.dp)
+            ) {
+                Column(modifier = Modifier.padding(16.dp)) {
+                    Text(
+                        text = "📦 ${stringResource(R.string.reports_profit_title)}",
+                        style = MaterialTheme.typography.titleSmall,
+                        fontWeight = FontWeight.Bold
+                    )
+                    Spacer(modifier = Modifier.height(8.dp))
+
+                    // Filter chips (display-only — margin is stock-based, not time-ranged)
+                    LazyRow(
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                        contentPadding = PaddingValues(horizontal = 2.dp)
+                    ) {
+                        items(profitRanges) { range ->
+                            FilterChip(
+                                selected = selectedRange == range,
+                                onClick = { selectedRange = range },
+                                label = { Text(range, fontSize = 12.sp) },
+                                colors = FilterChipDefaults.filterChipColors(
+                                    selectedContainerColor = MaterialTheme.colorScheme.primaryContainer,
+                                    selectedLabelColor = MaterialTheme.colorScheme.onPrimaryContainer
+                                )
+                            )
+                        }
+                    }
+
+                    Spacer(modifier = Modifier.height(8.dp))
+
+                    if (productProfitSummary.isEmpty()) {
+                        Text(
+                            text = stringResource(R.string.reports_profit_empty),
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            modifier = Modifier.padding(vertical = 8.dp)
+                        )
+                    } else {
+                        LazyColumn(modifier = Modifier.heightIn(max = 400.dp)) {
+                            items(productProfitSummary) { summary ->
+                                val isProfit = summary.profitPerUnit >= 0
+                                val profitColor = if (isProfit) IncomeGreen else ExpenseRed
+
+                                Row(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(vertical = 6.dp),
+                                    horizontalArrangement = Arrangement.SpaceBetween,
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    Column(modifier = Modifier.weight(1f)) {
+                                        Text(
+                                            text = summary.product.name,
+                                            style = MaterialTheme.typography.bodyMedium,
+                                            fontWeight = FontWeight.SemiBold
+                                        )
+                                        Text(
+                                            text = "${stringResource(R.string.products_stock_label)}: ${summary.product.stock}  •  " +
+                                                "${stringResource(R.string.reports_profit_per_unit)}: ${Formatters.formatTaka(summary.profitPerUnit, useBengali = useBengaliDigits)}",
+                                            style = MaterialTheme.typography.labelSmall,
+                                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                                        )
+                                    }
+                                    Column(horizontalAlignment = Alignment.End) {
+                                        Text(
+                                            text = Formatters.formatTaka(summary.profitMargin, useBengali = useBengaliDigits),
+                                            style = MaterialTheme.typography.bodyMedium,
+                                            fontWeight = FontWeight.Bold,
+                                            color = profitColor
+                                        )
+                                        Text(
+                                            text = stringResource(R.string.reports_profit_total_margin),
+                                            style = MaterialTheme.typography.labelSmall,
+                                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                                        )
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }

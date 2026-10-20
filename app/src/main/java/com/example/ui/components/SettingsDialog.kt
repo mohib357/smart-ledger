@@ -75,7 +75,10 @@ fun SettingsDialog(
     // F1 — App Lock
     appLockEnabled: Boolean = false,
     onAppLockEnabledChange: (Boolean) -> Unit = {},
-    onAppLockPinSetup: (pin: String) -> Unit = {}
+    onAppLockPinSetup: (pin: String) -> Unit = {},
+    // Phase 3: F2 — Expiry Notification
+    expiryNotifEnabled: Boolean = true,
+    onExpiryNotifEnabledChange: (Boolean) -> Unit = {}
 ) {
     val context = LocalContext.current
 
@@ -304,6 +307,27 @@ fun SettingsDialog(
                         style = MaterialTheme.typography.bodyMedium
                     )
                     Switch(checked = monthlySummaryEnabled, onCheckedChange = onMonthlySummaryEnabledChange)
+                }
+
+                // ── Phase 3: F2 — Expiry Notification section ──────────────────────
+                Spacer(modifier = Modifier.height(16.dp))
+                Text(
+                    text = stringResource(R.string.settings_expiry_notif_section),
+                    style = MaterialTheme.typography.labelLarge,
+                    fontWeight = FontWeight.SemiBold,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = stringResource(R.string.settings_expiry_notif_toggle),
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                    Switch(checked = expiryNotifEnabled, onCheckedChange = onExpiryNotifEnabledChange)
                 }
 
                 // ── F4: Transaction PIN section ─────────────────────────────────────

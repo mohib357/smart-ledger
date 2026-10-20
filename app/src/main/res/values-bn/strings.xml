@@ -342,4 +342,20 @@
     <string name="dashboard_invoices_title">চালান / Invoice</string>
     <string name="dashboard_invoices_subtitle">গ্রাহকদের চালান তৈরি ও শেয়ার করুন</string>
     <string name="dashboard_invoices_action">দেখুন →</string>
+
+    <!-- Phase 3: Expiry Notification (F2) -->
+    <string name="settings_expiry_notif_section">পণ্যের মেয়াদ বিজ্ঞপ্তি</string>
+    <string name="settings_expiry_notif_toggle">মেয়াদ উত্তীর্ণ বিজ্ঞপ্তি চালু করুন</string>
+    <string name="notification_expiry_title">পণ্যের মেয়াদ সতর্কতা</string>
+    <string name="notification_expiry_text">%1$d টি পণ্যের মেয়াদ ৭ দিনের মধ্যে শেষ হচ্ছে</string>
+
+    <!-- Phase 3: Profit/Loss (F5) -->
+    <string name="reports_profit_title">পণ্য লাভ-ক্ষতি বিশ্লেষণ</string>
+    <string name="reports_profit_filter_all">সব</string>
+    <string name="reports_profit_filter_week">এই সপ্তাহ</string>
+    <string name="reports_profit_filter_month">এই মাস</string>
+    <string name="reports_profit_filter_year">এই বছর</string>
+    <string name="reports_profit_per_unit">প্রতি ইউনিটে লাভ</string>
+    <string name="reports_profit_total_margin">মোট মার্জিন</string>
+    <string name="reports_profit_empty">কোনো পণ্য ডেটা নেই</string>
 </resources>
