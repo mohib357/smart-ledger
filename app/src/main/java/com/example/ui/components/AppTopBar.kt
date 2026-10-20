@@ -1,6 +1,11 @@
 package com.example.ui.components
 
-import androidx.compose.foundation.background
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -13,11 +18,14 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Calculate
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.CloudSync
 import androidx.compose.material.icons.filled.MenuBook
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.filled.Security
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.Sync
+import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -36,12 +44,15 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.R
+import com.example.data.cloud.SyncStatus
 import com.example.util.Formatters
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -60,7 +71,8 @@ fun AppTopBar(
     onOpenReports: () -> Unit,
     onOpenProducts: () -> Unit,
     onOpenInvoices: () -> Unit,
-    onOpenSmsMarketing: () -> Unit
+    onOpenSmsMarketing: () -> Unit,
+    syncStatus: SyncStatus = SyncStatus.IDLE
 ) {
     var showMenu by remember { mutableStateOf(false) }
 
@@ -118,6 +130,9 @@ fun AppTopBar(
                     )
 
                     Spacer(modifier = Modifier.width(2.dp))
+
+                    // Sync status indicator
+                    SyncStatusIndicator(syncStatus = syncStatus)
 
                     // Backup & Sync Quick Icon Button
                     IconButton(
@@ -254,6 +269,51 @@ fun AppTopBar(
                     }
                 }
             }
+        }
+    }
+}
+
+@Composable
+private fun SyncStatusIndicator(syncStatus: SyncStatus) {
+    when (syncStatus) {
+        SyncStatus.SYNCING -> {
+            val infiniteTransition = rememberInfiniteTransition(label = "sync_rotate")
+            val rotation by infiniteTransition.animateFloat(
+                initialValue = 0f,
+                targetValue = 360f,
+                animationSpec = infiniteRepeatable(
+                    animation = tween(durationMillis = 1000, easing = LinearEasing),
+                    repeatMode = RepeatMode.Restart
+                ),
+                label = "rotation"
+            )
+            Icon(
+                imageVector = Icons.Default.Sync,
+                contentDescription = "Syncing",
+                tint = MaterialTheme.colorScheme.primary,
+                modifier = Modifier
+                    .size(20.dp)
+                    .rotate(rotation)
+            )
+        }
+        SyncStatus.SYNCED -> {
+            Icon(
+                imageVector = Icons.Default.Check,
+                contentDescription = "Synced",
+                tint = Color(0xFF4CAF50), // green
+                modifier = Modifier.size(20.dp)
+            )
+        }
+        SyncStatus.ERROR -> {
+            Icon(
+                imageVector = Icons.Default.Warning,
+                contentDescription = "Sync error",
+                tint = Color(0xFFFFC107), // amber
+                modifier = Modifier.size(20.dp)
+            )
+        }
+        SyncStatus.IDLE, SyncStatus.OFFLINE -> {
+            // No icon shown
         }
     }
 }
