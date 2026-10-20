@@ -52,6 +52,22 @@ class BillingManager(private val context: Context) : PurchasesUpdatedListener {
         billingClient.endConnection()
     }
 
+    fun querySubscriptionProducts() {
+        val params = QueryProductDetailsParams.newBuilder().setProductList(
+            listOf("premium_monthly", "premium_3month", "premium_6month", "premium_yearly").map { id ->
+                QueryProductDetailsParams.Product.newBuilder()
+                    .setProductId(id)
+                    .setProductType(BillingClient.ProductType.SUBS)
+                    .build()
+            }
+        ).build()
+        billingClient.queryProductDetailsAsync(params) { billingResult, productDetailsList ->
+            if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
+                _productDetails = productDetailsList
+            }
+        }
+    }
+
     fun queryPurchases() {
         billingClient.queryPurchasesAsync(
             QueryPurchasesParams.newBuilder()
