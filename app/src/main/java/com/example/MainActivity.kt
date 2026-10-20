@@ -94,6 +94,7 @@ import com.example.ui.theme.MyApplicationTheme
 import com.example.ui.viewmodel.MainViewModel
 import com.example.ui.viewmodel.ThemeMode
 import com.example.data.cloud.AuthState
+import com.example.data.cloud.BackupStatus
 import com.example.util.Formatters
 import com.example.util.NotificationHelper
 import com.example.util.PdfExportResult
@@ -233,6 +234,10 @@ fun MainAppContent(viewModel: MainViewModel) {
     val authError by viewModel.authError.collectAsStateWithLifecycle()
     val showProfileScreen by viewModel.showProfileScreen.collectAsStateWithLifecycle()
     val userProfile by viewModel.userProfile.collectAsStateWithLifecycle()
+
+    // Phase 5 cloud backup states
+    val backupStatus by viewModel.backupStatus.collectAsStateWithLifecycle()
+    val lastBackupTime by viewModel.lastBackupTime.collectAsStateWithLifecycle()
 
     // Product search query (local to MainActivity)
     var productSearchQuery by remember { mutableStateOf("") }
@@ -824,7 +829,15 @@ fun MainAppContent(viewModel: MainViewModel) {
                 onExpiryNotifEnabledChange = { enabled ->
                     viewModel.setExpiryNotifEnabled(context, enabled)
                     viewModel.scheduleOrCancelExpiryCheck(context, enabled)
-                }
+                },
+                // Phase 5 — Cloud Backup
+                backupStatus = backupStatus,
+                lastBackupTime = lastBackupTime,
+                onManualBackup = { viewModel.performManualBackup() },
+                onCloudRestore = { viewModel.performCloudRestore() },
+                onCloudBackupToggle = { viewModel.setCloudBackupEnabled(it, context) },
+                isCloudBackupEnabled = viewModel.isCloudBackupEnabled,
+                isPremium = isPremium
             )
         }
 

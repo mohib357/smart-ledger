@@ -17,6 +17,8 @@ import com.example.data.ai.ChatMessage
 import com.example.data.ai.GeminiService
 import com.example.data.ai.MessageSender
 import com.example.data.cloud.AuthState
+import com.example.data.cloud.BackupStatus
+import com.example.data.cloud.CloudBackupManager
 import com.example.data.cloud.FirebaseAuthManager
 import com.example.data.cloud.UserProfile
 import com.example.util.Formatters
@@ -563,6 +565,59 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             firebaseAuthManager.deleteAccount()
             showProfileScreen.value = false
         }
+    }
+
+    // ── Phase 5: Cloud Backup ──────────────────────────────────────────────
+
+    val cloudBackupManager by lazy {
+        CloudBackupManager(getApplication(), repository, firebaseAuthManager)
+    }
+    val backupStatus: StateFlow<BackupStatus> by lazy { cloudBackupManager.backupStatus }
+    val lastBackupTime: StateFlow<Long> by lazy { cloudBackupManager.lastBackupTime }
+
+    val isCloudBackupEnabled: Boolean
+        get() = cloudBackupManager.isCloudBackupEnabled
+
+    fun setCloudBackupEnabled(enabled: Boolean, context: android.content.Context) {
+        cloudBackupManager.isCloudBackupEnabled = enabled
+        if (enabled && isPremiumValue()) {
+            scheduleAutoBackup(context)
+        } else {
+            cancelAutoBackup(context)
+        }
+    }
+
+    fun performManualBackup() {
+        viewModelScope.launch {
+            cloudBackupManager.performBackup()
+        }
+    }
+
+    fun performCloudRestore() {
+        viewModelScope.launch {
+            cloudBackupManager.performRestore()
+        }
+    }
+
+    private fun isPremiumValue(): Boolean =
+        getApplication<Application>().getSharedPreferences("app_settings", android.content.Context.MODE_PRIVATE)
+            .getBoolean("is_premium", false)
+
+    private fun scheduleAutoBackup(context: android.content.Context) {
+        val request = androidx.work.PeriodicWorkRequestBuilder<com.example.worker.CloudBackupWorker>(
+            1, java.util.concurrent.TimeUnit.DAYS
+        ).addTag(com.example.worker.CloudBackupWorker.TAG).build()
+        androidx.work.WorkManager.getInstance(context)
+            .enqueueUniquePeriodicWork(
+                com.example.worker.CloudBackupWorker.TAG,
+                androidx.work.ExistingPeriodicWorkPolicy.KEEP,
+                request
+            )
+    }
+
+    private fun cancelAutoBackup(context: android.content.Context) {
+        androidx.work.WorkManager.getInstance(context)
+            .cancelUniqueWork(com.example.worker.CloudBackupWorker.TAG)
     }
 
     override fun onCleared() {

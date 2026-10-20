@@ -45,6 +45,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import com.example.R
+import com.example.data.cloud.BackupStatus
 import com.example.ui.viewmodel.ThemeMode
 
 @OptIn(ExperimentalLayoutApi::class)
@@ -82,7 +83,15 @@ fun SettingsDialog(
     onAppLockPinSetup: (pin: String) -> Unit = {},
     // Phase 3: F2 — Expiry Notification
     expiryNotifEnabled: Boolean = true,
-    onExpiryNotifEnabledChange: (Boolean) -> Unit = {}
+    onExpiryNotifEnabledChange: (Boolean) -> Unit = {},
+    // Phase 5 — Cloud Backup
+    backupStatus: BackupStatus = BackupStatus.IDLE,
+    lastBackupTime: Long = 0L,
+    onManualBackup: () -> Unit = {},
+    onCloudRestore: () -> Unit = {},
+    onCloudBackupToggle: (Boolean) -> Unit = {},
+    isCloudBackupEnabled: Boolean = false,
+    isPremium: Boolean = false
 ) {
     val context = LocalContext.current
 
@@ -437,6 +446,77 @@ fun SettingsDialog(
                             Text(stringResource(R.string.settings_app_lock_pin_setup))
                         }
                     }
+                }
+
+                // ── Phase 5: Cloud Backup section ─────────────────────────────────────
+                Spacer(modifier = Modifier.height(16.dp))
+                Text(
+                    text = stringResource(R.string.cloud_backup_title),
+                    style = MaterialTheme.typography.labelLarge,
+                    fontWeight = FontWeight.SemiBold,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+
+                // Toggle row
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = stringResource(R.string.cloud_backup_toggle),
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                    Switch(checked = isCloudBackupEnabled, onCheckedChange = onCloudBackupToggle)
+                }
+
+                // Status text
+                Spacer(modifier = Modifier.height(4.dp))
+                val statusText = when (backupStatus) {
+                    BackupStatus.SYNCING -> stringResource(R.string.cloud_backup_status_syncing)
+                    BackupStatus.SYNCED -> stringResource(R.string.cloud_backup_status_synced)
+                    BackupStatus.ERROR -> stringResource(R.string.cloud_backup_status_error)
+                    BackupStatus.IDLE -> if (lastBackupTime > 0L) {
+                        val cal = java.util.Calendar.getInstance()
+                        cal.timeInMillis = lastBackupTime
+                        val hour = cal.get(java.util.Calendar.HOUR_OF_DAY)
+                        val minute = cal.get(java.util.Calendar.MINUTE)
+                        "শেষ ব্যাকআপ: %02d:%02d".format(hour, minute)
+                    } else {
+                        stringResource(R.string.cloud_backup_status_never)
+                    }
+                }
+                Text(
+                    text = statusText,
+                    style = MaterialTheme.typography.bodySmall,
+                    color = when (backupStatus) {
+                        BackupStatus.SYNCED -> MaterialTheme.colorScheme.primary
+                        BackupStatus.ERROR -> MaterialTheme.colorScheme.error
+                        else -> MaterialTheme.colorScheme.onSurfaceVariant
+                    }
+                )
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+                // Manual backup button
+                Button(
+                    onClick = onManualBackup,
+                    enabled = isCloudBackupEnabled,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(stringResource(R.string.cloud_backup_manual_button))
+                }
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+                // Restore button
+                OutlinedButton(
+                    onClick = onCloudRestore,
+                    enabled = isCloudBackupEnabled,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(stringResource(R.string.cloud_backup_restore_button))
                 }
             }
         }
