@@ -1,6 +1,8 @@
 package com.example
 
+import android.Manifest
 import android.content.Context
+import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.os.Build
 import android.os.Bundle
@@ -10,6 +12,9 @@ import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.core.content.ContextCompat
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -224,6 +229,16 @@ fun MainAppContent(viewModel: MainViewModel) {
 
     val snackbarHostState = remember { SnackbarHostState() }
     val coroutineScope = rememberCoroutineScope()
+
+    // SMS permission
+    var hasSmsPermission by remember {
+        mutableStateOf(
+            ContextCompat.checkSelfPermission(context, Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED
+        )
+    }
+    val smsPermissionLauncher = rememberLauncherForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { granted -> hasSmsPermission = granted }
 
     // App lock state — starts unlocked if lock is disabled, locked if enabled
     var isUnlocked by rememberSaveable {
@@ -823,14 +838,9 @@ fun MainAppContent(viewModel: MainViewModel) {
             SmsMarketingDialog(
                 parties = parties,
                 onDismiss = { viewModel.showSmsMarketing.value = false },
-                onSmsDone = { count ->
-                    viewModel.showSmsMarketing.value = false
-                    coroutineScope.launch {
-                        snackbarHostState.showSnackbar(
-                            String.format(context.getString(R.string.dialog_sms_done), count)
-                        )
-                    }
-                }
+                onRequestPermission = { smsPermissionLauncher.launch(Manifest.permission.SEND_SMS) },
+                hasSmsPermission = hasSmsPermission,
+                onShowSnackbar = { msg -> coroutineScope.launch { snackbarHostState.showSnackbar(msg) } }
             )
         }
 
