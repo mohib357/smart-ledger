@@ -397,10 +397,10 @@
     <string name="premium_benefit_no_ads">Ad-free Experience</string>
     <string name="premium_benefit_unlimited">Unlimited Transactions</string>
     <string name="settings_go_premium">⭐ Go Premium</string>
-    <string name="coin_earn_title">🪙 Earn Coins by Watching Ads</string>
-    <string name="coin_earn_subtitle">5 coins = 1 day ad-free</string>
-    <string name="coin_earn_button">Watch Ad and Earn Coin</string>
-    <string name="coin_active_label">🪙 Active Coins</string>
+    <string name="coin_earn_title">Earn Coins</string>
+    <string name="coin_earn_subtitle">Watch an ad to earn coins, stay ad-free for 5 days</string>
+    <string name="coin_earn_button">Watch Ad</string>
+    <string name="coin_active_label">Active Coins</string>
     <string name="gate_transaction_limit">Free tier limit reached. Upgrade to Premium.</string>
     <string name="gate_premium_only">🔒 Premium Only</string>
     <string name="gate_pdf_premium">PDF export is for Premium users only.</string>

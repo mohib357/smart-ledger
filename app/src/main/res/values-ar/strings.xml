@@ -395,8 +395,8 @@
     <string name="premium_benefit_unlimited">معاملات غير محدودة</string>
     <string name="settings_go_premium">اشترك في المميز</string>
     <string name="coin_earn_title">اكسب عملات</string>
-    <string name="coin_earn_subtitle">5 عملات = يوم بلا اعلانات</string>
-    <string name="coin_earn_button">شاهد اعلانا</string>
+    <string name="coin_earn_subtitle">شاهد إعلانًا لكسب عملات، ابق خاليًا من الإعلانات لمدة 5 أيام</string>
+    <string name="coin_earn_button">شاهد الإعلان</string>
     <string name="coin_active_label">عملات نشطة</string>
     <string name="gate_transaction_limit">وصلت للحد المجاني. ترقى للمميز.</string>
     <string name="gate_premium_only">للمميز فقط</string>

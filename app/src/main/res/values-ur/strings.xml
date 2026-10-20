@@ -395,7 +395,7 @@
     <string name="premium_benefit_unlimited">لامحدود لین دین</string>
     <string name="settings_go_premium">پریمیم لیں</string>
     <string name="coin_earn_title">سکے کمائیں</string>
-    <string name="coin_earn_subtitle">5 سکے = 1 دن بلا اشتہار</string>
+    <string name="coin_earn_subtitle">سکے کمانے کے لیے اشتہار دیکھیں، 5 دن اشتہار سے پاک رہیں</string>
     <string name="coin_earn_button">اشتہار دیکھیں</string>
     <string name="coin_active_label">فعال سکے</string>
     <string name="gate_transaction_limit">مفت حد پوری۔ پریمیم لیں۔</string>

@@ -9,5 +9,5 @@ data class CoinEntity(
     val id: Long = 0,
     val coinsEarned: Int,
     val earnedAt: Long,
-    val expiresAt: Long  // earnedAt + 5 * 24 * 60 * 60 * 1000L (5 hours per coin)
+    val expiresAt: Long   // earnedAt + 5 * 24 * 60 * 60 * 1000L
 )

@@ -395,7 +395,7 @@
     <string name="premium_benefit_unlimited">असीमित लेनदेन</string>
     <string name="settings_go_premium">प्रीमियम लें</string>
     <string name="coin_earn_title">सिक्के कमाएं</string>
-    <string name="coin_earn_subtitle">5 सिक्के = 1 दिन विज्ञापन-मुक्त</string>
+    <string name="coin_earn_subtitle">सिक्के कमाने के लिए विज्ञापन देखें, 5 दिन विज्ञापन मुक्त रहें</string>
     <string name="coin_earn_button">विज्ञापन देखें</string>
     <string name="coin_active_label">सक्रिय सिक्के</string>
     <string name="gate_transaction_limit">फ्री सीमा पूर्ण। प्रीमियम लें।</string>

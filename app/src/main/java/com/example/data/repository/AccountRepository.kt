@@ -345,7 +345,7 @@ class AccountRepository(private val database: AppDatabase) {
             com.example.data.model.CoinEntity(
                 coinsEarned = count,
                 earnedAt = now,
-                expiresAt = now + 5L * 60 * 60 * 1000L  // 5 hours per coin
+                expiresAt = now + 5L * 24 * 60 * 60 * 1000L  // 5 days per coin
             )
         )
     }

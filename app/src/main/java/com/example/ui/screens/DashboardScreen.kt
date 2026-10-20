@@ -122,6 +122,30 @@ fun DashboardScreen(
             )
         }
 
+        // Earn Coins card
+        item {
+            ElevatedCard(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp, vertical = 4.dp)
+            ) {
+                Row(
+                    modifier = Modifier.padding(16.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text("🪙", style = MaterialTheme.typography.headlineMedium)
+                    Spacer(Modifier.width(12.dp))
+                    Column(Modifier.weight(1f)) {
+                        Text(stringResource(R.string.coin_earn_title), style = MaterialTheme.typography.titleSmall)
+                        Text(stringResource(R.string.coin_earn_subtitle), style = MaterialTheme.typography.bodySmall)
+                    }
+                    OutlinedButton(onClick = onEarnCoin) {
+                        Text(stringResource(R.string.coin_earn_button))
+                    }
+                }
+            }
+        }
+
         // Emergency Heir / Nominee Access & Safety Feature Banner
         item {
             Card(
@@ -630,42 +654,6 @@ fun DashboardScreen(
                             useBengaliDigits = useBengaliDigits
                         )
                         Spacer(modifier = Modifier.height(6.dp))
-                    }
-                }
-            }
-        }
-
-        // Phase 4: Earn Coins card (only when not premium and no active coins)
-        item {
-            if (!isPremium && !hasActiveCoins) {
-                androidx.compose.material3.ElevatedCard(
-                    shape = androidx.compose.foundation.shape.RoundedCornerShape(16.dp),
-                    modifier = androidx.compose.ui.Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 16.dp, vertical = 6.dp)
-                ) {
-                    Row(
-                        modifier = androidx.compose.ui.Modifier
-                            .fillMaxWidth()
-                            .padding(16.dp),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Column(modifier = androidx.compose.ui.Modifier.weight(1f)) {
-                            Text(
-                                text = stringResource(R.string.coin_earn_title),
-                                style = MaterialTheme.typography.titleSmall,
-                                fontWeight = FontWeight.Bold
-                            )
-                            Text(
-                                text = stringResource(R.string.coin_earn_subtitle),
-                                style = MaterialTheme.typography.bodySmall,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant
-                            )
-                        }
-                        androidx.compose.material3.OutlinedButton(onClick = onEarnCoin) {
-                            Text(stringResource(R.string.coin_earn_button), fontSize = 12.sp)
-                        }
                     }
                 }
             }
