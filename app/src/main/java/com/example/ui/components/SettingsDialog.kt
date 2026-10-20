@@ -59,6 +59,8 @@ fun SettingsDialog(
     onDismiss: () -> Unit,
     // F5 — Feedback
     onOpenFeedback: () -> Unit = {},
+    // Phase 4 — Premium
+    onGoPremium: () -> Unit = {},
     // F2 — Daily Reminder
     reminderEnabled: Boolean = false,
     onReminderEnabledChange: (Boolean) -> Unit = {},
@@ -247,6 +249,15 @@ fun SettingsDialog(
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Text(stringResource(R.string.feedback_button_label))
+                }
+
+                // ── Phase 4: Go Premium ──────────────────────────────────────────────
+                Spacer(modifier = Modifier.height(16.dp))
+                androidx.compose.material3.OutlinedButton(
+                    onClick = { onGoPremium(); onDismiss() },
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(stringResource(R.string.settings_go_premium))
                 }
 
                 // ── F2: Daily Reminder section ──────────────────────────────────────

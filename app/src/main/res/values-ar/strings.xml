@@ -384,4 +384,21 @@
     <string name="dialog_sms_done">%1$d SMS تم الارسال</string>
     <string name="dialog_sms_permission_required">اذن SMS</string>
     <string name="snackbar_sms_sent">SMS مكتمل</string>
+
+    <string name="premium_title">اشتراك مميز</string>
+    <string name="premium_badge">مميز نشط</string>
+    <string name="premium_buy">شراء</string>
+    <string name="premium_purchase_success">تم تفعيل المميز!</string>
+    <string name="premium_benefit_pdf">تصدير PDF</string>
+    <string name="premium_benefit_sync">النسخ الاحتياطي السحابي</string>
+    <string name="premium_benefit_no_ads">بدون اعلانات</string>
+    <string name="premium_benefit_unlimited">معاملات غير محدودة</string>
+    <string name="settings_go_premium">اشترك في المميز</string>
+    <string name="coin_earn_title">اكسب عملات</string>
+    <string name="coin_earn_subtitle">5 عملات = يوم بلا اعلانات</string>
+    <string name="coin_earn_button">شاهد اعلانا</string>
+    <string name="coin_active_label">عملات نشطة</string>
+    <string name="gate_transaction_limit">وصلت للحد المجاني. ترقى للمميز.</string>
+    <string name="gate_premium_only">للمميز فقط</string>
+    <string name="gate_pdf_premium">PDF للمميز فقط.</string>
 </resources>

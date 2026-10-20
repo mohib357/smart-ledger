@@ -387,4 +387,22 @@
     <string name="dialog_sms_done">%1$d টি SMS পাঠানো হয়েছে</string>
     <string name="dialog_sms_permission_required">SMS পাঠাতে অনুমতি প্রয়োজন</string>
     <string name="snackbar_sms_sent">SMS পাঠানো সম্পন্ন হয়েছে</string>
+
+    <!-- Phase 4: Premium & Monetization -->
+    <string name="premium_title">⭐ Premium সদস্যতা</string>
+    <string name="premium_badge">⭐ বর্তমানে Premium সক্রিয়</string>
+    <string name="premium_buy">কিনুন</string>
+    <string name="premium_purchase_success">✅ Premium সফলভাবে সক্রিয় হয়েছে!</string>
+    <string name="premium_benefit_pdf">PDF রিপোর্ট এক্সপোর্ট</string>
+    <string name="premium_benefit_sync">ক্লাউড ব্যাকআপ ও সিঙ্ক</string>
+    <string name="premium_benefit_no_ads">বিজ্ঞাপনমুক্ত অভিজ্ঞতা</string>
+    <string name="premium_benefit_unlimited">সীমাহীন লেনদেন</string>
+    <string name="settings_go_premium">⭐ Go Premium</string>
+    <string name="coin_earn_title">🪙 বিজ্ঞাপন দেখে কয়েন আয় করুন</string>
+    <string name="coin_earn_subtitle">৫টি কয়েন = ১ দিন বিজ্ঞাপনমুক্ত</string>
+    <string name="coin_earn_button">বিজ্ঞাপন দেখুন ও কয়েন নিন</string>
+    <string name="coin_active_label">🪙 সক্রিয় কয়েন</string>
+    <string name="gate_transaction_limit">Free tier সীমা পূর্ণ। Premium-এ আপগ্রেড করুন।</string>
+    <string name="gate_premium_only">🔒 Premium Only</string>
+    <string name="gate_pdf_premium">PDF export শুধুমাত্র Premium ব্যবহারকারীদের জন্য।</string>
 </resources>

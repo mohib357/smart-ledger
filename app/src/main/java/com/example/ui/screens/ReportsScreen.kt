@@ -71,7 +71,9 @@ fun ReportsScreen(
     useBengaliDigits: Boolean,
     onExportPdf: (fromMillis: Long, toMillis: Long) -> Unit,
     productProfitSummary: List<MainViewModel.ProductProfitSummary> = emptyList(),
-    products: List<ProductEntity> = emptyList()
+    products: List<ProductEntity> = emptyList(),
+    isPremium: Boolean = false,
+    onShowPremium: () -> Unit = {}
 ) {
     val buckets = monthlyIncomeExpense(transactions)
 
@@ -210,14 +212,22 @@ fun ReportsScreen(
 
                     Button(
                         onClick = {
-                            val from = pdfFrom ?: 0L
-                            val to = pdfTo ?: Long.MAX_VALUE
-                            onExportPdf(from, to)
+                            if (!isPremium) {
+                                onShowPremium()
+                            } else {
+                                val from = pdfFrom ?: 0L
+                                val to = pdfTo ?: Long.MAX_VALUE
+                                onExportPdf(from, to)
+                            }
                         },
                         colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary),
                         modifier = Modifier.fillMaxWidth()
                     ) {
-                        Text("PDF রিপোর্ট তৈরি করুন", fontWeight = FontWeight.Bold)
+                        if (!isPremium) {
+                            Text(stringResource(R.string.gate_premium_only) + " — " + stringResource(R.string.reports_pdf_generate), fontWeight = FontWeight.Bold)
+                        } else {
+                            Text(stringResource(R.string.reports_pdf_generate), fontWeight = FontWeight.Bold)
+                        }
                     }
                 }
             }

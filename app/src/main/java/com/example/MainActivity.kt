@@ -79,6 +79,7 @@ import com.example.ui.screens.NomineesScreen
 import com.example.ui.screens.PartyDetailScreen
 import com.example.ui.screens.ProductsScreen
 import com.example.ui.screens.InvoicesScreen
+import com.example.ui.screens.PremiumScreen
 import com.example.ui.screens.ReportsScreen
 import com.example.ui.screens.TransactionsScreen
 import com.example.ui.screens.WalletsScreen
@@ -117,6 +118,10 @@ class MainActivity : ComponentActivity() {
 
         // Create notification channels
         NotificationHelper.createNotificationChannels(this)
+
+        // Initialize AdMob
+        com.example.util.AdManager.initialize(this)
+        com.example.util.AdManager.loadInterstitial(this)
 
         // Request POST_NOTIFICATIONS on Android 13+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -203,6 +208,11 @@ fun MainAppContent(viewModel: MainViewModel) {
     // Phase 3 state
     val allProducts by viewModel.allProducts.collectAsStateWithLifecycle()
     val allInvoices by viewModel.allInvoices.collectAsStateWithLifecycle()
+
+    // Phase 4 state
+    val isPremium by viewModel.isPremium.collectAsStateWithLifecycle()
+    val hasActiveCoins by viewModel.hasActiveCoins.collectAsStateWithLifecycle()
+    val showPremiumScreen by viewModel.showPremiumScreen.collectAsStateWithLifecycle()
     val showAddProduct by viewModel.showAddProduct.collectAsStateWithLifecycle()
     val editingProduct by viewModel.editingProduct.collectAsStateWithLifecycle()
     val productProfitSummary by viewModel.productProfitSummary.collectAsStateWithLifecycle()
@@ -350,8 +360,26 @@ fun MainAppContent(viewModel: MainViewModel) {
                             recentTransactions = transactions,
                             topParties = parties,
                             useBengaliDigits = useBengaliDigits,
-                            onAddIncome = { viewModel.openAddTransaction("INCOME") },
-                            onAddExpense = { viewModel.openAddTransaction("EXPENSE") },
+                            onAddIncome = {
+                                if (viewModel.checkCanAddTransaction()) {
+                                    viewModel.openAddTransaction("INCOME")
+                                } else {
+                                    coroutineScope.launch {
+                                        snackbarHostState.showSnackbar(context.getString(R.string.gate_transaction_limit))
+                                    }
+                                    viewModel.showPremiumScreen.value = true
+                                }
+                            },
+                            onAddExpense = {
+                                if (viewModel.checkCanAddTransaction()) {
+                                    viewModel.openAddTransaction("EXPENSE")
+                                } else {
+                                    coroutineScope.launch {
+                                        snackbarHostState.showSnackbar(context.getString(R.string.gate_transaction_limit))
+                                    }
+                                    viewModel.showPremiumScreen.value = true
+                                }
+                            },
                             onAddParty = { viewModel.showAddParty.value = true },
                             onNavigateToTransactions = { viewModel.setTab(1) },
                             onNavigateToKhata = { viewModel.setTab(2) },
@@ -368,7 +396,17 @@ fun MainAppContent(viewModel: MainViewModel) {
                                 }
                             },
                             onNavigateToProducts = { viewModel.setTab(8) },
-                            onNavigateToInvoices = { viewModel.setTab(9) }
+                            onNavigateToInvoices = { viewModel.setTab(9) },
+                            isPremium = isPremium,
+                            hasActiveCoins = hasActiveCoins,
+                            onEarnCoin = {
+                                val activity = context as? android.app.Activity
+                                if (activity != null) {
+                                    com.example.util.AdManager.loadRewarded(context) { ad ->
+                                        ad.show(activity) { viewModel.earnCoin() }
+                                    }
+                                }
+                            }
                         )
                         1 -> TransactionsScreen(
                             transactions = transactions,
@@ -489,7 +527,9 @@ fun MainAppContent(viewModel: MainViewModel) {
                                         }
                                     }
                                 }
-                            }
+                            },
+                            isPremium = isPremium,
+                            onShowPremium = { viewModel.showPremiumScreen.value = true }
                         )
                         8 -> ProductsScreen(
                             products = allProducts,
@@ -693,6 +733,8 @@ fun MainAppContent(viewModel: MainViewModel) {
                 onDismiss = { viewModel.showSettings.value = false },
                 // F5
                 onOpenFeedback = { viewModel.showFeedback.value = true },
+                // Phase 4
+                onGoPremium = { viewModel.showPremiumScreen.value = true },
                 // F2
                 reminderEnabled = reminderEnabled,
                 onReminderEnabledChange = { enabled ->
@@ -740,6 +782,24 @@ fun MainAppContent(viewModel: MainViewModel) {
                     viewModel.scheduleOrCancelExpiryCheck(context, enabled)
                 }
             )
+        }
+
+        // Phase 4: Premium Screen
+        if (showPremiumScreen) {
+            androidx.compose.ui.window.Dialog(
+                onDismissRequest = { viewModel.showPremiumScreen.value = false }
+            ) {
+                PremiumScreen(
+                    isPremium = isPremium,
+                    onDismiss = { viewModel.showPremiumScreen.value = false },
+                    onPurchase = { _ ->
+                        coroutineScope.launch {
+                            snackbarHostState.showSnackbar(context.getString(R.string.premium_purchase_success))
+                        }
+                        viewModel.showPremiumScreen.value = false
+                    }
+                )
+            }
         }
 
         // Phase 3 F3: Create Invoice dialog

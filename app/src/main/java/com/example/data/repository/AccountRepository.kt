@@ -36,6 +36,7 @@ class AccountRepository(private val database: AppDatabase) {
     private val chatMessageDao: ChatMessageDao = database.chatMessageDao()
     private val productDao: ProductDao = database.productDao()
     private val invoiceDao: com.example.data.dao.InvoiceDao = database.invoiceDao()
+    private val coinDao: com.example.data.dao.CoinDao = database.coinDao()
 
     val allTransactions: Flow<List<TransactionEntity>> = transactionDao.getAllTransactions()
     val allParties: Flow<List<PartyEntity>> = partyDao.getAllParties()
@@ -46,6 +47,7 @@ class AccountRepository(private val database: AppDatabase) {
 
     val allProducts: Flow<List<ProductEntity>> = productDao.getAllProducts()
     val allInvoices: Flow<List<com.example.data.model.InvoiceEntity>> = invoiceDao.getAllInvoices()
+    val allCoins: Flow<List<com.example.data.model.CoinEntity>> = coinDao.getAllCoins()
 
     suspend fun insertChatMessage(content: String, isFromUser: Boolean) {
         chatMessageDao.insertMessage(ChatMessageEntity(content = content, isFromUser = isFromUser))
@@ -334,6 +336,26 @@ class AccountRepository(private val database: AppDatabase) {
         walletDao.clearAll()
         auditSnapshotDao.clearAll()
         nomineeDao.clearAll()
+    }
+
+    // ── Coin CRUD ───────────────────────────────────────────────────────────
+    suspend fun addCoins(count: Int) {
+        val now = System.currentTimeMillis()
+        coinDao.insert(
+            com.example.data.model.CoinEntity(
+                coinsEarned = count,
+                earnedAt = now,
+                expiresAt = now + 5L * 60 * 60 * 1000L  // 5 hours per coin
+            )
+        )
+    }
+
+    suspend fun cleanExpiredCoins() {
+        coinDao.deleteExpiredCoins(System.currentTimeMillis())
+    }
+
+    suspend fun getTotalActiveCoins(): Int {
+        return coinDao.getTotalActiveCoins(System.currentTimeMillis())
     }
 
     // ── Invoice CRUD ────────────────────────────────────────────────────────

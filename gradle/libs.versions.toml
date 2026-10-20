@@ -42,6 +42,8 @@ credentials = "1.5.0"
 googleid = "1.1.1"
 biometric = "1.1.0"
 workManager = "2.10.1"
+billingKtx = "7.1.1"
+playServicesAds = "23.3.0"
 
 
 [libraries]
@@ -98,6 +100,8 @@ androidx-credentials-play-services = { group = "androidx.credentials", name = "c
 googleid = { group = "com.google.android.libraries.identity.googleid", name = "googleid", version.ref = "googleid" }
 androidx-biometric = { group = "androidx.biometric", name = "biometric", version.ref = "biometric" }
 androidx-work-runtime-ktx = { group = "androidx.work", name = "work-runtime-ktx", version.ref = "workManager" }
+billing-ktx = { group = "com.android.billingclient", name = "billing-ktx", version.ref = "billingKtx" }
+play-services-ads = { group = "com.google.android.gms", name = "play-services-ads", version.ref = "playServicesAds" }
 
 
 [plugins]

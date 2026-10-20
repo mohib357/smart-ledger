@@ -104,6 +104,24 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     // Phase 3: F4 — SMS Marketing dialog state
     val showSmsMarketing = MutableStateFlow(false)
 
+    // Phase 4 — Monetization
+    val showPremiumScreen = MutableStateFlow(false)
+    private val billingManager by lazy { com.example.util.BillingManager(getApplication()) }
+    val isPremium: StateFlow<Boolean> by lazy {
+        billingManager.isPremiumFlow.stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = getApplication<Application>()
+                .getSharedPreferences("app_settings", android.content.Context.MODE_PRIVATE)
+                .getBoolean("is_premium", false)
+        )
+    }
+    val hasActiveCoins: StateFlow<Boolean> by lazy {
+        repository.allCoins.map { repository.getTotalActiveCoins() > 0 }
+            .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), false)
+    }
+    private var _actionCount = 0
+
     data class ProductProfitSummary(
         val product: ProductEntity,
         val profitMargin: Double,
@@ -234,6 +252,12 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch {
             repository.initializeDefaultWalletsIfEmpty()
         }
+        // Clean expired coins on startup
+        viewModelScope.launch {
+            repository.cleanExpiredCoins()
+        }
+        // Start billing connection
+        billingManager.startConnection()
     }
 
     fun setTab(index: Int) {
@@ -456,6 +480,31 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     suspend fun getItemsForInvoice(invoiceId: Long): List<com.example.data.model.InvoiceItemEntity> {
         return repository.getItemsForInvoice(invoiceId)
+    }
+
+    // ── Phase 4: Monetization ────────────────────────────────────────────────
+    fun earnCoin() {
+        viewModelScope.launch { repository.addCoins(1) }
+    }
+
+    fun checkCanAddTransaction(): Boolean =
+        com.example.util.FeatureGate.canAddTransaction(allTransactions.value.size, isPremium.value)
+
+    fun onActionPerformed(activity: android.app.Activity) {
+        _actionCount++
+        if (_actionCount >= 5) {
+            _actionCount = 0
+            if (!isPremium.value && !hasActiveCoins.value) {
+                com.example.util.AdManager.showInterstitial(activity) {
+                    com.example.util.AdManager.loadInterstitial(activity)
+                }
+            }
+        }
+    }
+
+    override fun onCleared() {
+        billingManager.disconnect()
+        super.onCleared()
     }
 
     // Feature 5 — PDF Export

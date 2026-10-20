@@ -94,7 +94,10 @@ fun DashboardScreen(
     onSelectParty: (PartyEntity) -> Unit,
     onLoadSampleData: () -> Unit,
     onNavigateToProducts: () -> Unit,
-    onNavigateToInvoices: () -> Unit
+    onNavigateToInvoices: () -> Unit,
+    isPremium: Boolean = false,
+    hasActiveCoins: Boolean = false,
+    onEarnCoin: () -> Unit = {}
 ) {
     LazyColumn(
         modifier = Modifier
@@ -629,6 +632,60 @@ fun DashboardScreen(
                         Spacer(modifier = Modifier.height(6.dp))
                     }
                 }
+            }
+        }
+
+        // Phase 4: Earn Coins card (only when not premium and no active coins)
+        item {
+            if (!isPremium && !hasActiveCoins) {
+                androidx.compose.material3.ElevatedCard(
+                    shape = androidx.compose.foundation.shape.RoundedCornerShape(16.dp),
+                    modifier = androidx.compose.ui.Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp, vertical = 6.dp)
+                ) {
+                    Row(
+                        modifier = androidx.compose.ui.Modifier
+                            .fillMaxWidth()
+                            .padding(16.dp),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Column(modifier = androidx.compose.ui.Modifier.weight(1f)) {
+                            Text(
+                                text = stringResource(R.string.coin_earn_title),
+                                style = MaterialTheme.typography.titleSmall,
+                                fontWeight = FontWeight.Bold
+                            )
+                            Text(
+                                text = stringResource(R.string.coin_earn_subtitle),
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                        }
+                        androidx.compose.material3.OutlinedButton(onClick = onEarnCoin) {
+                            Text(stringResource(R.string.coin_earn_button), fontSize = 12.sp)
+                        }
+                    }
+                }
+            }
+        }
+
+        // Phase 4: Banner Ad (only when not premium and no active coins)
+        item {
+            if (!isPremium && !hasActiveCoins) {
+                androidx.compose.ui.viewinterop.AndroidView(
+                    factory = { ctx ->
+                        com.google.android.gms.ads.AdView(ctx).apply {
+                            setAdSize(com.google.android.gms.ads.AdSize.BANNER)
+                            adUnitId = com.example.util.AdManager.BANNER_AD_UNIT_ID
+                            loadAd(com.google.android.gms.ads.AdRequest.Builder().build())
+                        }
+                    },
+                    modifier = androidx.compose.ui.Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp, vertical = 8.dp)
+                )
             }
         }
     }

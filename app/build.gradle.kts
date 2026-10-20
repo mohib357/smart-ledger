@@ -108,6 +108,8 @@ dependencies {
   implementation(libs.androidx.work.runtime.ktx)
   implementation(libs.androidx.biometric)
   // implementation(libs.coil.compose)
+  implementation(libs.billing.ktx)
+  implementation(libs.play.services.ads)
   implementation(libs.converter.moshi)
   implementation(libs.firebase.ai)
   // Uncomment to use Firestore:

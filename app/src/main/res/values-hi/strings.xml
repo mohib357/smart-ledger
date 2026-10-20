@@ -384,4 +384,21 @@
     <string name="dialog_sms_done">%1$d SMS भेजे</string>
     <string name="dialog_sms_permission_required">SMS अनुमति</string>
     <string name="snackbar_sms_sent">SMS पूर्ण</string>
+
+    <string name="premium_title">प्रीमियम सदस्यता</string>
+    <string name="premium_badge">प्रीमियम सक्रिय</string>
+    <string name="premium_buy">खरीदें</string>
+    <string name="premium_purchase_success">प्रीमियम सक्रिय हुआ!</string>
+    <string name="premium_benefit_pdf">PDF रिपोर्ट</string>
+    <string name="premium_benefit_sync">क्लाउड बैकअप</string>
+    <string name="premium_benefit_no_ads">बिना विज्ञापन</string>
+    <string name="premium_benefit_unlimited">असीमित लेनदेन</string>
+    <string name="settings_go_premium">प्रीमियम लें</string>
+    <string name="coin_earn_title">सिक्के कमाएं</string>
+    <string name="coin_earn_subtitle">5 सिक्के = 1 दिन विज्ञापन-मुक्त</string>
+    <string name="coin_earn_button">विज्ञापन देखें</string>
+    <string name="coin_active_label">सक्रिय सिक्के</string>
+    <string name="gate_transaction_limit">फ्री सीमा पूर्ण। प्रीमियम लें।</string>
+    <string name="gate_premium_only">केवल प्रीमियम</string>
+    <string name="gate_pdf_premium">PDF केवल प्रीमियम के लिए।</string>
 </resources>

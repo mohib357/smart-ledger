@@ -8,6 +8,7 @@ import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.data.dao.AuditSnapshotDao
 import com.example.data.dao.ChatMessageDao
+import com.example.data.dao.CoinDao
 import com.example.data.dao.InvoiceDao
 import com.example.data.dao.NomineeDao
 import com.example.data.dao.PartyDao
@@ -17,6 +18,7 @@ import com.example.data.dao.TransactionDao
 import com.example.data.dao.WalletDao
 import com.example.data.model.AuditSnapshotEntity
 import com.example.data.model.ChatMessageEntity
+import com.example.data.model.CoinEntity
 import com.example.data.model.InvoiceEntity
 import com.example.data.model.InvoiceItemEntity
 import com.example.data.model.NomineeEntity
@@ -37,9 +39,10 @@ import com.example.data.model.WalletEntity
         ChatMessageEntity::class,
         ProductEntity::class,
         InvoiceEntity::class,
-        InvoiceItemEntity::class
+        InvoiceItemEntity::class,
+        CoinEntity::class
     ],
-    version = 5,
+    version = 6,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -52,6 +55,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun chatMessageDao(): ChatMessageDao
     abstract fun productDao(): ProductDao
     abstract fun invoiceDao(): InvoiceDao
+    abstract fun coinDao(): CoinDao
 
     companion object {
         @Volatile
@@ -110,6 +114,14 @@ abstract class AppDatabase : RoomDatabase() {
             }
         }
 
+        val MIGRATION_5_6 = object : Migration(5, 6) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL(
+                    "CREATE TABLE IF NOT EXISTS `coins` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `coinsEarned` INTEGER NOT NULL, `earnedAt` INTEGER NOT NULL, `expiresAt` INTEGER NOT NULL)"
+                )
+            }
+        }
+
         fun getDatabase(context: Context): AppDatabase {
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
@@ -117,7 +129,7 @@ abstract class AppDatabase : RoomDatabase() {
                     AppDatabase::class.java,
                     "shohoj_hisab_database"
                 )
-                    .addMigrations(MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5)
+                    .addMigrations(MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6)
                     .build()
                 INSTANCE = instance
                 instance

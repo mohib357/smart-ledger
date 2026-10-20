@@ -386,4 +386,22 @@
     <string name="dialog_sms_done">%1$d SMS sent</string>
     <string name="dialog_sms_permission_required">SMS permission required</string>
     <string name="snackbar_sms_sent">SMS sending complete</string>
+
+    <!-- Phase 4: Premium -->
+    <string name="premium_title">⭐ Premium Subscription</string>
+    <string name="premium_badge">⭐ Premium Active</string>
+    <string name="premium_buy">Buy</string>
+    <string name="premium_purchase_success">✅ Premium activated successfully!</string>
+    <string name="premium_benefit_pdf">PDF Report Export</string>
+    <string name="premium_benefit_sync">Cloud Backup and Sync</string>
+    <string name="premium_benefit_no_ads">Ad-free Experience</string>
+    <string name="premium_benefit_unlimited">Unlimited Transactions</string>
+    <string name="settings_go_premium">⭐ Go Premium</string>
+    <string name="coin_earn_title">🪙 Earn Coins by Watching Ads</string>
+    <string name="coin_earn_subtitle">5 coins = 1 day ad-free</string>
+    <string name="coin_earn_button">Watch Ad and Earn Coin</string>
+    <string name="coin_active_label">🪙 Active Coins</string>
+    <string name="gate_transaction_limit">Free tier limit reached. Upgrade to Premium.</string>
+    <string name="gate_premium_only">🔒 Premium Only</string>
+    <string name="gate_pdf_premium">PDF export is for Premium users only.</string>
 </resources>
