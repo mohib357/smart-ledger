@@ -442,8 +442,14 @@
     <string name="sync_status_syncing">⟳ Syncing</string>
     <string name="sync_status_synced">✓ Synced</string>
     <string name="sync_status_offline">⚠ Offline</string>
+    <string name="sync_section_title">Data Sync</string>
+    <string name="sync_manual_button">Sync Now</string>
+    <string name="sync_status_error">⚠ Sync Failed</string>
     <!-- Phase 5 — Nominee cross-device -->
     <string name="nominee_cross_device_label">Verify access key from cloud</string>
+    <string name="nominee_cross_device_found">Nominee found in cloud</string>
+    <string name="nominee_cross_device_checking">Checking cloud...</string>
+    <string name="nominee_cross_device_not_found">Code not found in cloud</string>
     <!-- Phase 5 — Settings -->
     <string name="settings_profile_button">My Profile</string>
 </resources>

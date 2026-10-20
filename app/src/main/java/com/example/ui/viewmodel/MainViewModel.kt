@@ -877,4 +877,23 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             req
         )
     }
+
+    // ── Phase 5: F3 — Multi-device Sync ───────────────────────────────────
+
+    val syncManager by lazy {
+        com.example.data.cloud.SyncManager(getApplication(), repository, firebaseAuthManager)
+    }
+    val syncStatus: StateFlow<com.example.data.cloud.SyncStatus> by lazy { syncManager.syncStatus }
+
+    fun startSync() { syncManager.startSync() }
+    fun stopSync() { syncManager.stopSync() }
+    fun pushToCloud() {
+        viewModelScope.launch { syncManager.pushAllToFirestore() }
+    }
+
+    fun triggerManualSync() {
+        val uid = firebaseAuthManager.getCurrentUid()
+        if (uid.isEmpty()) return
+        viewModelScope.launch { syncManager.pushAllToFirestore() }
+    }
 }

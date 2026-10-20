@@ -439,8 +439,14 @@
     <string name="sync_status_syncing">⟳ جارٍ المزامنة</string>
     <string name="sync_status_synced">✓ تمت المزامنة</string>
     <string name="sync_status_offline">⚠ غير متصل</string>
+    <string name="sync_section_title">مزامنة البيانات</string>
+    <string name="sync_manual_button">مزامنة الآن</string>
+    <string name="sync_status_error">⚠ فشل المزامنة</string>
     <!-- Phase 5 — Nominee cross-device -->
     <string name="nominee_cross_device_label">تحقق من مفتاح الوصول من السحابة</string>
+    <string name="nominee_cross_device_found">تم العثور على المرشح في السحابة</string>
+    <string name="nominee_cross_device_checking">جارٍ التحقق من السحابة...</string>
+    <string name="nominee_cross_device_not_found">لم يتم العثور على الرمز في السحابة</string>
     <!-- Phase 5 — Settings -->
     <string name="settings_profile_button">ملفي الشخصي</string>
 </resources>

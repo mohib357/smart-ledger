@@ -439,8 +439,14 @@
     <string name="sync_status_syncing">⟳ سنک ہو رہا ہے</string>
     <string name="sync_status_synced">✓ سنک مکمل</string>
     <string name="sync_status_offline">⚠ آف لائن</string>
+    <string name="sync_section_title">ڈیٹا سنک</string>
+    <string name="sync_manual_button">ابھی سنک کریں</string>
+    <string name="sync_status_error">⚠ سنک ناکام</string>
     <!-- Phase 5 — Nominee cross-device -->
     <string name="nominee_cross_device_label">کلاؤڈ سے رسائی کلید تصدیق کریں</string>
+    <string name="nominee_cross_device_found">کلاؤڈ میں نامزد ملا</string>
+    <string name="nominee_cross_device_checking">کلاؤڈ میں تصدیق ہو رہی ہے...</string>
+    <string name="nominee_cross_device_not_found">کلاؤڈ میں کوڈ نہیں ملا</string>
     <!-- Phase 5 — Settings -->
     <string name="settings_profile_button">میری پروفائل</string>
 </resources>

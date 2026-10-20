@@ -439,8 +439,14 @@
     <string name="sync_status_syncing">⟳ सिंक हो रहा है</string>
     <string name="sync_status_synced">✓ सिंक पूर्ण</string>
     <string name="sync_status_offline">⚠ ऑफलाइन</string>
+    <string name="sync_section_title">डेटा सिंक</string>
+    <string name="sync_manual_button">अभी सिंक करें</string>
+    <string name="sync_status_error">⚠ सिंक विफल</string>
     <!-- Phase 5 — Nominee cross-device -->
     <string name="nominee_cross_device_label">क्लाउड से एक्सेस की सत्यापित करें</string>
+    <string name="nominee_cross_device_found">क्लाउड में नॉमिनी मिला</string>
+    <string name="nominee_cross_device_checking">क्लाउड में जाँच हो रही है...</string>
+    <string name="nominee_cross_device_not_found">क्लाउड में कोड नहीं मिला</string>
     <!-- Phase 5 — Settings -->
     <string name="settings_profile_button">मेरी प्रोफ़ाइल</string>
 </resources>

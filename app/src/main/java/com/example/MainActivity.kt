@@ -239,6 +239,14 @@ fun MainAppContent(viewModel: MainViewModel) {
     val backupStatus by viewModel.backupStatus.collectAsStateWithLifecycle()
     val lastBackupTime by viewModel.lastBackupTime.collectAsStateWithLifecycle()
 
+    // Phase 5 sync state
+    val syncStatus by viewModel.syncStatus.collectAsStateWithLifecycle()
+
+    // Start sync when composable is active
+    androidx.compose.runtime.LaunchedEffect(Unit) {
+        viewModel.startSync()
+    }
+
     // Product search query (local to MainActivity)
     var productSearchQuery by remember { mutableStateOf("") }
 
@@ -313,7 +321,8 @@ fun MainAppContent(viewModel: MainViewModel) {
                         onOpenReports = { viewModel.setTab(7) },
                         onOpenProducts = { viewModel.setTab(8) },
                         onOpenInvoices = { viewModel.setTab(9) },
-                        onOpenSmsMarketing = { viewModel.showSmsMarketing.value = true }
+                        onOpenSmsMarketing = { viewModel.showSmsMarketing.value = true },
+                        syncStatus = syncStatus
                     )
                 }
             },
@@ -837,7 +846,9 @@ fun MainAppContent(viewModel: MainViewModel) {
                 onCloudRestore = { viewModel.performCloudRestore() },
                 onCloudBackupToggle = { viewModel.setCloudBackupEnabled(it, context) },
                 isCloudBackupEnabled = viewModel.isCloudBackupEnabled,
-                isPremium = isPremium
+                isPremium = isPremium,
+                onManualSync = { viewModel.triggerManualSync() },
+                syncStatus = syncStatus
             )
         }
 

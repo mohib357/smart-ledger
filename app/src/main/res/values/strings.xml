@@ -443,8 +443,14 @@
     <string name="sync_status_syncing">⟳ সিঙ্ক হচ্ছে</string>
     <string name="sync_status_synced">✓ সিঙ্ক সম্পন্ন</string>
     <string name="sync_status_offline">⚠ অফলাইন</string>
+    <string name="sync_section_title">ডেটা সিঙ্ক</string>
+    <string name="sync_manual_button">এখনই সিঙ্ক করুন</string>
+    <string name="sync_status_error">⚠ সিঙ্ক ব্যর্থ</string>
     <!-- Phase 5 — Nominee cross-device -->
     <string name="nominee_cross_device_label">ক্লাউড থেকে এক্সেস কী যাচাই করুন</string>
+    <string name="nominee_cross_device_found">ক্লাউডে প্রতিনিধির তথ্য পাওয়া গেছে</string>
+    <string name="nominee_cross_device_checking">ক্লাউডে যাচাই করা হচ্ছে...</string>
+    <string name="nominee_cross_device_not_found">ক্লাউডে কোড পাওয়া যায়নি</string>
     <!-- Phase 5 — Settings -->
     <string name="settings_profile_button">আমার প্রোফাইল</string>
 </resources>
