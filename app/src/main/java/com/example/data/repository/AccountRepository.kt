@@ -21,6 +21,7 @@ import com.example.util.Formatters
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.tasks.await
 import org.json.JSONArray
 import org.json.JSONObject
 import java.util.UUID
@@ -171,6 +172,15 @@ class AccountRepository(private val database: AppDatabase) {
         transactionDao.delete(transaction)
     }
 
+    // Phase 5 — Sync: upsert without wallet balance side-effects (remote data already applied)
+    suspend fun upsertTransaction(tx: TransactionEntity) {
+        transactionDao.insert(tx) // OnConflictStrategy.REPLACE
+    }
+
+    suspend fun upsertParty(party: PartyEntity) {
+        partyDao.insert(party) // OnConflictStrategy.REPLACE
+    }
+
     suspend fun addParty(
         name: String,
         phone: String,
@@ -286,6 +296,29 @@ class AccountRepository(private val database: AppDatabase) {
 
     suspend fun getNomineeByKey(key: String): NomineeEntity? {
         return nomineeDao.getNomineeByKey(key.trim().uppercase())
+    }
+
+    suspend fun uploadNomineeAccessKeys(uid: String) {
+        try {
+            val nominees = nomineeDao.getAllNominees().first()
+            val db = com.google.firebase.firestore.FirebaseFirestore.getInstance()
+            nominees.forEach { nominee ->
+                if (nominee.accessKey.isNotBlank()) {
+                    val data = mapOf(
+                        "ownerUid" to uid,
+                        "accessScope" to nominee.accessScope,
+                        "canViewCash" to nominee.canViewCash,
+                        "name" to nominee.name
+                    )
+                    db.collection("nominees_public")
+                      .document(nominee.accessKey)
+                      .set(data)
+                      .await()
+                }
+            }
+        } catch (e: Exception) {
+            android.util.Log.w("AccountRepository", "uploadNomineeAccessKeys failed", e)
+        }
     }
 
     // Wallets

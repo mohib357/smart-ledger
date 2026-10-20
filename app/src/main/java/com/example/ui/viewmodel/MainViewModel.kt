@@ -637,6 +637,15 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     // Nominees & Emergency Access Management
+    fun uploadNomineeKeys() {
+        val uid = firebaseAuthManager.getCurrentUid()
+        if (uid.isEmpty()) return
+        if (!isPremiumValue()) return
+        viewModelScope.launch {
+            repository.uploadNomineeAccessKeys(uid)
+        }
+    }
+
     fun addNominee(
         name: String,
         relation: String,
@@ -657,6 +666,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 note = note
             )
             showAddNominee.value = false
+            uploadNomineeKeys()
         }
     }
 

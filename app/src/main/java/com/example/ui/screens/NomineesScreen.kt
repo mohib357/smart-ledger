@@ -42,7 +42,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -76,6 +79,7 @@ fun NomineesScreen(
     onDeleteNominee: (NomineeEntity) -> Unit
 ) {
     val context = LocalContext.current
+    val coroutineScope = rememberCoroutineScope()
     var previewNominee by remember { mutableStateOf<NomineeEntity?>(null) }
     var nomineeToDelete by remember { mutableStateOf<NomineeEntity?>(null) }
     var nomineeKeyInput by remember { mutableStateOf("") }
@@ -213,12 +217,41 @@ fun NomineesScreen(
                         Spacer(modifier = Modifier.width(8.dp))
                         Button(
                             onClick = {
-                                val match = nominees.find { it.accessKey.equals(nomineeKeyInput.trim(), ignoreCase = true) }
-                                if (match != null) {
-                                    previewNominee = match
+                                val localMatch = nominees.find {
+                                    it.accessKey.equals(nomineeKeyInput.trim(), ignoreCase = true)
+                                }
+                                if (localMatch != null) {
+                                    previewNominee = localMatch
                                     showKeySearchError = false
                                 } else {
-                                    showKeySearchError = true
+                                    // Try Firestore cross-device lookup
+                                    coroutineScope.launch {
+                                        try {
+                                            val snapshot = com.google.firebase.firestore.FirebaseFirestore
+                                                .getInstance()
+                                                .collection("nominees_public")
+                                                .document(nomineeKeyInput.trim())
+                                                .get()
+                                                .await()
+                                            if (snapshot.exists()) {
+                                                // Found in cloud — build a synthetic NomineeEntity for preview
+                                                val cloudNominee = NomineeEntity(
+                                                    id = -1L,
+                                                    name = snapshot.getString("name") ?: "",
+                                                    relation = "(cross-device)",
+                                                    accessScope = snapshot.getString("accessScope") ?: "ALL",
+                                                    canViewCash = snapshot.getBoolean("canViewCash") ?: false,
+                                                    accessKey = nomineeKeyInput.trim()
+                                                )
+                                                previewNominee = cloudNominee
+                                                showKeySearchError = false
+                                            } else {
+                                                showKeySearchError = true
+                                            }
+                                        } catch (e: Exception) {
+                                            showKeySearchError = true
+                                        }
+                                    }
                                 }
                             },
                             shape = RoundedCornerShape(12.dp)
