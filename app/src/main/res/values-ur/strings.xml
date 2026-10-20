@@ -401,4 +401,44 @@
     <string name="gate_transaction_limit">مفت حد پوری۔ پریمیم لیں۔</string>
     <string name="gate_premium_only">صرف پریمیم</string>
     <string name="gate_pdf_premium">PDF صرف پریمیم کے لیے۔</string>
+
+    <!-- Phase 5 — Auth -->
+    <string name="login_title">سائن ان کریں</string>
+    <string name="login_email_hint">ای میل</string>
+    <string name="login_password_hint">پاس ورڈ</string>
+    <string name="login_button">سائن ان</string>
+    <string name="login_signup_button">نیا اکاؤنٹ بنائیں</string>
+    <string name="login_forgot_password">پاس ورڈ بھول گئے؟</string>
+    <string name="login_verification_sent">تصدیقی ای میل بھیجی گئی</string>
+    <string name="signup_title">نیا اکاؤنٹ</string>
+    <string name="signup_name_hint">آپ کا نام</string>
+    <string name="signup_name_required">نام ضروری ہے</string>
+    <!-- Phase 5 — Profile -->
+    <string name="profile_title">میری پروفائل</string>
+    <string name="profile_name_label">نام</string>
+    <string name="profile_email_label">ای میل</string>
+    <string name="profile_phone_label">فون</string>
+    <string name="profile_edit_button">ترمیم کریں</string>
+    <string name="profile_save_button">محفوظ کریں</string>
+    <string name="profile_logout_button">لاگ آؤٹ</string>
+    <string name="profile_delete_account">اکاؤنٹ حذف کریں</string>
+    <!-- Phase 5 — Cloud Backup -->
+    <string name="cloud_backup_title">کلاؤڈ بیک اپ</string>
+    <string name="cloud_backup_toggle">کلاؤڈ بیک اپ فعال کریں</string>
+    <string name="cloud_backup_manual_button">ابھی بیک اپ لیں</string>
+    <string name="cloud_backup_auto_toggle">خودکار بیک اپ (پریمیم)</string>
+    <string name="cloud_backup_restore_button">کلاؤڈ سے بحال کریں</string>
+    <string name="cloud_backup_status_syncing">سنک ہو رہا ہے…</string>
+    <string name="cloud_backup_status_synced">سنک مکمل ✓</string>
+    <string name="cloud_backup_status_error">سنک ناکام ⚠</string>
+    <string name="cloud_backup_status_never">کبھی بیک اپ نہیں ہوا</string>
+    <!-- Phase 5 — Sync -->
+    <string name="sync_title">سنک</string>
+    <string name="sync_status_syncing">⟳ سنک ہو رہا ہے</string>
+    <string name="sync_status_synced">✓ سنک مکمل</string>
+    <string name="sync_status_offline">⚠ آف لائن</string>
+    <!-- Phase 5 — Nominee cross-device -->
+    <string name="nominee_cross_device_label">کلاؤڈ سے رسائی کلید تصدیق کریں</string>
+    <!-- Phase 5 — Settings -->
+    <string name="settings_profile_button">میری پروفائل</string>
 </resources>

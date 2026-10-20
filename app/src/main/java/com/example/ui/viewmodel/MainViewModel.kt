@@ -16,6 +16,9 @@ import com.example.data.repository.AccountRepository
 import com.example.data.ai.ChatMessage
 import com.example.data.ai.GeminiService
 import com.example.data.ai.MessageSender
+import com.example.data.cloud.AuthState
+import com.example.data.cloud.FirebaseAuthManager
+import com.example.data.cloud.UserProfile
 import com.example.util.Formatters
 import com.example.util.PdfExporter
 import com.example.util.PdfExportResult
@@ -107,6 +110,19 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     // Phase 4 — Monetization
     val showPremiumScreen = MutableStateFlow(false)
     private val billingManager by lazy { com.example.util.BillingManager(getApplication()) }
+
+    // Phase 5 — Auth
+    val firebaseAuthManager by lazy { FirebaseAuthManager(getApplication()) }
+    val authState: StateFlow<AuthState> by lazy { firebaseAuthManager.authState }
+    val userProfile: StateFlow<UserProfile> by lazy { firebaseAuthManager.userProfile }
+    val showLoginScreen = MutableStateFlow(false)
+    val showProfileScreen = MutableStateFlow(false)
+
+    private val _authLoading = MutableStateFlow(false)
+    val authLoading: StateFlow<Boolean> = _authLoading.asStateFlow()
+
+    private val _authError = MutableStateFlow<String?>(null)
+    val authError: StateFlow<String?> = _authError.asStateFlow()
     val isPremium: StateFlow<Boolean> by lazy {
         billingManager.isPremiumFlow.stateIn(
             scope = viewModelScope,
@@ -499,6 +515,53 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                     com.example.util.AdManager.loadInterstitial(activity)
                 }
             }
+        }
+    }
+
+    // ── Phase 5: Firebase Auth ─────────────────────────────────────────────
+
+    fun signIn(email: String, password: String) {
+        viewModelScope.launch {
+            _authLoading.value = true
+            _authError.value = null
+            val result = firebaseAuthManager.signIn(email, password)
+            result.onFailure { _authError.value = it.message }
+            _authLoading.value = false
+            if (result.isSuccess) showLoginScreen.value = false
+        }
+    }
+
+    fun signUp(name: String, email: String, password: String) {
+        viewModelScope.launch {
+            _authLoading.value = true
+            _authError.value = null
+            val result = firebaseAuthManager.signUp(name, email, password)
+            result.onFailure { _authError.value = it.message }
+            _authLoading.value = false
+            if (result.isSuccess) showLoginScreen.value = false
+        }
+    }
+
+    fun forgotPassword(email: String) {
+        viewModelScope.launch {
+            firebaseAuthManager.sendPasswordReset(email)
+        }
+    }
+
+    fun signOut() {
+        firebaseAuthManager.signOut()
+    }
+
+    fun updateUserProfile(name: String, phone: String) {
+        viewModelScope.launch {
+            firebaseAuthManager.updateProfile(name, phone)
+        }
+    }
+
+    fun deleteAccount() {
+        viewModelScope.launch {
+            firebaseAuthManager.deleteAccount()
+            showProfileScreen.value = false
         }
     }
 

@@ -401,4 +401,44 @@
     <string name="gate_transaction_limit">फ्री सीमा पूर्ण। प्रीमियम लें।</string>
     <string name="gate_premium_only">केवल प्रीमियम</string>
     <string name="gate_pdf_premium">PDF केवल प्रीमियम के लिए।</string>
+
+    <!-- Phase 5 — Auth -->
+    <string name="login_title">साइन इन करें</string>
+    <string name="login_email_hint">ईमेल</string>
+    <string name="login_password_hint">पासवर्ड</string>
+    <string name="login_button">साइन इन</string>
+    <string name="login_signup_button">नया खाता बनाएं</string>
+    <string name="login_forgot_password">पासवर्ड भूल गए?</string>
+    <string name="login_verification_sent">सत्यापन ईमेल भेजा गया</string>
+    <string name="signup_title">नया खाता</string>
+    <string name="signup_name_hint">आपका नाम</string>
+    <string name="signup_name_required">नाम आवश्यक है</string>
+    <!-- Phase 5 — Profile -->
+    <string name="profile_title">मेरी प्रोफ़ाइल</string>
+    <string name="profile_name_label">नाम</string>
+    <string name="profile_email_label">ईमेल</string>
+    <string name="profile_phone_label">फ़ोन</string>
+    <string name="profile_edit_button">संपादित करें</string>
+    <string name="profile_save_button">सहेजें</string>
+    <string name="profile_logout_button">लॉगआउट</string>
+    <string name="profile_delete_account">खाता हटाएं</string>
+    <!-- Phase 5 — Cloud Backup -->
+    <string name="cloud_backup_title">क्लाउड बैकअप</string>
+    <string name="cloud_backup_toggle">क्लाउड बैकअप चालू करें</string>
+    <string name="cloud_backup_manual_button">अभी बैकअप लें</string>
+    <string name="cloud_backup_auto_toggle">स्वचालित बैकअप (प्रीमियम)</string>
+    <string name="cloud_backup_restore_button">क्लाउड से पुनर्स्थापित करें</string>
+    <string name="cloud_backup_status_syncing">सिंक हो रहा है…</string>
+    <string name="cloud_backup_status_synced">सिंक पूर्ण ✓</string>
+    <string name="cloud_backup_status_error">सिंक विफल ⚠</string>
+    <string name="cloud_backup_status_never">कभी बैकअप नहीं हुआ</string>
+    <!-- Phase 5 — Sync -->
+    <string name="sync_title">सिंक</string>
+    <string name="sync_status_syncing">⟳ सिंक हो रहा है</string>
+    <string name="sync_status_synced">✓ सिंक पूर्ण</string>
+    <string name="sync_status_offline">⚠ ऑफलाइन</string>
+    <!-- Phase 5 — Nominee cross-device -->
+    <string name="nominee_cross_device_label">क्लाउड से एक्सेस की सत्यापित करें</string>
+    <!-- Phase 5 — Settings -->
+    <string name="settings_profile_button">मेरी प्रोफ़ाइल</string>
 </resources>

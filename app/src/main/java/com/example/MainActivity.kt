@@ -80,6 +80,7 @@ import com.example.ui.screens.CalendarScreen
 import com.example.ui.screens.ChatScreen
 import com.example.ui.screens.DashboardScreen
 import com.example.ui.screens.KhataScreen
+import com.example.ui.screens.LoginScreen
 import com.example.ui.screens.NomineesScreen
 import com.example.ui.screens.PartyDetailScreen
 import com.example.ui.screens.ProductsScreen
@@ -91,6 +92,7 @@ import com.example.ui.screens.WalletsScreen
 import com.example.ui.theme.MyApplicationTheme
 import com.example.ui.viewmodel.MainViewModel
 import com.example.ui.viewmodel.ThemeMode
+import com.example.data.cloud.AuthState
 import com.example.util.Formatters
 import com.example.util.NotificationHelper
 import com.example.util.PdfExportResult
@@ -223,6 +225,11 @@ fun MainAppContent(viewModel: MainViewModel) {
     val productProfitSummary by viewModel.productProfitSummary.collectAsStateWithLifecycle()
     val showSmsMarketing by viewModel.showSmsMarketing.collectAsStateWithLifecycle()
     val expiryNotifEnabled by viewModel.expiryNotifEnabled.collectAsStateWithLifecycle()
+
+    // Phase 5 auth states
+    val showLoginScreen by viewModel.showLoginScreen.collectAsStateWithLifecycle()
+    val authLoading by viewModel.authLoading.collectAsStateWithLifecycle()
+    val authError by viewModel.authError.collectAsStateWithLifecycle()
 
     // Product search query (local to MainActivity)
     var productSearchQuery by remember { mutableStateOf("") }
@@ -877,6 +884,18 @@ fun MainAppContent(viewModel: MainViewModel) {
             exit = fadeOut()
         ) {
             AppLockScreen(onUnlocked = { isUnlocked = true })
+        }
+
+        // Phase 5: LoginScreen overlay — show if user explicitly opens it
+        if (showLoginScreen) {
+            LoginScreen(
+                isLoading = authLoading,
+                errorMessage = authError,
+                onSignIn = { email, pass -> viewModel.signIn(email, pass) },
+                onSignUp = { name, email, pass -> viewModel.signUp(name, email, pass) },
+                onForgotPassword = { email -> viewModel.forgotPassword(email) },
+                onSkip = { viewModel.showLoginScreen.value = false }
+            )
         }
     }
 }

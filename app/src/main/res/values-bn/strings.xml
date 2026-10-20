@@ -404,4 +404,44 @@
     <string name="gate_transaction_limit">Free tier সীমা পূর্ণ। Premium-এ আপগ্রেড করুন।</string>
     <string name="gate_premium_only">শুধু Premium</string>
     <string name="gate_pdf_premium">PDF export শুধুমাত্র Premium ব্যবহারকারীদের জন্য।</string>
+
+    <!-- Phase 5 — Auth -->
+    <string name="login_title">লগইন করুন</string>
+    <string name="login_email_hint">ইমেইল</string>
+    <string name="login_password_hint">পাসওয়ার্ড</string>
+    <string name="login_button">লগইন</string>
+    <string name="login_signup_button">নতুন অ্যাকাউন্ট তৈরি করুন</string>
+    <string name="login_forgot_password">পাসওয়ার্ড ভুলে গেছেন?</string>
+    <string name="login_verification_sent">ইমেইল যাচাইকরণ পাঠানো হয়েছে</string>
+    <string name="signup_title">নতুন অ্যাকাউন্ট</string>
+    <string name="signup_name_hint">আপনার নাম</string>
+    <string name="signup_name_required">নাম আবশ্যক</string>
+    <!-- Phase 5 — Profile -->
+    <string name="profile_title">আমার প্রোফাইল</string>
+    <string name="profile_name_label">নাম</string>
+    <string name="profile_email_label">ইমেইল</string>
+    <string name="profile_phone_label">ফোন</string>
+    <string name="profile_edit_button">সম্পাদনা করুন</string>
+    <string name="profile_save_button">সংরক্ষণ করুন</string>
+    <string name="profile_logout_button">লগআউট</string>
+    <string name="profile_delete_account">অ্যাকাউন্ট মুছুন</string>
+    <!-- Phase 5 — Cloud Backup -->
+    <string name="cloud_backup_title">ক্লাউড ব্যাকআপ</string>
+    <string name="cloud_backup_toggle">ক্লাউড ব্যাকআপ চালু</string>
+    <string name="cloud_backup_manual_button">এখনই ব্যাকআপ নিন</string>
+    <string name="cloud_backup_auto_toggle">স্বয়ংক্রিয় ব্যাকআপ (প্রিমিয়াম)</string>
+    <string name="cloud_backup_restore_button">ক্লাউড থেকে রিস্টোর</string>
+    <string name="cloud_backup_status_syncing">সিঙ্ক হচ্ছে…</string>
+    <string name="cloud_backup_status_synced">সিঙ্ক সম্পন্ন ✓</string>
+    <string name="cloud_backup_status_error">সিঙ্ক ব্যর্থ ⚠</string>
+    <string name="cloud_backup_status_never">কখনো ব্যাকআপ হয়নি</string>
+    <!-- Phase 5 — Sync -->
+    <string name="sync_title">সিঙ্ক</string>
+    <string name="sync_status_syncing">⟳ সিঙ্ক হচ্ছে</string>
+    <string name="sync_status_synced">✓ সিঙ্ক সম্পন্ন</string>
+    <string name="sync_status_offline">⚠ অফলাইন</string>
+    <!-- Phase 5 — Nominee cross-device -->
+    <string name="nominee_cross_device_label">ক্লাউড থেকে এক্সেস কী যাচাই করুন</string>
+    <!-- Phase 5 — Settings -->
+    <string name="settings_profile_button">আমার প্রোফাইল</string>
 </resources>

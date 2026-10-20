@@ -401,4 +401,44 @@
     <string name="gate_transaction_limit">وصلت للحد المجاني. ترقى للمميز.</string>
     <string name="gate_premium_only">للمميز فقط</string>
     <string name="gate_pdf_premium">PDF للمميز فقط.</string>
+
+    <!-- Phase 5 — Auth -->
+    <string name="login_title">تسجيل الدخول</string>
+    <string name="login_email_hint">البريد الإلكتروني</string>
+    <string name="login_password_hint">كلمة المرور</string>
+    <string name="login_button">تسجيل الدخول</string>
+    <string name="login_signup_button">إنشاء حساب جديد</string>
+    <string name="login_forgot_password">نسيت كلمة المرور؟</string>
+    <string name="login_verification_sent">تم إرسال بريد التحقق</string>
+    <string name="signup_title">حساب جديد</string>
+    <string name="signup_name_hint">اسمك</string>
+    <string name="signup_name_required">الاسم مطلوب</string>
+    <!-- Phase 5 — Profile -->
+    <string name="profile_title">ملفي الشخصي</string>
+    <string name="profile_name_label">الاسم</string>
+    <string name="profile_email_label">البريد الإلكتروني</string>
+    <string name="profile_phone_label">الهاتف</string>
+    <string name="profile_edit_button">تعديل</string>
+    <string name="profile_save_button">حفظ</string>
+    <string name="profile_logout_button">تسجيل الخروج</string>
+    <string name="profile_delete_account">حذف الحساب</string>
+    <!-- Phase 5 — Cloud Backup -->
+    <string name="cloud_backup_title">النسخ الاحتياطي السحابي</string>
+    <string name="cloud_backup_toggle">تفعيل النسخ السحابي</string>
+    <string name="cloud_backup_manual_button">نسخ احتياطي الآن</string>
+    <string name="cloud_backup_auto_toggle">نسخ تلقائي (مميز)</string>
+    <string name="cloud_backup_restore_button">الاستعادة من السحابة</string>
+    <string name="cloud_backup_status_syncing">جارٍ المزامنة…</string>
+    <string name="cloud_backup_status_synced">تمت المزامنة ✓</string>
+    <string name="cloud_backup_status_error">فشلت المزامنة ⚠</string>
+    <string name="cloud_backup_status_never">لم يتم النسخ احتياطياً مطلقاً</string>
+    <!-- Phase 5 — Sync -->
+    <string name="sync_title">المزامنة</string>
+    <string name="sync_status_syncing">⟳ جارٍ المزامنة</string>
+    <string name="sync_status_synced">✓ تمت المزامنة</string>
+    <string name="sync_status_offline">⚠ غير متصل</string>
+    <!-- Phase 5 — Nominee cross-device -->
+    <string name="nominee_cross_device_label">تحقق من مفتاح الوصول من السحابة</string>
+    <!-- Phase 5 — Settings -->
+    <string name="settings_profile_button">ملفي الشخصي</string>
 </resources>
