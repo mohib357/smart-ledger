@@ -309,4 +309,37 @@
     <string name="notification_daily_title">हिसाब</string>
     <string name="notification_daily_text">आज के लेनदेन जोड़ें</string>
     <string name="notification_monthly_title">मासिक सारांश</string>
+
+    <!-- Phase 3: Products (F1) -->
+    <string name="products_title">उत्पाद प्रबंधन</string>
+    <string name="products_search_hint">उत्पाद खोजें...</string>
+    <string name="products_add_fab">उत्पाद जोड़ें</string>
+    <string name="products_empty">कोई उत्पाद नहीं जोड़ा गया</string>
+    <string name="products_expiry_warning">जल्द समाप्त हो रहा है!</string>
+    <string name="products_stock_label">स्टॉक</string>
+    <string name="products_buy_price_label">खरीद मूल्य</string>
+    <string name="products_sell_price_label">बिक्री मूल्य</string>
+    <string name="products_expiry_date_label">समाप्ति तिथि</string>
+    <string name="products_category_label">श्रेणी</string>
+    <string name="products_delete_confirm">उत्पाद हटाएं?</string>
+    <string name="products_saved">उत्पाद सहेजा गया</string>
+    <string name="products_deleted">उत्पाद हटाया गया</string>
+    <string name="dialog_add_product_title">नया उत्पाद जोड़ें</string>
+    <string name="dialog_edit_product_title">उत्पाद संपादित करें</string>
+    <string name="dialog_product_name_hint">उत्पाद का नाम</string>
+    <string name="dialog_product_stock_hint">स्टॉक मात्रा</string>
+    <string name="dialog_product_buy_price_hint">खरीद मूल्य (৳)</string>
+    <string name="dialog_product_sell_price_hint">बिक्री मूल्य (৳)</string>
+    <string name="dialog_product_category_hint">श्रेणी चुनें</string>
+    <string name="dialog_product_expiry_hint">समाप्ति तिथि चुनें (वैकल्पिक)</string>
+    <string name="dialog_save_product">उत्पाद सहेजें</string>
+    <string name="topbar_products">📦 उत्पाद</string>
+    <string name="topbar_invoices">🧾 चालान</string>
+    <string name="topbar_sms_marketing">📱 SMS मार्केटिंग</string>
+    <string name="dashboard_products_title">उत्पाद प्रबंधन</string>
+    <string name="dashboard_products_subtitle">स्टॉक, मूल्य और समाप्ति ट्रैक करें</string>
+    <string name="dashboard_products_action">देखें →</string>
+    <string name="dashboard_invoices_title">चालान</string>
+    <string name="dashboard_invoices_subtitle">चालान बनाएं और साझा करें</string>
+    <string name="dashboard_invoices_action">देखें →</string>
 </resources>

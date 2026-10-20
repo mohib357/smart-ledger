@@ -309,4 +309,37 @@
     <string name="notification_daily_title">حساب</string>
     <string name="notification_daily_text">آج کے لین دین شامل کریں</string>
     <string name="notification_monthly_title">ماہانہ خلاصہ</string>
+
+    <!-- Phase 3: Products (F1) -->
+    <string name="products_title">پروڈکٹ مینیجمنٹ</string>
+    <string name="products_search_hint">پروڈکٹ تلاش کریں...</string>
+    <string name="products_add_fab">پروڈکٹ شامل کریں</string>
+    <string name="products_empty">کوئی پروڈکٹ شامل نہیں</string>
+    <string name="products_expiry_warning">جلد ختم ہونے والا ہے!</string>
+    <string name="products_stock_label">اسٹاک</string>
+    <string name="products_buy_price_label">خریداری قیمت</string>
+    <string name="products_sell_price_label">فروخت قیمت</string>
+    <string name="products_expiry_date_label">میعاد ختم تاریخ</string>
+    <string name="products_category_label">زمرہ</string>
+    <string name="products_delete_confirm">پروڈکٹ حذف کریں؟</string>
+    <string name="products_saved">پروڈکٹ محفوظ ہوگیا</string>
+    <string name="products_deleted">پروڈکٹ حذف ہوگیا</string>
+    <string name="dialog_add_product_title">نئی پروڈکٹ شامل کریں</string>
+    <string name="dialog_edit_product_title">پروڈکٹ ترمیم کریں</string>
+    <string name="dialog_product_name_hint">پروڈکٹ کا نام</string>
+    <string name="dialog_product_stock_hint">اسٹاک مقدار</string>
+    <string name="dialog_product_buy_price_hint">خریداری قیمت (৳)</string>
+    <string name="dialog_product_sell_price_hint">فروخت قیمت (৳)</string>
+    <string name="dialog_product_category_hint">زمرہ منتخب کریں</string>
+    <string name="dialog_product_expiry_hint">میعاد تاریخ منتخب کریں</string>
+    <string name="dialog_save_product">پروڈکٹ محفوظ کریں</string>
+    <string name="topbar_products">📦 مصنوعات</string>
+    <string name="topbar_invoices">🧾 انوائس</string>
+    <string name="topbar_sms_marketing">📱 ایس ایم ایس مارکیٹنگ</string>
+    <string name="dashboard_products_title">پروڈکٹ مینیجمنٹ</string>
+    <string name="dashboard_products_subtitle">اسٹاک، قیمت اور میعاد ٹریک کریں</string>
+    <string name="dashboard_products_action">دیکھیں →</string>
+    <string name="dashboard_invoices_title">انوائس</string>
+    <string name="dashboard_invoices_subtitle">انوائس بنائیں اور شیئر کریں</string>
+    <string name="dashboard_invoices_action">دیکھیں →</string>
 </resources>

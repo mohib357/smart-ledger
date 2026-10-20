@@ -5,6 +5,7 @@ import com.example.data.dao.ChatMessageDao
 import com.example.data.dao.NomineeDao
 import com.example.data.dao.PartyDao
 import com.example.data.dao.PartyLedgerEntryDao
+import com.example.data.dao.ProductDao
 import com.example.data.dao.TransactionDao
 import com.example.data.dao.WalletDao
 import com.example.data.database.AppDatabase
@@ -13,6 +14,7 @@ import com.example.data.model.ChatMessageEntity
 import com.example.data.model.NomineeEntity
 import com.example.data.model.PartyEntity
 import com.example.data.model.PartyLedgerEntryEntity
+import com.example.data.model.ProductEntity
 import com.example.data.model.TransactionEntity
 import com.example.data.model.WalletEntity
 import com.example.util.Formatters
@@ -32,6 +34,7 @@ class AccountRepository(private val database: AppDatabase) {
     private val auditSnapshotDao: AuditSnapshotDao = database.auditSnapshotDao()
     private val nomineeDao: NomineeDao = database.nomineeDao()
     private val chatMessageDao: ChatMessageDao = database.chatMessageDao()
+    private val productDao: ProductDao = database.productDao()
 
     val allTransactions: Flow<List<TransactionEntity>> = transactionDao.getAllTransactions()
     val allParties: Flow<List<PartyEntity>> = partyDao.getAllParties()
@@ -40,12 +43,48 @@ class AccountRepository(private val database: AppDatabase) {
     val allNominees: Flow<List<NomineeEntity>> = nomineeDao.getAllNominees()
     val allChatMessages: Flow<List<ChatMessageEntity>> = chatMessageDao.getAllMessages()
 
+    val allProducts: Flow<List<ProductEntity>> = productDao.getAllProducts()
+
     suspend fun insertChatMessage(content: String, isFromUser: Boolean) {
         chatMessageDao.insertMessage(ChatMessageEntity(content = content, isFromUser = isFromUser))
     }
 
     suspend fun clearChatMessages() {
         chatMessageDao.deleteAllMessages()
+    }
+
+    // Products / Stock Management
+    suspend fun addProduct(
+        name: String,
+        stock: Int,
+        buyPrice: Double,
+        sellPrice: Double,
+        expiryDate: Long?,
+        category: String
+    ) {
+        productDao.insert(
+            ProductEntity(
+                name = name,
+                stock = stock,
+                buyPrice = buyPrice,
+                sellPrice = sellPrice,
+                expiryDate = expiryDate,
+                category = category,
+                createdAt = System.currentTimeMillis()
+            )
+        )
+    }
+
+    suspend fun updateProduct(product: ProductEntity) {
+        productDao.update(product)
+    }
+
+    suspend fun deleteProduct(product: ProductEntity) {
+        productDao.delete(product)
+    }
+
+    fun getExpiringProducts(beforeMillis: Long): Flow<List<ProductEntity>> {
+        return productDao.getExpiringProducts(beforeMillis)
     }
 
     val totalIncome: Flow<Double?> = transactionDao.getTotalIncome()

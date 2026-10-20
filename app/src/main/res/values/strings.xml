@@ -309,4 +309,37 @@
     <string name="notification_daily_title">হিসাব</string>
     <string name="notification_daily_text">আজকের হিসাব যোগ করুন</string>
     <string name="notification_monthly_title">মাসিক সারসংক্ষেপ</string>
+
+    <!-- Phase 3: Products (F1) -->
+    <string name="products_title">পণ্য ব্যবস্থাপনা</string>
+    <string name="products_search_hint">পণ্য খুঁজুন...</string>
+    <string name="products_add_fab">পণ্য যোগ করুন</string>
+    <string name="products_empty">কোনো পণ্য যোগ করা হয়নি</string>
+    <string name="products_expiry_warning">মেয়াদ শেষ হচ্ছে!</string>
+    <string name="products_stock_label">স্টক</string>
+    <string name="products_buy_price_label">ক্রয়মূল্য</string>
+    <string name="products_sell_price_label">বিক্রয়মূল্য</string>
+    <string name="products_expiry_date_label">মেয়াদ উত্তীর্ণের তারিখ</string>
+    <string name="products_category_label">ক্যাটাগরি</string>
+    <string name="products_delete_confirm">পণ্য মুছে ফেলবেন?</string>
+    <string name="products_saved">পণ্য সংরক্ষিত হয়েছে</string>
+    <string name="products_deleted">পণ্য মুছে ফেলা হয়েছে</string>
+    <string name="dialog_add_product_title">নতুন পণ্য যোগ করুন</string>
+    <string name="dialog_edit_product_title">পণ্য সম্পাদনা করুন</string>
+    <string name="dialog_product_name_hint">পণ্যের নাম</string>
+    <string name="dialog_product_stock_hint">স্টক পরিমাণ</string>
+    <string name="dialog_product_buy_price_hint">ক্রয়মূল্য (৳)</string>
+    <string name="dialog_product_sell_price_hint">বিক্রয়মূল্য (৳)</string>
+    <string name="dialog_product_category_hint">ক্যাটাগরি নির্বাচন করুন</string>
+    <string name="dialog_product_expiry_hint">মেয়াদ উত্তীর্ণের তারিখ নির্বাচন (ঐচ্ছিক)</string>
+    <string name="dialog_save_product">পণ্য সংরক্ষণ করুন</string>
+    <string name="topbar_products">📦 পণ্য ব্যবস্থাপনা</string>
+    <string name="topbar_invoices">🧾 চালান / Invoice</string>
+    <string name="topbar_sms_marketing">📱 SMS মার্কেটিং</string>
+    <string name="dashboard_products_title">পণ্য ব্যবস্থাপনা</string>
+    <string name="dashboard_products_subtitle">স্টক, মূল্য ও মেয়াদ ট্র্যাক করুন</string>
+    <string name="dashboard_products_action">দেখুন →</string>
+    <string name="dashboard_invoices_title">চালান / Invoice</string>
+    <string name="dashboard_invoices_subtitle">গ্রাহকদের চালান তৈরি ও শেয়ার করুন</string>
+    <string name="dashboard_invoices_action">দেখুন →</string>
 </resources>

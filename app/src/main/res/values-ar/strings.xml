@@ -309,4 +309,37 @@
     <string name="notification_daily_title">حساب</string>
     <string name="notification_daily_text">أضف معاملات اليوم</string>
     <string name="notification_monthly_title">الملخص الشهري</string>
+
+    <!-- Phase 3: Products (F1) -->
+    <string name="products_title">إدارة المنتجات</string>
+    <string name="products_search_hint">البحث عن المنتجات...</string>
+    <string name="products_add_fab">إضافة منتج</string>
+    <string name="products_empty">لم تتم إضافة أي منتجات</string>
+    <string name="products_expiry_warning">تنتهي الصلاحية قريباً!</string>
+    <string name="products_stock_label">المخزون</string>
+    <string name="products_buy_price_label">سعر الشراء</string>
+    <string name="products_sell_price_label">سعر البيع</string>
+    <string name="products_expiry_date_label">تاريخ الانتهاء</string>
+    <string name="products_category_label">الفئة</string>
+    <string name="products_delete_confirm">حذف المنتج؟</string>
+    <string name="products_saved">تم حفظ المنتج</string>
+    <string name="products_deleted">تم حذف المنتج</string>
+    <string name="dialog_add_product_title">إضافة منتج جديد</string>
+    <string name="dialog_edit_product_title">تعديل المنتج</string>
+    <string name="dialog_product_name_hint">اسم المنتج</string>
+    <string name="dialog_product_stock_hint">كمية المخزون</string>
+    <string name="dialog_product_buy_price_hint">سعر الشراء (৳)</string>
+    <string name="dialog_product_sell_price_hint">سعر البيع (৳)</string>
+    <string name="dialog_product_category_hint">اختر الفئة</string>
+    <string name="dialog_product_expiry_hint">اختر تاريخ الانتهاء (اختياري)</string>
+    <string name="dialog_save_product">حفظ المنتج</string>
+    <string name="topbar_products">📦 المنتجات</string>
+    <string name="topbar_invoices">🧾 الفاتورة</string>
+    <string name="topbar_sms_marketing">📱 تسويق SMS</string>
+    <string name="dashboard_products_title">إدارة المنتجات</string>
+    <string name="dashboard_products_subtitle">تتبع المخزون والتسعير والصلاحية</string>
+    <string name="dashboard_products_action">عرض →</string>
+    <string name="dashboard_invoices_title">الفاتورة</string>
+    <string name="dashboard_invoices_subtitle">إنشاء الفواتير ومشاركتها</string>
+    <string name="dashboard_invoices_action">عرض →</string>
 </resources>

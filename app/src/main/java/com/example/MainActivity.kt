@@ -56,6 +56,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.data.model.NomineeEntity
 import com.example.R
+import com.example.ui.components.AddEditProductDialog
 import com.example.ui.components.AddNomineeDialog
 import com.example.ui.components.AddPartyDialog
 import com.example.ui.components.AddTransactionDialog
@@ -74,6 +75,7 @@ import com.example.ui.screens.DashboardScreen
 import com.example.ui.screens.KhataScreen
 import com.example.ui.screens.NomineesScreen
 import com.example.ui.screens.PartyDetailScreen
+import com.example.ui.screens.ProductsScreen
 import com.example.ui.screens.ReportsScreen
 import com.example.ui.screens.TransactionsScreen
 import com.example.ui.screens.WalletsScreen
@@ -191,6 +193,16 @@ fun MainAppContent(viewModel: MainViewModel) {
     val txnPinEnabled by viewModel.txnPinEnabled.collectAsStateWithLifecycle()
     val appLockEnabled by viewModel.appLockEnabled.collectAsStateWithLifecycle()
 
+    // Phase 3 state
+    val allProducts by viewModel.allProducts.collectAsStateWithLifecycle()
+    val showAddProduct by viewModel.showAddProduct.collectAsStateWithLifecycle()
+    val editingProduct by viewModel.editingProduct.collectAsStateWithLifecycle()
+    val productProfitSummary by viewModel.productProfitSummary.collectAsStateWithLifecycle()
+    val showSmsMarketing by viewModel.showSmsMarketing.collectAsStateWithLifecycle()
+
+    // Product search query (local to MainActivity)
+    var productSearchQuery by remember { mutableStateOf("") }
+
     val snackbarHostState = remember { SnackbarHostState() }
     val coroutineScope = rememberCoroutineScope()
 
@@ -249,7 +261,10 @@ fun MainAppContent(viewModel: MainViewModel) {
                         },
                         onOpenSettings = { viewModel.showSettings.value = true },
                         onOpenCalendar = { viewModel.setTab(6) },
-                        onOpenReports = { viewModel.setTab(7) }
+                        onOpenReports = { viewModel.setTab(7) },
+                        onOpenProducts = { viewModel.setTab(8) },
+                        onOpenInvoices = { viewModel.setTab(9) },
+                        onOpenSmsMarketing = { viewModel.showSmsMarketing.value = true }
                     )
                 }
             },
@@ -342,7 +357,9 @@ fun MainAppContent(viewModel: MainViewModel) {
                                 coroutineScope.launch {
                                     snackbarHostState.showSnackbar(context.getString(R.string.snackbar_sample_loaded))
                                 }
-                            }
+                            },
+                            onNavigateToProducts = { viewModel.setTab(8) },
+                            onNavigateToInvoices = { viewModel.setTab(9) }
                         )
                         1 -> TransactionsScreen(
                             transactions = transactions,
@@ -460,6 +477,25 @@ fun MainAppContent(viewModel: MainViewModel) {
                                             snackbarHostState.showSnackbar(result.message)
                                         }
                                     }
+                                }
+                            }
+                        )
+                        8 -> ProductsScreen(
+                            products = allProducts,
+                            searchQuery = productSearchQuery,
+                            onSearchChange = { productSearchQuery = it },
+                            onAdd = {
+                                viewModel.editingProduct.value = null
+                                viewModel.showAddProduct.value = true
+                            },
+                            onEdit = { product ->
+                                viewModel.editingProduct.value = product
+                                viewModel.showAddProduct.value = true
+                            },
+                            onDelete = { product ->
+                                viewModel.deleteProduct(product)
+                                coroutineScope.launch {
+                                    snackbarHostState.showSnackbar(context.getString(R.string.products_deleted))
                                 }
                             }
                         )
@@ -587,6 +623,38 @@ fun MainAppContent(viewModel: MainViewModel) {
                         coroutineScope.launch {
                             snackbarHostState.showSnackbar("${context.getString(R.string.dialog_calculator_title)}: ${Formatters.formatTaka(result, useBengali = useBengaliDigits)}")
                         }
+                    }
+                }
+            )
+        }
+
+        // Phase 3: F1 — Add/Edit Product Dialog
+        if (showAddProduct || editingProduct != null) {
+            AddEditProductDialog(
+                existingProduct = editingProduct,
+                onDismiss = {
+                    viewModel.showAddProduct.value = false
+                    viewModel.editingProduct.value = null
+                },
+                onSave = { name, stock, buyPrice, sellPrice, expiryDate, category ->
+                    if (editingProduct != null) {
+                        viewModel.updateProduct(
+                            editingProduct!!.copy(
+                                name = name,
+                                stock = stock,
+                                buyPrice = buyPrice,
+                                sellPrice = sellPrice,
+                                expiryDate = expiryDate,
+                                category = category
+                            )
+                        )
+                    } else {
+                        viewModel.addProduct(name, stock, buyPrice, sellPrice, expiryDate, category)
+                    }
+                    viewModel.showAddProduct.value = false
+                    viewModel.editingProduct.value = null
+                    coroutineScope.launch {
+                        snackbarHostState.showSnackbar(context.getString(R.string.products_saved))
                     }
                 }
             )

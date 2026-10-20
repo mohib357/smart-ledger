@@ -37,10 +37,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.res.stringResource
 import com.example.R
 import com.example.util.Formatters
 
@@ -57,7 +57,10 @@ fun AppTopBar(
     onSaveSnapshot: () -> Unit,
     onOpenSettings: () -> Unit,
     onOpenCalendar: () -> Unit,
-    onOpenReports: () -> Unit
+    onOpenReports: () -> Unit,
+    onOpenProducts: () -> Unit,
+    onOpenInvoices: () -> Unit,
+    onOpenSmsMarketing: () -> Unit
 ) {
     var showMenu by remember { mutableStateOf(false) }
 
@@ -178,6 +181,28 @@ fun AppTopBar(
                             onClick = {
                                 showMenu = false
                                 onOpenReports()
+                            }
+                        )
+                        // Phase 3 items — before Snapshot
+                        DropdownMenuItem(
+                            text = { Text(stringResource(R.string.topbar_products)) },
+                            onClick = {
+                                showMenu = false
+                                onOpenProducts()
+                            }
+                        )
+                        DropdownMenuItem(
+                            text = { Text(stringResource(R.string.topbar_invoices)) },
+                            onClick = {
+                                showMenu = false
+                                onOpenInvoices()
+                            }
+                        )
+                        DropdownMenuItem(
+                            text = { Text(stringResource(R.string.topbar_sms_marketing)) },
+                            onClick = {
+                                showMenu = false
+                                onOpenSmsMarketing()
                             }
                         )
                         DropdownMenuItem(

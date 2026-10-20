@@ -9,6 +9,7 @@ import com.example.data.model.AuditSnapshotEntity
 import com.example.data.model.NomineeEntity
 import com.example.data.model.PartyEntity
 import com.example.data.model.PartyLedgerEntryEntity
+import com.example.data.model.ProductEntity
 import com.example.data.model.TransactionEntity
 import com.example.data.model.WalletEntity
 import com.example.data.repository.AccountRepository
@@ -42,6 +43,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     val allSnapshots: StateFlow<List<AuditSnapshotEntity>>
     val allNominees: StateFlow<List<NomineeEntity>>
     val dashboardStats: StateFlow<AccountRepository.DashboardStats>
+    lateinit var allProducts: StateFlow<List<ProductEntity>>
+        private set
+    lateinit var productProfitSummary: StateFlow<List<ProductProfitSummary>>
+        private set
 
     // Navigation and Filters
     private val _currentTab = MutableStateFlow(0)
@@ -91,6 +96,19 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     // Phase 2 dialog state
     val showFeedback = MutableStateFlow(false)
+
+    // Phase 3: F1 — Product/Stock Management dialog states
+    val showAddProduct = MutableStateFlow(false)
+    val editingProduct = MutableStateFlow<ProductEntity?>(null)
+
+    // Phase 3: F4 — SMS Marketing dialog state
+    val showSmsMarketing = MutableStateFlow(false)
+
+    data class ProductProfitSummary(
+        val product: ProductEntity,
+        val profitMargin: Double,
+        val profitPerUnit: Double
+    )
 
     // Phase 2: F2 — Daily Reminder
     private val _reminderEnabled = MutableStateFlow(false)
@@ -188,6 +206,25 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             started = SharingStarted.WhileSubscribed(5000),
             initialValue = AccountRepository.DashboardStats()
         )
+
+        allProducts = repository.allProducts.stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = emptyList()
+        )
+
+        productProfitSummary = repository.allProducts
+            .map { list ->
+                list.map { p ->
+                    val pu = p.sellPrice - p.buyPrice
+                    ProductProfitSummary(p, pu * p.stock, pu)
+                }
+            }
+            .stateIn(
+                scope = viewModelScope,
+                started = SharingStarted.WhileSubscribed(5000),
+                initialValue = emptyList()
+            )
 
         viewModelScope.launch {
             repository.initializeDefaultWalletsIfEmpty()
@@ -352,6 +389,34 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             repository.clearAllData()
             repository.initializeDefaultWalletsIfEmpty()
             _selectedParty.value = null
+        }
+    }
+
+    // Phase 3: F1 — Product CRUD
+    fun addProduct(
+        name: String,
+        stock: Int,
+        buyPrice: Double,
+        sellPrice: Double,
+        expiryDate: Long?,
+        category: String
+    ) {
+        viewModelScope.launch {
+            repository.addProduct(name, stock, buyPrice, sellPrice, expiryDate, category)
+            showAddProduct.value = false
+        }
+    }
+
+    fun updateProduct(product: ProductEntity) {
+        viewModelScope.launch {
+            repository.updateProduct(product)
+            editingProduct.value = null
+        }
+    }
+
+    fun deleteProduct(product: ProductEntity) {
+        viewModelScope.launch {
+            repository.deleteProduct(product)
         }
     }
 

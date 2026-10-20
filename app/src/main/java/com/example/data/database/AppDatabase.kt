@@ -11,6 +11,7 @@ import com.example.data.dao.ChatMessageDao
 import com.example.data.dao.NomineeDao
 import com.example.data.dao.PartyDao
 import com.example.data.dao.PartyLedgerEntryDao
+import com.example.data.dao.ProductDao
 import com.example.data.dao.TransactionDao
 import com.example.data.dao.WalletDao
 import com.example.data.model.AuditSnapshotEntity
@@ -18,6 +19,7 @@ import com.example.data.model.ChatMessageEntity
 import com.example.data.model.NomineeEntity
 import com.example.data.model.PartyEntity
 import com.example.data.model.PartyLedgerEntryEntity
+import com.example.data.model.ProductEntity
 import com.example.data.model.TransactionEntity
 import com.example.data.model.WalletEntity
 
@@ -29,9 +31,10 @@ import com.example.data.model.WalletEntity
         WalletEntity::class,
         AuditSnapshotEntity::class,
         NomineeEntity::class,
-        ChatMessageEntity::class
+        ChatMessageEntity::class,
+        ProductEntity::class
     ],
-    version = 3,
+    version = 4,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -42,6 +45,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun auditSnapshotDao(): AuditSnapshotDao
     abstract fun nomineeDao(): NomineeDao
     abstract fun chatMessageDao(): ChatMessageDao
+    abstract fun productDao(): ProductDao
 
     companion object {
         @Volatile
@@ -55,6 +59,23 @@ abstract class AppDatabase : RoomDatabase() {
             }
         }
 
+        val MIGRATION_3_4 = object : Migration(3, 4) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL(
+                    """CREATE TABLE IF NOT EXISTS `products` (
+                        `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                        `name` TEXT NOT NULL,
+                        `stock` INTEGER NOT NULL DEFAULT 0,
+                        `buyPrice` REAL NOT NULL DEFAULT 0.0,
+                        `sellPrice` REAL NOT NULL DEFAULT 0.0,
+                        `expiryDate` INTEGER,
+                        `category` TEXT NOT NULL DEFAULT 'সাধারণ',
+                        `createdAt` INTEGER NOT NULL
+                    )"""
+                )
+            }
+        }
+
         fun getDatabase(context: Context): AppDatabase {
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
@@ -62,7 +83,7 @@ abstract class AppDatabase : RoomDatabase() {
                     AppDatabase::class.java,
                     "shohoj_hisab_database"
                 )
-                    .addMigrations(MIGRATION_2_3)
+                    .addMigrations(MIGRATION_2_3, MIGRATION_3_4)
                     .build()
                 INSTANCE = instance
                 instance

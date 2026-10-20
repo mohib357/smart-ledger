@@ -309,4 +309,37 @@
     <string name="notification_daily_title">Hisab</string>
     <string name="notification_daily_text">Add today\'s transactions</string>
     <string name="notification_monthly_title">Monthly Summary</string>
+
+    <!-- Phase 3: Products (F1) -->
+    <string name="products_title">Product Management</string>
+    <string name="products_search_hint">Search products...</string>
+    <string name="products_add_fab">Add Product</string>
+    <string name="products_empty">No products added</string>
+    <string name="products_expiry_warning">Expiring soon!</string>
+    <string name="products_stock_label">Stock</string>
+    <string name="products_buy_price_label">Buy Price</string>
+    <string name="products_sell_price_label">Sell Price</string>
+    <string name="products_expiry_date_label">Expiry Date</string>
+    <string name="products_category_label">Category</string>
+    <string name="products_delete_confirm">Delete product?</string>
+    <string name="products_saved">Product saved</string>
+    <string name="products_deleted">Product deleted</string>
+    <string name="dialog_add_product_title">Add New Product</string>
+    <string name="dialog_edit_product_title">Edit Product</string>
+    <string name="dialog_product_name_hint">Product name</string>
+    <string name="dialog_product_stock_hint">Stock quantity</string>
+    <string name="dialog_product_buy_price_hint">Buy price (৳)</string>
+    <string name="dialog_product_sell_price_hint">Sell price (৳)</string>
+    <string name="dialog_product_category_hint">Select category</string>
+    <string name="dialog_product_expiry_hint">Select expiry date (optional)</string>
+    <string name="dialog_save_product">Save Product</string>
+    <string name="topbar_products">📦 Products</string>
+    <string name="topbar_invoices">🧾 Invoice</string>
+    <string name="topbar_sms_marketing">📱 SMS Marketing</string>
+    <string name="dashboard_products_title">Product Management</string>
+    <string name="dashboard_products_subtitle">Track stock, pricing &amp; expiry</string>
+    <string name="dashboard_products_action">View →</string>
+    <string name="dashboard_invoices_title">Invoice</string>
+    <string name="dashboard_invoices_subtitle">Create and share customer invoices</string>
+    <string name="dashboard_invoices_action">View →</string>
 </resources>
