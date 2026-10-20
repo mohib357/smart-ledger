@@ -73,7 +73,7 @@ fun ReportsScreen(
     productProfitSummary: List<MainViewModel.ProductProfitSummary> = emptyList(),
     products: List<ProductEntity> = emptyList(),
     isPremium: Boolean = false,
-    onShowPremium: () -> Unit = {}
+    onPremiumRequired: () -> Unit = {}
 ) {
     val buckets = monthlyIncomeExpense(transactions)
 
@@ -210,24 +210,34 @@ fun ReportsScreen(
 
                     Spacer(modifier = Modifier.height(12.dp))
 
+                    if (!isPremium) {
+                        Row(
+                            modifier = Modifier.padding(bottom = 4.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Text("🔒 ", style = MaterialTheme.typography.bodySmall)
+                            Text(
+                                stringResource(R.string.gate_premium_only),
+                                style = MaterialTheme.typography.bodySmall,
+                                color = Color(0xFFFF8F00)
+                            )
+                        }
+                    }
+
                     Button(
                         onClick = {
-                            if (!isPremium) {
-                                onShowPremium()
-                            } else {
+                            if (isPremium) {
                                 val from = pdfFrom ?: 0L
                                 val to = pdfTo ?: Long.MAX_VALUE
                                 onExportPdf(from, to)
+                            } else {
+                                onPremiumRequired()
                             }
                         },
                         colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary),
                         modifier = Modifier.fillMaxWidth()
                     ) {
-                        if (!isPremium) {
-                            Text(stringResource(R.string.gate_premium_only) + " — " + stringResource(R.string.reports_pdf_generate), fontWeight = FontWeight.Bold)
-                        } else {
-                            Text(stringResource(R.string.reports_pdf_generate), fontWeight = FontWeight.Bold)
-                        }
+                        Text(stringResource(R.string.reports_pdf_generate), fontWeight = FontWeight.Bold)
                     }
                 }
             }

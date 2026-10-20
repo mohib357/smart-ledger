@@ -402,6 +402,6 @@
     <string name="coin_earn_button">বিজ্ঞাপন দেখুন</string>
     <string name="coin_active_label">সক্রিয় কয়েন</string>
     <string name="gate_transaction_limit">Free tier সীমা পূর্ণ। Premium-এ আপগ্রেড করুন।</string>
-    <string name="gate_premium_only">🔒 Premium Only</string>
+    <string name="gate_premium_only">শুধু Premium</string>
     <string name="gate_pdf_premium">PDF export শুধুমাত্র Premium ব্যবহারকারীদের জন্য।</string>
 </resources>

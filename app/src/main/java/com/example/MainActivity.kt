@@ -381,8 +381,8 @@ fun MainAppContent(viewModel: MainViewModel) {
                                 } else {
                                     coroutineScope.launch {
                                         snackbarHostState.showSnackbar(context.getString(R.string.gate_transaction_limit))
+                                        viewModel.showPremiumScreen.value = true
                                     }
-                                    viewModel.showPremiumScreen.value = true
                                 }
                             },
                             onAddExpense = {
@@ -391,8 +391,8 @@ fun MainAppContent(viewModel: MainViewModel) {
                                 } else {
                                     coroutineScope.launch {
                                         snackbarHostState.showSnackbar(context.getString(R.string.gate_transaction_limit))
+                                        viewModel.showPremiumScreen.value = true
                                     }
-                                    viewModel.showPremiumScreen.value = true
                                 }
                             },
                             onAddParty = { viewModel.showAddParty.value = true },
@@ -456,7 +456,16 @@ fun MainAppContent(viewModel: MainViewModel) {
                                     viewModel.setTransactionDateTo(newTo)
                                 }
                             },
-                            onAddTransaction = { type -> viewModel.openAddTransaction(type) },
+                            onAddTransaction = { type ->
+                                if (viewModel.checkCanAddTransaction()) {
+                                    viewModel.openAddTransaction(type)
+                                } else {
+                                    coroutineScope.launch {
+                                        snackbarHostState.showSnackbar(context.getString(R.string.gate_transaction_limit))
+                                        viewModel.showPremiumScreen.value = true
+                                    }
+                                }
+                            },
                             onDeleteTransaction = { tx ->
                                 viewModel.deleteTransaction(tx)
                                 coroutineScope.launch {
@@ -544,7 +553,12 @@ fun MainAppContent(viewModel: MainViewModel) {
                                 }
                             },
                             isPremium = isPremium,
-                            onShowPremium = { viewModel.showPremiumScreen.value = true }
+                            onPremiumRequired = {
+                                coroutineScope.launch {
+                                    snackbarHostState.showSnackbar(context.getString(R.string.gate_pdf_premium))
+                                    viewModel.showPremiumScreen.value = true
+                                }
+                            }
                         )
                         8 -> ProductsScreen(
                             products = allProducts,
