@@ -81,6 +81,7 @@ import com.example.ui.screens.ChatScreen
 import com.example.ui.screens.DashboardScreen
 import com.example.ui.screens.KhataScreen
 import com.example.ui.screens.LoginScreen
+import com.example.ui.screens.ProfileScreen
 import com.example.ui.screens.NomineesScreen
 import com.example.ui.screens.PartyDetailScreen
 import com.example.ui.screens.ProductsScreen
@@ -230,6 +231,8 @@ fun MainAppContent(viewModel: MainViewModel) {
     val showLoginScreen by viewModel.showLoginScreen.collectAsStateWithLifecycle()
     val authLoading by viewModel.authLoading.collectAsStateWithLifecycle()
     val authError by viewModel.authError.collectAsStateWithLifecycle()
+    val showProfileScreen by viewModel.showProfileScreen.collectAsStateWithLifecycle()
+    val userProfile by viewModel.userProfile.collectAsStateWithLifecycle()
 
     // Product search query (local to MainActivity)
     var productSearchQuery by remember { mutableStateOf("") }
@@ -767,6 +770,11 @@ fun MainAppContent(viewModel: MainViewModel) {
                 appLocale = appLocale,
                 onLocaleChange = { tag -> viewModel.setAppLocale(tag) },
                 onDismiss = { viewModel.showSettings.value = false },
+                // Profile
+                onOpenProfile = {
+                    viewModel.showSettings.value = false
+                    viewModel.showProfileScreen.value = true
+                },
                 // F5
                 onOpenFeedback = { viewModel.showFeedback.value = true },
                 // Phase 4
@@ -895,6 +903,21 @@ fun MainAppContent(viewModel: MainViewModel) {
                 onSignUp = { name, email, pass -> viewModel.signUp(name, email, pass) },
                 onForgotPassword = { email -> viewModel.forgotPassword(email) },
                 onSkip = { viewModel.showLoginScreen.value = false }
+            )
+        }
+
+        // Phase 5: ProfileScreen overlay
+        if (showProfileScreen) {
+            ProfileScreen(
+                userProfile = userProfile,
+                isLoading = authLoading,
+                onUpdateProfile = { name, phone -> viewModel.updateUserProfile(name, phone) },
+                onLogout = {
+                    viewModel.signOut()
+                    viewModel.showProfileScreen.value = false
+                },
+                onDeleteAccount = { viewModel.deleteAccount() },
+                onDismiss = { viewModel.showProfileScreen.value = false }
             )
         }
     }

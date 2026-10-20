@@ -421,7 +421,9 @@
     <string name="profile_edit_button">ترمیم کریں</string>
     <string name="profile_save_button">محفوظ کریں</string>
     <string name="profile_logout_button">لاگ آؤٹ</string>
+    <string name="profile_logout_confirm_message">کیا آپ واقعی لاگ آؤٹ کرنا چاہتے ہیں؟</string>
     <string name="profile_delete_account">اکاؤنٹ حذف کریں</string>
+    <string name="profile_delete_account_warning">یہ عمل مستقل ہے۔ آپ کا اکاؤنٹ اور تمام ڈیٹا حذف ہو جائے گا۔</string>
     <!-- Phase 5 — Cloud Backup -->
     <string name="cloud_backup_title">کلاؤڈ بیک اپ</string>
     <string name="cloud_backup_toggle">کلاؤڈ بیک اپ فعال کریں</string>

@@ -424,7 +424,9 @@
     <string name="profile_edit_button">সম্পাদনা করুন</string>
     <string name="profile_save_button">সংরক্ষণ করুন</string>
     <string name="profile_logout_button">লগআউট</string>
+    <string name="profile_logout_confirm_message">আপনি কি সত্যিই লগআউট করতে চান?</string>
     <string name="profile_delete_account">অ্যাকাউন্ট মুছুন</string>
+    <string name="profile_delete_account_warning">এই কাজটি স্থায়ী। আপনার অ্যাকাউন্ট এবং সমস্ত ডেটা মুছে যাবে।</string>
     <!-- Phase 5 — Cloud Backup -->
     <string name="cloud_backup_title">ক্লাউড ব্যাকআপ</string>
     <string name="cloud_backup_toggle">ক্লাউড ব্যাকআপ চালু</string>

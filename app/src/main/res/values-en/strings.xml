@@ -424,7 +424,9 @@
     <string name="profile_edit_button">Edit</string>
     <string name="profile_save_button">Save</string>
     <string name="profile_logout_button">Logout</string>
+    <string name="profile_logout_confirm_message">Are you sure you want to logout?</string>
     <string name="profile_delete_account">Delete Account</string>
+    <string name="profile_delete_account_warning">This action is permanent. Your account and all data will be deleted.</string>
     <!-- Phase 5 — Cloud Backup -->
     <string name="cloud_backup_title">Cloud Backup</string>
     <string name="cloud_backup_toggle">Enable Cloud Backup</string>

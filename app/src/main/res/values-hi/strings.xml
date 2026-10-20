@@ -421,7 +421,9 @@
     <string name="profile_edit_button">संपादित करें</string>
     <string name="profile_save_button">सहेजें</string>
     <string name="profile_logout_button">लॉगआउट</string>
+    <string name="profile_logout_confirm_message">क्या आप वाकई लॉगआउट करना चाहते हैं?</string>
     <string name="profile_delete_account">खाता हटाएं</string>
+    <string name="profile_delete_account_warning">यह क्रिया स्थायी है। आपका खाता और सभी डेटा हटा दिया जाएगा।</string>
     <!-- Phase 5 — Cloud Backup -->
     <string name="cloud_backup_title">क्लाउड बैकअप</string>
     <string name="cloud_backup_toggle">क्लाउड बैकअप चालू करें</string>

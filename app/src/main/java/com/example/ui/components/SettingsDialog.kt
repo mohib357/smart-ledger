@@ -57,6 +57,8 @@ fun SettingsDialog(
     appLocale: String,
     onLocaleChange: (String) -> Unit,
     onDismiss: () -> Unit,
+    // Profile
+    onOpenProfile: () -> Unit = {},
     // F5 — Feedback
     onOpenFeedback: () -> Unit = {},
     // Phase 4 — Premium
@@ -112,6 +114,16 @@ fun SettingsDialog(
                     IconButton(onClick = onDismiss) {
                         Icon(Icons.Default.Close, contentDescription = stringResource(R.string.action_close))
                     }
+                }
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                // Profile section
+                Button(
+                    onClick = { onOpenProfile(); onDismiss() },
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(stringResource(R.string.settings_profile_button))
                 }
 
                 Spacer(modifier = Modifier.height(16.dp))

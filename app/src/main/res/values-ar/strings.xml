@@ -421,7 +421,9 @@
     <string name="profile_edit_button">تعديل</string>
     <string name="profile_save_button">حفظ</string>
     <string name="profile_logout_button">تسجيل الخروج</string>
+    <string name="profile_logout_confirm_message">هل أنت متأكد أنك تريد تسجيل الخروج؟</string>
     <string name="profile_delete_account">حذف الحساب</string>
+    <string name="profile_delete_account_warning">هذا الإجراء دائم. سيتم حذف حسابك وجميع البيانات.</string>
     <!-- Phase 5 — Cloud Backup -->
     <string name="cloud_backup_title">النسخ الاحتياطي السحابي</string>
     <string name="cloud_backup_toggle">تفعيل النسخ السحابي</string>
