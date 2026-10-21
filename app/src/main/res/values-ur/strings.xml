@@ -463,4 +463,18 @@
     <string name="onboarding_page4_title">AI مالیاتی معاون</string>
     <string name="onboarding_page4_desc">اپنے مالیات کا تجزیہ کرنے اور ذہین مشورہ پانے کے لیے Gemini AI استعمال کریں۔</string>
     <string name="onboarding_page5_title">آپ تیار ہیں!</string>
+
+    <!-- Phase 6 — AI Insights Card -->
+    <string name="ai_insight_title">AI مشورہ</string>
+    <string name="ai_insight_loading">مشورہ لوڈ ہو رہا ہے…</string>
+    <string name="ai_insight_refresh">مشورہ تازہ کریں</string>
+    <string name="ai_insight_error">مشورہ لوڈ کرنے میں ناکامی۔</string>
+
+    <!-- Phase 6 — Voice Entry -->
+    <string name="voice_entry_hint">کہیں: آمدنی 500 ٹکا تنخواہ</string>
+    <string name="voice_entry_listening">سن رہا ہوں...</string>
+    <string name="voice_entry_result">سنا</string>
+    <string name="voice_entry_apply">یہ استعمال کریں</string>
+    <string name="voice_entry_no_result">کچھ نہیں سنا</string>
+    <string name="voice_entry_permission_required">مائیکروفون کی اجازت درکار ہے</string>
 </resources>

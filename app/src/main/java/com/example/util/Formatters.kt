@@ -208,4 +208,25 @@ object Formatters {
         sb.append("\n(হিসাব - Smart Ledger অ্যাপে আপনার গোপন কোড প্রদান করে সম্পূর্ণ লাইভ তথ্য দেখতে পারবেন।)")
         return sb.toString()
     }
+
+    fun parseVoiceInput(text: String): VoiceParseResult {
+        val normalized = toEnglishDigits(text)
+        // Detect amount: first sequence of digits (with optional decimal)
+        val amountRegex = Regex("""[\d]+(?:[.,]\d+)?""")
+        val amount = amountRegex.find(normalized)?.value ?: ""
+        // Detect type
+        val type = when {
+            text.contains("আয়") || text.contains("income", ignoreCase = true) || text.contains("জমা") -> "INCOME"
+            text.contains("ব্যয়") || text.contains("expense", ignoreCase = true) ||
+                text.contains("খরচ") || text.contains("বের") -> "EXPENSE"
+            else -> null
+        }
+        // Detect category: match against Categories.unified
+        val category = com.example.data.model.Categories.unified.firstOrNull { cat ->
+            text.contains(cat, ignoreCase = true)
+        }
+        return VoiceParseResult(amount = amount, type = type, category = category)
+    }
 }
+
+data class VoiceParseResult(val amount: String, val type: String?, val category: String?)

@@ -463,4 +463,18 @@
     <string name="onboarding_page4_title">مساعد الذكاء الاصطناعي</string>
     <string name="onboarding_page4_desc">استخدم Gemini AI لتحليل أموالك والحصول على نصائح ذكية.</string>
     <string name="onboarding_page5_title">أنت جاهز للبدء!</string>
+
+    <!-- Phase 6 — AI Insights Card -->
+    <string name="ai_insight_title">نصيحة الذكاء الاصطناعي</string>
+    <string name="ai_insight_loading">جارٍ تحميل النصيحة…</string>
+    <string name="ai_insight_refresh">تحديث النصيحة</string>
+    <string name="ai_insight_error">فشل تحميل النصيحة.</string>
+
+    <!-- Phase 6 — Voice Entry -->
+    <string name="voice_entry_hint">قل: دخل 500 تاكا راتب</string>
+    <string name="voice_entry_listening">أستمع...</string>
+    <string name="voice_entry_result">سمعت</string>
+    <string name="voice_entry_apply">استخدم هذا</string>
+    <string name="voice_entry_no_result">لم يُسمع شيء</string>
+    <string name="voice_entry_permission_required">إذن الميكروفون مطلوب</string>
 </resources>

@@ -1,5 +1,11 @@
 package com.example.ui.components
 
+import android.Manifest
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.speech.RecognizerIntent
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -20,6 +26,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDownward
 import androidx.compose.material.icons.filled.ArrowUpward
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Mic
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -44,7 +51,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
+import androidx.core.content.ContextCompat
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
@@ -57,6 +66,7 @@ import com.example.data.model.WalletEntity
 import com.example.ui.theme.ExpenseRed
 import com.example.ui.theme.IncomeGreen
 import com.example.util.Formatters
+import com.example.util.VoiceParseResult
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
@@ -67,6 +77,7 @@ fun AddTransactionDialog(
     onDismiss: () -> Unit,
     onSave: (type: String, title: String, amount: Double, category: String, walletId: Long, note: String) -> Unit
 ) {
+    val context = LocalContext.current
     var type by remember { mutableStateOf(initialType) }
     var title by remember { mutableStateOf("") }
     var amountText by remember { mutableStateOf("") }
@@ -80,6 +91,29 @@ fun AddTransactionDialog(
     var note by remember { mutableStateOf("") }
 
     var walletDropdownExpanded by remember { mutableStateOf(false) }
+
+    // Voice entry state
+    var voiceResult by remember { mutableStateOf<VoiceParseResult?>(null) }
+    var isListening by remember { mutableStateOf(false) }
+    var showVoiceConfirm by remember { mutableStateOf(false) }
+    var hasAudioPermission by remember {
+        mutableStateOf(ContextCompat.checkSelfPermission(context, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED)
+    }
+
+    val audioPermissionLauncher = rememberLauncherForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { granted -> hasAudioPermission = granted }
+
+    val speechLauncher = rememberLauncherForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        val spokenText = result.data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)?.firstOrNull()
+        if (spokenText != null) {
+            voiceResult = Formatters.parseVoiceInput(spokenText)
+            showVoiceConfirm = true
+        }
+        isListening = false
+    }
 
     val commonCategories = if (type == "INCOME") {
         Categories.incomeCategories
@@ -202,18 +236,65 @@ fun AddTransactionDialog(
                 Spacer(modifier = Modifier.height(12.dp))
 
                 // Amount Input
-                OutlinedTextField(
-                    value = amountText,
-                    onValueChange = { amountText = it },
-                    label = { Text(stringResource(R.string.dialog_amount_label)) },
-                    placeholder = { Text(stringResource(R.string.dialog_amount_hint)) },
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                    singleLine = true,
-                    prefix = { Text("৳ ", fontWeight = FontWeight.Bold) },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .testTag("transaction_amount_input")
-                )
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    OutlinedTextField(
+                        value = amountText,
+                        onValueChange = { amountText = it },
+                        label = { Text(stringResource(R.string.dialog_amount_label)) },
+                        placeholder = { Text(stringResource(R.string.dialog_amount_hint)) },
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                        singleLine = true,
+                        prefix = { Text("৳ ", fontWeight = FontWeight.Bold) },
+                        modifier = Modifier
+                            .weight(1f)
+                            .testTag("transaction_amount_input")
+                    )
+                    IconButton(onClick = {
+                        if (!hasAudioPermission) {
+                            audioPermissionLauncher.launch(Manifest.permission.RECORD_AUDIO)
+                        } else {
+                            isListening = true
+                            val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
+                                putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
+                                putExtra(RecognizerIntent.EXTRA_PROMPT, context.getString(R.string.voice_entry_hint))
+                                putExtra(RecognizerIntent.EXTRA_LANGUAGE, "bn-BD")
+                            }
+                            speechLauncher.launch(intent)
+                        }
+                    }) {
+                        Icon(Icons.Default.Mic, contentDescription = stringResource(R.string.voice_entry_hint))
+                    }
+                }
+
+                if (isListening) {
+                    Text(
+                        text = stringResource(R.string.voice_entry_listening),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.primary,
+                        modifier = Modifier.padding(start = 16.dp)
+                    )
+                }
+                if (showVoiceConfirm && voiceResult != null) {
+                    val vr = voiceResult!!
+                    Card(modifier = Modifier.fillMaxWidth().padding(horizontal = 0.dp, vertical = 4.dp)) {
+                        Column(modifier = Modifier.padding(12.dp)) {
+                            Text("${stringResource(R.string.voice_entry_result)}: ${vr.amount}, ${vr.type ?: ""}, ${vr.category ?: ""}")
+                            Button(
+                                onClick = {
+                                    amountText = vr.amount
+                                    if (vr.type != null) { type = vr.type }
+                                    showVoiceConfirm = false
+                                },
+                                modifier = Modifier.padding(top = 8.dp)
+                            ) {
+                                Text(stringResource(R.string.voice_entry_apply))
+                            }
+                        }
+                    }
+                }
 
                 Spacer(modifier = Modifier.height(12.dp))
 

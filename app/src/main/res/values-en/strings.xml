@@ -466,4 +466,18 @@
     <string name="onboarding_page4_title">AI Finance Assistant</string>
     <string name="onboarding_page4_desc">Use Gemini AI to analyze your finances and get smart advice.</string>
     <string name="onboarding_page5_title">You\'re All Set!</string>
+
+    <!-- Phase 6 — AI Insights Card -->
+    <string name="ai_insight_title">AI Insights</string>
+    <string name="ai_insight_loading">Loading insights…</string>
+    <string name="ai_insight_refresh">Refresh insight</string>
+    <string name="ai_insight_error">Failed to load insight.</string>
+
+    <!-- Phase 6 — Voice Entry -->
+    <string name="voice_entry_hint">Say: income 500 taka salary</string>
+    <string name="voice_entry_listening">Listening...</string>
+    <string name="voice_entry_result">Heard</string>
+    <string name="voice_entry_apply">Use this</string>
+    <string name="voice_entry_no_result">Nothing heard</string>
+    <string name="voice_entry_permission_required">Microphone permission required</string>
 </resources>

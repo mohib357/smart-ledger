@@ -463,4 +463,18 @@
     <string name="onboarding_page4_title">AI वित्त सहायक</string>
     <string name="onboarding_page4_desc">अपने वित्त का विश्लेषण करने और स्मार्ट सलाह पाने के लिए Gemini AI का उपयोग करें।</string>
     <string name="onboarding_page5_title">आप तैयार हैं!</string>
+
+    <!-- Phase 6 — AI Insights Card -->
+    <string name="ai_insight_title">AI सलाह</string>
+    <string name="ai_insight_loading">सलाह लोड हो रही है…</string>
+    <string name="ai_insight_refresh">सलाह ताज़ा करें</string>
+    <string name="ai_insight_error">सलाह लोड करने में विफल।</string>
+
+    <!-- Phase 6 — Voice Entry -->
+    <string name="voice_entry_hint">बोलें: आय 500 रुपये वेतन</string>
+    <string name="voice_entry_listening">सुन रहे हैं...</string>
+    <string name="voice_entry_result">सुना</string>
+    <string name="voice_entry_apply">इसका उपयोग करें</string>
+    <string name="voice_entry_no_result">कुछ नहीं सुना</string>
+    <string name="voice_entry_permission_required">माइक्रोफ़ोन अनुमति आवश्यक है</string>
 </resources>

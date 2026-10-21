@@ -454,6 +454,12 @@
     <!-- Phase 5 — Settings -->
     <string name="settings_profile_button">আমার প্রোফাইল</string>
 
+    <!-- Phase 6 — AI Insights Card -->
+    <string name="ai_insight_title">AI পরামর্শ</string>
+    <string name="ai_insight_loading">পরামর্শ লোড হচ্ছে…</string>
+    <string name="ai_insight_refresh">পরামর্শ রিফ্রেশ করুন</string>
+    <string name="ai_insight_error">পরামর্শ পেতে ব্যর্থ হয়েছে।</string>
+
     <!-- Phase 6 — Onboarding -->
     <string name="onboarding_skip">এড়িয়ে যান</string>
     <string name="onboarding_next">পরবর্তী</string>
@@ -467,4 +473,12 @@
     <string name="onboarding_page4_title">এআই হিসাব সহকারী</string>
     <string name="onboarding_page4_desc">Gemini AI দিয়ে আপনার হিসাব বিশ্লেষণ করুন এবং পরামর্শ নিন।</string>
     <string name="onboarding_page5_title">শুরু করার সময়!</string>
+
+    <!-- Phase 6 — Voice Entry -->
+    <string name="voice_entry_hint">বলুন: আয় ৫০০ টাকা বেতন</string>
+    <string name="voice_entry_listening">শুনছি...</string>
+    <string name="voice_entry_result">শুনেছি</string>
+    <string name="voice_entry_apply">এটি ব্যবহার করুন</string>
+    <string name="voice_entry_no_result">কিছু শোনা যায়নি</string>
+    <string name="voice_entry_permission_required">মাইক্রোফোন অনুমতি প্রয়োজন</string>
 </resources>
