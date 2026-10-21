@@ -81,6 +81,7 @@ import com.example.ui.screens.ChatScreen
 import com.example.ui.screens.DashboardScreen
 import com.example.ui.screens.KhataScreen
 import com.example.ui.screens.LoginScreen
+import com.example.ui.screens.OnboardingScreen
 import com.example.ui.screens.ProfileScreen
 import com.example.ui.screens.NomineesScreen
 import com.example.ui.screens.PartyDetailScreen
@@ -169,6 +170,16 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun MainAppContent(viewModel: MainViewModel) {
     val context = LocalContext.current
+
+    // Phase 6 — Onboarding guard
+    val prefs = context.getSharedPreferences("app_settings", Context.MODE_PRIVATE)
+    var onboardingDone by rememberSaveable { mutableStateOf(prefs.getBoolean("onboarding_done", false)) }
+
+    if (!onboardingDone) {
+        OnboardingScreen(onComplete = { onboardingDone = true })
+        return
+    }
+
     val currentTab by viewModel.currentTab.collectAsStateWithLifecycle()
     val useBengaliDigits by viewModel.useBengaliDigits.collectAsStateWithLifecycle()
     val stats by viewModel.dashboardStats.collectAsStateWithLifecycle()

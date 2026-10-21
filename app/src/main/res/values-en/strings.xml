@@ -452,4 +452,18 @@
     <string name="nominee_cross_device_not_found">Code not found in cloud</string>
     <!-- Phase 5 — Settings -->
     <string name="settings_profile_button">My Profile</string>
+
+    <!-- Phase 6 — Onboarding -->
+    <string name="onboarding_skip">Skip</string>
+    <string name="onboarding_next">Next</string>
+    <string name="onboarding_get_started">Get Started</string>
+    <string name="onboarding_page1_title">Welcome to Hisab!</string>
+    <string name="onboarding_page1_desc">Easily manage your personal and business accounts in one place.</string>
+    <string name="onboarding_page2_title">Track Income &amp; Expenses</string>
+    <string name="onboarding_page2_desc">Record every transaction and view monthly reports with charts.</string>
+    <string name="onboarding_page3_title">Party &amp; Khata Ledger</string>
+    <string name="onboarding_page3_desc">Manage who owes you and who you owe with a simple ledger.</string>
+    <string name="onboarding_page4_title">AI Finance Assistant</string>
+    <string name="onboarding_page4_desc">Use Gemini AI to analyze your finances and get smart advice.</string>
+    <string name="onboarding_page5_title">You\'re All Set!</string>
 </resources>

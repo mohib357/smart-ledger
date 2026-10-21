@@ -449,4 +449,18 @@
     <string name="nominee_cross_device_not_found">क्लाउड में कोड नहीं मिला</string>
     <!-- Phase 5 — Settings -->
     <string name="settings_profile_button">मेरी प्रोफ़ाइल</string>
+
+    <!-- Phase 6 — Onboarding -->
+    <string name="onboarding_skip">छोड़ें</string>
+    <string name="onboarding_next">अगला</string>
+    <string name="onboarding_get_started">शुरू करें</string>
+    <string name="onboarding_page1_title">हिसाब में आपका स्वागत है!</string>
+    <string name="onboarding_page1_desc">अपने व्यक्तिगत और व्यावसायिक खातों को एक जगह आसानी से प्रबंधित करें।</string>
+    <string name="onboarding_page2_title">आय और व्यय ट्रैक करें</string>
+    <string name="onboarding_page2_desc">हर लेनदेन दर्ज करें और चार्ट के साथ मासिक रिपोर्ट देखें।</string>
+    <string name="onboarding_page3_title">पार्टी और खाता बही</string>
+    <string name="onboarding_page3_desc">कौन आपका देनदार है और आप किसके देनदार हैं, सरल खाता बही से प्रबंधित करें।</string>
+    <string name="onboarding_page4_title">AI वित्त सहायक</string>
+    <string name="onboarding_page4_desc">अपने वित्त का विश्लेषण करने और स्मार्ट सलाह पाने के लिए Gemini AI का उपयोग करें।</string>
+    <string name="onboarding_page5_title">आप तैयार हैं!</string>
 </resources>

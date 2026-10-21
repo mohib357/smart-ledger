@@ -449,4 +449,18 @@
     <string name="nominee_cross_device_not_found">لم يتم العثور على الرمز في السحابة</string>
     <!-- Phase 5 — Settings -->
     <string name="settings_profile_button">ملفي الشخصي</string>
+
+    <!-- Phase 6 — Onboarding -->
+    <string name="onboarding_skip">تخطي</string>
+    <string name="onboarding_next">التالي</string>
+    <string name="onboarding_get_started">ابدأ الآن</string>
+    <string name="onboarding_page1_title">مرحباً بك في حساب!</string>
+    <string name="onboarding_page1_desc">أدر حساباتك الشخصية والتجارية بسهولة في مكان واحد.</string>
+    <string name="onboarding_page2_title">تتبع الدخل والمصروف</string>
+    <string name="onboarding_page2_desc">سجّل كل معاملة واعرض تقارير شهرية مع رسوم بيانية.</string>
+    <string name="onboarding_page3_title">دفتر الحسابات</string>
+    <string name="onboarding_page3_desc">أدر من يدين لك ومن تدين له بدفتر حسابات بسيط.</string>
+    <string name="onboarding_page4_title">مساعد الذكاء الاصطناعي</string>
+    <string name="onboarding_page4_desc">استخدم Gemini AI لتحليل أموالك والحصول على نصائح ذكية.</string>
+    <string name="onboarding_page5_title">أنت جاهز للبدء!</string>
 </resources>

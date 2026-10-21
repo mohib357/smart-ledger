@@ -453,4 +453,18 @@
     <string name="nominee_cross_device_not_found">ক্লাউডে কোড পাওয়া যায়নি</string>
     <!-- Phase 5 — Settings -->
     <string name="settings_profile_button">আমার প্রোফাইল</string>
+
+    <!-- Phase 6 — Onboarding -->
+    <string name="onboarding_skip">এড়িয়ে যান</string>
+    <string name="onboarding_next">পরবর্তী</string>
+    <string name="onboarding_get_started">শুরু করুন</string>
+    <string name="onboarding_page1_title">হিসাবে স্বাগতম!</string>
+    <string name="onboarding_page1_desc">আপনার ব্যক্তিগত ও ব্যবসায়িক হিসাব সহজে পরিচালনা করুন।</string>
+    <string name="onboarding_page2_title">আয় ও ব্যয় ট্র্যাক করুন</string>
+    <string name="onboarding_page2_desc">প্রতিটি লেনদেন রেকর্ড করুন এবং মাসিক রিপোর্ট দেখুন।</string>
+    <string name="onboarding_page3_title">দেনা-পাওনা খাতা</string>
+    <string name="onboarding_page3_desc">পার্টি ও খাতা পরিচালনা করুন — কে কত দেয়, কে কত পাবে।</string>
+    <string name="onboarding_page4_title">এআই হিসাব সহকারী</string>
+    <string name="onboarding_page4_desc">Gemini AI দিয়ে আপনার হিসাব বিশ্লেষণ করুন এবং পরামর্শ নিন।</string>
+    <string name="onboarding_page5_title">শুরু করার সময়!</string>
 </resources>
