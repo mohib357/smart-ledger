@@ -489,4 +489,7 @@
     <string name="dashboard_section_recent">حالیہ لین دین</string>
     <string name="dashboard_section_earn_coins">سکے کمائیں</string>
     <string name="dashboard_section_nominee">وارث بینر</string>
+    <string name="export_excel_button">Excel (.xlsx) ایکسپورٹ کریں</string>
+    <string name="export_excel_success">Excel فائل بنائی گئی!</string>
+    <string name="export_excel_error">Excel برآمد ناکام</string>
 </resources>

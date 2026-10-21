@@ -96,6 +96,7 @@ import com.example.ui.screens.WalletsScreen
 import com.example.ui.theme.MyApplicationTheme
 import com.example.ui.viewmodel.MainViewModel
 import com.example.ui.viewmodel.ThemeMode
+import com.example.ui.viewmodel.ExcelExportResult
 import com.example.data.cloud.AuthState
 import com.example.data.cloud.BackupStatus
 import com.example.util.Formatters
@@ -262,6 +263,9 @@ fun MainAppContent(viewModel: MainViewModel) {
     val dashboardPrefs by viewModel.dashboardPrefs.collectAsStateWithLifecycle()
     var showCustomizeDashboard by remember { mutableStateOf(false) }
 
+    // Phase 6 Excel Export
+    val excelExportResult by viewModel.excelExportResult.collectAsStateWithLifecycle()
+
     // Start sync when composable is active
     androidx.compose.runtime.LaunchedEffect(Unit) {
         viewModel.startSync()
@@ -272,6 +276,27 @@ fun MainAppContent(viewModel: MainViewModel) {
 
     val snackbarHostState = remember { SnackbarHostState() }
     val coroutineScope = rememberCoroutineScope()
+
+    // Phase 6: Excel export result handler
+    androidx.compose.runtime.LaunchedEffect(excelExportResult) {
+        when (val result = excelExportResult) {
+            is ExcelExportResult.Success -> {
+                val shareIntent = android.content.Intent(android.content.Intent.ACTION_SEND).apply {
+                    type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                    putExtra(android.content.Intent.EXTRA_STREAM, result.uri)
+                    addFlags(android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                }
+                context.startActivity(android.content.Intent.createChooser(shareIntent, ""))
+                snackbarHostState.showSnackbar(context.getString(R.string.export_excel_success))
+                viewModel.clearExcelExportResult()
+            }
+            is ExcelExportResult.Error -> {
+                snackbarHostState.showSnackbar(context.getString(R.string.export_excel_error))
+                viewModel.clearExcelExportResult()
+            }
+            else -> {}
+        }
+    }
 
     // SMS permission
     var hasSmsPermission by remember {
@@ -694,7 +719,8 @@ fun MainAppContent(viewModel: MainViewModel) {
                         snackbarHostState.showSnackbar(context.getString(R.string.snackbar_backup_restored))
                     }
                 },
-                onExportCsv = { viewModel.exportCsvReport() }
+                onExportCsv = { viewModel.exportCsvReport() },
+                onExportExcel = { viewModel.exportExcel(context) }
             )
         }
 

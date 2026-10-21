@@ -493,4 +493,7 @@
     <string name="dashboard_section_recent">সাম্প্রতিক লেনদেন</string>
     <string name="dashboard_section_earn_coins">কয়েন অর্জন</string>
     <string name="dashboard_section_nominee">উত্তরাধিকার ব্যানার</string>
+    <string name="export_excel_button">Excel (.xlsx) এক্সপোর্ট করুন</string>
+    <string name="export_excel_success">Excel ফাইল তৈরি হয়েছে!</string>
+    <string name="export_excel_error">Excel তৈরি ব্যর্থ হয়েছে</string>
 </resources>

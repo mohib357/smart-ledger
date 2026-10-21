@@ -39,6 +39,12 @@ import kotlinx.coroutines.launch
 
 enum class ThemeMode { SYSTEM, LIGHT, DARK }
 
+sealed class ExcelExportResult {
+    data class Success(val uri: android.net.Uri) : ExcelExportResult()
+    data class Error(val message: String) : ExcelExportResult()
+    object Idle : ExcelExportResult()
+}
+
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository: AccountRepository
@@ -308,6 +314,24 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             _aiInsight.value = GeminiService.generateInsight(ctx)
         }
     }
+
+    // ── Phase 6: Excel Export ──────────────────────────────────────────────
+
+    private val _excelExportResult = MutableStateFlow<ExcelExportResult>(ExcelExportResult.Idle)
+    val excelExportResult: StateFlow<ExcelExportResult> = _excelExportResult.asStateFlow()
+
+    fun exportExcel(context: android.content.Context) {
+        viewModelScope.launch {
+            try {
+                val uri = repository.exportToExcel(context)
+                _excelExportResult.value = ExcelExportResult.Success(uri)
+            } catch (e: Exception) {
+                _excelExportResult.value = ExcelExportResult.Error(e.message ?: "Unknown error")
+            }
+        }
+    }
+
+    fun clearExcelExportResult() { _excelExportResult.value = ExcelExportResult.Idle }
 
     fun setTab(index: Int) {
         _currentTab.value = index

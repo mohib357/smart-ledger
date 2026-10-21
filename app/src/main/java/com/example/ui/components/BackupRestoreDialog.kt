@@ -21,6 +21,7 @@ import androidx.compose.material.icons.filled.CloudUpload
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Description
 import androidx.compose.material.icons.filled.Share
+import androidx.compose.material.icons.filled.TableChart
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -51,7 +52,8 @@ fun BackupRestoreDialog(
     onDismiss: () -> Unit,
     onExportJson: suspend () -> String,
     onRestoreJson: (String) -> Unit,
-    onExportCsv: suspend () -> String
+    onExportCsv: suspend () -> String,
+    onExportExcel: (() -> Unit)? = null
 ) {
     val context = LocalContext.current
     var isRestoring by remember { mutableStateOf(false) }
@@ -155,6 +157,22 @@ fun BackupRestoreDialog(
                 }
 
                 Spacer(modifier = Modifier.height(16.dp))
+
+                // Action 2b: Export Excel (.xlsx)
+                if (onExportExcel != null) {
+                    OutlinedButton(
+                        onClick = { onExportExcel.invoke() },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(48.dp)
+                    ) {
+                        Icon(Icons.Default.TableChart, contentDescription = null, modifier = Modifier.size(18.dp))
+                        Spacer(modifier = Modifier.width(6.dp))
+                        Text(stringResource(R.string.export_excel_button), fontWeight = FontWeight.SemiBold)
+                    }
+
+                    Spacer(modifier = Modifier.height(16.dp))
+                }
 
                 // Action 3: Restore toggle
                 if (!isRestoring) {

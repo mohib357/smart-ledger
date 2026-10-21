@@ -622,6 +622,13 @@ class AccountRepository(private val database: AppDatabase) {
         }
     }
 
+    suspend fun exportToExcel(context: android.content.Context): android.net.Uri {
+        val txList = allTransactions.first()
+        val partyList = allParties.first()
+        val productList = allProducts.first()
+        return com.example.util.ExcelExporter.exportToXlsx(context, txList, partyList, productList)
+    }
+
     suspend fun exportTransactionsToCsv(): String {
         val list = allTransactions.first()
         val sb = StringBuilder()
