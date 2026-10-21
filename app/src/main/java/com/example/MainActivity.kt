@@ -253,6 +253,9 @@ fun MainAppContent(viewModel: MainViewModel) {
     // Phase 5 sync state
     val syncStatus by viewModel.syncStatus.collectAsStateWithLifecycle()
 
+    // Phase 6 AI Insights
+    val aiInsight by viewModel.aiInsight.collectAsStateWithLifecycle()
+
     // Start sync when composable is active
     androidx.compose.runtime.LaunchedEffect(Unit) {
         viewModel.startSync()
@@ -456,7 +459,9 @@ fun MainAppContent(viewModel: MainViewModel) {
                                         ad.show(activity) { viewModel.earnCoin() }
                                     }
                                 }
-                            }
+                            },
+                            aiInsight = aiInsight,
+                            onRefreshInsight = { viewModel.refreshAiInsight() }
                         )
                         1 -> TransactionsScreen(
                             transactions = transactions,

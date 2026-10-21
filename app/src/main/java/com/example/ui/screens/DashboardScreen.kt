@@ -27,6 +27,8 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowDownward
 import androidx.compose.material.icons.filled.ArrowUpward
 import androidx.compose.material.icons.filled.AutoAwesome
+import androidx.compose.material.icons.filled.Refresh
+import androidx.compose.material3.IconButton
 import androidx.compose.material.icons.filled.CreditCard
 import androidx.compose.material.icons.filled.Payments
 import androidx.compose.material.icons.filled.PersonAdd
@@ -97,7 +99,9 @@ fun DashboardScreen(
     onNavigateToInvoices: () -> Unit,
     isPremium: Boolean = false,
     hasActiveCoins: Boolean = false,
-    onEarnCoin: () -> Unit = {}
+    onEarnCoin: () -> Unit = {},
+    aiInsight: String = "",
+    onRefreshInsight: () -> Unit = {}
 ) {
     LazyColumn(
         modifier = Modifier
@@ -246,6 +250,46 @@ fun DashboardScreen(
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.primary
                     )
+                }
+            }
+        }
+
+        // AI Insights Card
+        item {
+            ElevatedCard(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp, vertical = 4.dp),
+                colors = CardDefaults.elevatedCardColors(containerColor = MaterialTheme.colorScheme.secondaryContainer)
+            ) {
+                Row(
+                    modifier = Modifier
+                        .padding(12.dp)
+                        .fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Icon(
+                        Icons.Default.AutoAwesome,
+                        contentDescription = null,
+                        modifier = Modifier.size(24.dp)
+                    )
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Column(modifier = Modifier.weight(1f)) {
+                        Text(
+                            text = stringResource(R.string.ai_insight_title),
+                            style = MaterialTheme.typography.labelMedium
+                        )
+                        Text(
+                            text = if (aiInsight.isBlank()) stringResource(R.string.ai_insight_loading) else aiInsight,
+                            style = MaterialTheme.typography.bodySmall
+                        )
+                    }
+                    IconButton(onClick = onRefreshInsight) {
+                        Icon(
+                            Icons.Default.Refresh,
+                            contentDescription = stringResource(R.string.ai_insight_refresh)
+                        )
+                    }
                 }
             }
         }

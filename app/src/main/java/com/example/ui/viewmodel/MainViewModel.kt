@@ -276,6 +276,21 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
         // Start billing connection
         billingManager.startConnection()
+        // Load AI insight on startup
+        refreshAiInsight()
+    }
+
+    // ── Phase 6: AI Insights ───────────────────────────────────────────────
+
+    private val _aiInsight = MutableStateFlow("")
+    val aiInsight: StateFlow<String> = _aiInsight.asStateFlow()
+
+    fun refreshAiInsight() {
+        viewModelScope.launch {
+            val stats = dashboardStats.value
+            val ctx = "মোট আয়: ${stats.totalIncome}, মোট ব্যয়: ${stats.totalExpense}, নিট স্থিতি: ${stats.netBalance}, মোট পাওনা: ${stats.totalReceivable}, মোট দেনা: ${stats.totalPayable}"
+            _aiInsight.value = GeminiService.generateInsight(ctx)
+        }
     }
 
     fun setTab(index: Int) {

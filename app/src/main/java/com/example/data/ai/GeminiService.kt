@@ -145,4 +145,71 @@ object GeminiService {
             Result.failure(Exception(e.localizedMessage ?: "নেটওয়ার্ক ত্রুটি ঘটেছে।"))
         }
     }
+
+    suspend fun generateInsight(financialContext: String): String = withContext(Dispatchers.IO) {
+        return@withContext try {
+            val apiKey = try {
+                BuildConfig.GEMINI_API_KEY
+            } catch (_: Exception) {
+                ""
+            }
+
+            if (apiKey.isBlank() || apiKey == "MY_GEMINI_API_KEY") {
+                return@withContext "পরামর্শ পেতে সমস্যা হয়েছে"
+            }
+
+            val url = "$BASE_URL/$MODEL_NAME:generateContent?key=$apiKey"
+
+            val userMessage = "এই আর্থিক তথ্যের উপর ভিত্তি করে একটি সংক্ষিপ্ত ব্যক্তিগতকৃত পরামর্শ দাও (২ বাক্যে): $financialContext"
+
+            val contentsArray = JSONArray()
+            val contentObj = JSONObject()
+            contentObj.put("role", "user")
+            val partsArray = JSONArray()
+            partsArray.put(JSONObject().put("text", userMessage))
+            contentObj.put("parts", partsArray)
+            contentsArray.put(contentObj)
+
+            val rootRequest = JSONObject()
+            rootRequest.put("contents", contentsArray)
+
+            val sysInstObj = JSONObject()
+            val sysParts = JSONArray()
+            sysParts.put(JSONObject().put("text", SYSTEM_INSTRUCTION.trimIndent()))
+            sysInstObj.put("parts", sysParts)
+            rootRequest.put("systemInstruction", sysInstObj)
+
+            val genConfig = JSONObject()
+            genConfig.put("temperature", 0.7)
+            rootRequest.put("generationConfig", genConfig)
+
+            val mediaType = "application/json; charset=utf-8".toMediaType()
+            val requestBody = rootRequest.toString().toRequestBody(mediaType)
+
+            val request = Request.Builder()
+                .url(url)
+                .post(requestBody)
+                .build()
+
+            client.newCall(request).execute().use { response ->
+                if (!response.isSuccessful) {
+                    return@withContext "পরামর্শ পেতে সমস্যা হয়েছে"
+                }
+                val responseBodyStr = response.body?.string() ?: ""
+                val jsonResponse = JSONObject(responseBodyStr)
+                val candidates = jsonResponse.optJSONArray("candidates")
+                if (candidates != null && candidates.length() > 0) {
+                    val firstCandidate = candidates.getJSONObject(0)
+                    val content = firstCandidate.optJSONObject("content")
+                    val parts = content?.optJSONArray("parts")
+                    if (parts != null && parts.length() > 0) {
+                        return@withContext parts.getJSONObject(0).optString("text", "পরামর্শ পেতে সমস্যা হয়েছে")
+                    }
+                }
+                "পরামর্শ পেতে সমস্যা হয়েছে"
+            }
+        } catch (e: Exception) {
+            "পরামর্শ পেতে সমস্যা হয়েছে"
+        }
+    }
 }
