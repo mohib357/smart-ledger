@@ -1,5 +1,6 @@
 package com.example.data.model
 
+import org.json.JSONArray
 import org.json.JSONObject
 
 data class DashboardPrefs(
@@ -10,7 +11,11 @@ data class DashboardPrefs(
     val showParties: Boolean = true,
     val showRecentTransactions: Boolean = true,
     val showEarnCoins: Boolean = true,
-    val showNomineeBanner: Boolean = true
+    val showNomineeBanner: Boolean = true,
+    val widgetOrder: List<String> = listOf(
+        "quick_actions", "earn_coins", "nominee_banner", "ai_insight",
+        "chart", "wallets", "parties", "recent_transactions"
+    )
 ) {
     fun toJson(): String {
         return JSONObject().apply {
@@ -22,13 +27,25 @@ data class DashboardPrefs(
             put("showRecentTransactions", showRecentTransactions)
             put("showEarnCoins", showEarnCoins)
             put("showNomineeBanner", showNomineeBanner)
+            put("widgetOrder", JSONArray(widgetOrder))
         }.toString()
     }
 
     companion object {
+        private val DEFAULT_ORDER = listOf(
+            "quick_actions", "earn_coins", "nominee_banner", "ai_insight",
+            "chart", "wallets", "parties", "recent_transactions"
+        )
+
         fun fromJson(json: String): DashboardPrefs {
             return try {
                 val obj = JSONObject(json)
+                val orderArr = obj.optJSONArray("widgetOrder")
+                val order: List<String> = if (orderArr != null) {
+                    (0 until orderArr.length()).map { orderArr.getString(it) }
+                } else {
+                    DEFAULT_ORDER
+                }
                 DashboardPrefs(
                     showQuickActions = obj.optBoolean("showQuickActions", true),
                     showAiInsight = obj.optBoolean("showAiInsight", true),
@@ -37,7 +54,8 @@ data class DashboardPrefs(
                     showParties = obj.optBoolean("showParties", true),
                     showRecentTransactions = obj.optBoolean("showRecentTransactions", true),
                     showEarnCoins = obj.optBoolean("showEarnCoins", true),
-                    showNomineeBanner = obj.optBoolean("showNomineeBanner", true)
+                    showNomineeBanner = obj.optBoolean("showNomineeBanner", true),
+                    widgetOrder = order
                 )
             } catch (e: Exception) {
                 DashboardPrefs()

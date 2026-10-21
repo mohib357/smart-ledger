@@ -489,6 +489,7 @@
     <string name="dashboard_section_recent">हाल के लेनदेन</string>
     <string name="dashboard_section_earn_coins">सिक्के कमाएं</string>
     <string name="dashboard_section_nominee">वारिस बैनर</string>
+    <string name="dashboard_drag_handle_desc">क्रम बदलने के लिए खींचें</string>
     <string name="export_excel_button">Excel (.xlsx) एक्सपोर्ट करें</string>
     <string name="export_excel_success">Excel फ़ाइल बनाई गई!</string>
     <string name="export_excel_error">Excel निर्यात विफल</string>

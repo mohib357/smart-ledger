@@ -83,6 +83,7 @@ abstract class AppDatabase : RoomDatabase() {
                         `createdAt` INTEGER NOT NULL
                     )"""
                 )
+                db.execSQL("ALTER TABLE `transactions` ADD COLUMN `category` TEXT NOT NULL DEFAULT 'সাধারণ'")
             }
         }
 

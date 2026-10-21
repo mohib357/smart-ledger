@@ -119,94 +119,74 @@ fun DashboardScreen(
             )
         }
 
-        // Quick Action Row
-        item {
-            if (dashboardPrefs.showQuickActions) {
-            QuickActionsRow(
-                onAddIncome = onAddIncome,
-                onAddExpense = onAddExpense,
-                onAddParty = onAddParty
-            )
-            }
-        }
-
-        // Earn Coins card
-        item {
-            if (dashboardPrefs.showEarnCoins) {
-            ElevatedCard(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 4.dp)
-            ) {
-                Row(
-                    modifier = Modifier.padding(16.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Text("🪙", style = MaterialTheme.typography.headlineMedium)
-                    Spacer(Modifier.width(12.dp))
-                    Column(Modifier.weight(1f)) {
-                        Text(stringResource(R.string.coin_earn_title), style = MaterialTheme.typography.titleSmall)
-                        Text(stringResource(R.string.coin_earn_subtitle), style = MaterialTheme.typography.bodySmall)
-                    }
-                    OutlinedButton(onClick = onEarnCoin) {
-                        Text(stringResource(R.string.coin_earn_button))
+        // Dynamic ordered widget sections
+        items(dashboardPrefs.widgetOrder) { key ->
+            when (key) {
+                "quick_actions" -> {
+                    if (dashboardPrefs.showQuickActions) {
+                        QuickActionsRow(
+                            onAddIncome = onAddIncome,
+                            onAddExpense = onAddExpense,
+                            onAddParty = onAddParty
+                        )
                     }
                 }
-            }
-            }
-        }
-
-        // Emergency Heir / Nominee Access & Safety Feature Banner
-        item {
-            if (dashboardPrefs.showNomineeBanner) {
-            Card(
-                shape = RoundedCornerShape(18.dp),
-                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondaryContainer),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 6.dp)
-                    .clickable { onNavigateToNominees() }
-            ) {
-                Row(
-                    modifier = Modifier.padding(14.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Box(
-                        modifier = Modifier
-                            .size(38.dp)
-                            .clip(CircleShape)
-                            .background(MaterialTheme.colorScheme.secondary),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Icon(
-                            Icons.Default.Security,
-                            contentDescription = null,
-                            tint = Color.White,
-                            modifier = Modifier.size(20.dp)
-                        )
+                "earn_coins" -> {
+                    if (dashboardPrefs.showEarnCoins) {
+                        EarnCoinsSection(onEarnCoin = onEarnCoin)
                     }
-                    Spacer(modifier = Modifier.width(12.dp))
-                    Column(modifier = Modifier.weight(1f)) {
-                        Text(
-                            text = stringResource(R.string.dashboard_nominee_title),
-                            fontWeight = FontWeight.Bold,
-                            style = MaterialTheme.typography.titleSmall,
-                            color = MaterialTheme.colorScheme.onSecondaryContainer
-                        )
-                        Text(
-                            text = stringResource(R.string.dashboard_nominee_subtitle),
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.85f)
-                        )
-                    }
-                    Text(
-                        text = stringResource(R.string.dashboard_nominee_action),
-                        fontSize = 12.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.secondary
-                    )
                 }
-            }
+                "nominee_banner" -> {
+                    if (dashboardPrefs.showNomineeBanner) {
+                        NomineeBannerSection(onNavigateToNominees = onNavigateToNominees)
+                    }
+                }
+                "ai_insight" -> {
+                    if (dashboardPrefs.showAiInsight) {
+                        AiInsightSection(
+                            aiInsight = aiInsight,
+                            onRefreshInsight = onRefreshInsight
+                        )
+                    }
+                }
+                "chart" -> {
+                    if (dashboardPrefs.showChart) {
+                        ChartSection(
+                            recentTransactions = recentTransactions,
+                            useBengaliDigits = useBengaliDigits
+                        )
+                    }
+                }
+                "wallets" -> {
+                    if (dashboardPrefs.showWallets) {
+                        WalletsSection(
+                            wallets = wallets,
+                            stats = stats,
+                            useBengaliDigits = useBengaliDigits
+                        )
+                    }
+                }
+                "parties" -> {
+                    if (dashboardPrefs.showParties) {
+                        PartiesSection(
+                            topParties = topParties,
+                            useBengaliDigits = useBengaliDigits,
+                            onNavigateToKhata = onNavigateToKhata,
+                            onSelectParty = onSelectParty,
+                            onLoadSampleData = onLoadSampleData
+                        )
+                    }
+                }
+                "recent_transactions" -> {
+                    if (dashboardPrefs.showRecentTransactions) {
+                        RecentTransactionsSection(
+                            recentTransactions = recentTransactions,
+                            useBengaliDigits = useBengaliDigits,
+                            onNavigateToTransactions = onNavigateToTransactions,
+                            onLoadSampleData = onLoadSampleData
+                        )
+                    }
+                }
             }
         }
 
@@ -259,48 +239,6 @@ fun DashboardScreen(
                         color = MaterialTheme.colorScheme.primary
                     )
                 }
-            }
-        }
-
-        // AI Insights Card
-        item {
-            if (dashboardPrefs.showAiInsight) {
-            ElevatedCard(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 4.dp),
-                colors = CardDefaults.elevatedCardColors(containerColor = MaterialTheme.colorScheme.secondaryContainer)
-            ) {
-                Row(
-                    modifier = Modifier
-                        .padding(12.dp)
-                        .fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Icon(
-                        Icons.Default.AutoAwesome,
-                        contentDescription = null,
-                        modifier = Modifier.size(24.dp)
-                    )
-                    Spacer(modifier = Modifier.width(8.dp))
-                    Column(modifier = Modifier.weight(1f)) {
-                        Text(
-                            text = stringResource(R.string.ai_insight_title),
-                            style = MaterialTheme.typography.labelMedium
-                        )
-                        Text(
-                            text = if (aiInsight.isBlank()) stringResource(R.string.ai_insight_loading) else aiInsight,
-                            style = MaterialTheme.typography.bodySmall
-                        )
-                    }
-                    IconButton(onClick = onRefreshInsight) {
-                        Icon(
-                            Icons.Default.Refresh,
-                            contentDescription = stringResource(R.string.ai_insight_refresh)
-                        )
-                    }
-                }
-            }
             }
         }
 
@@ -500,227 +438,6 @@ fun DashboardScreen(
             )
         }
 
-        // Expense Donut Chart
-        item {
-            if (dashboardPrefs.showChart) {
-            val expenseSlices = expenseByCategory(recentTransactions)
-            val totalExpense = expenseSlices.sumOf { it.second }
-            Card(
-                shape = RoundedCornerShape(16.dp),
-                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
-                elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 6.dp)
-            ) {
-                Column(modifier = Modifier.padding(16.dp)) {
-                    Text(
-                        text = stringResource(R.string.dashboard_chart_title),
-                        style = MaterialTheme.typography.titleSmall,
-                        fontWeight = FontWeight.Bold
-                    )
-                    Spacer(modifier = Modifier.height(12.dp))
-                    if (totalExpense <= 0) {
-                        Text(
-                            text = stringResource(R.string.dashboard_chart_empty),
-                            color = MaterialTheme.colorScheme.onSurfaceVariant,
-                            style = MaterialTheme.typography.bodyMedium
-                        )
-                    } else {
-                        val displaySlices = if (expenseSlices.size <= 6) {
-                            expenseSlices
-                        } else {
-                            val top = expenseSlices.take(6)
-                            val otherAmt = expenseSlices.drop(6).sumOf { it.second }
-                            top + listOf("অন্যান্য" to otherAmt)
-                        }
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Canvas(modifier = Modifier.size(140.dp)) {
-                                var startAngle = -90f
-                                displaySlices.forEachIndexed { i, (_, amt) ->
-                                    val sweep = (amt / totalExpense * 360f).toFloat()
-                                    drawArc(
-                                        color = ChartPalette[i % ChartPalette.size],
-                                        startAngle = startAngle,
-                                        sweepAngle = sweep,
-                                        useCenter = false,
-                                        style = Stroke(width = 36.dp.toPx())
-                                    )
-                                    startAngle += sweep
-                                }
-                            }
-                            Spacer(modifier = Modifier.width(12.dp))
-                            Column(modifier = Modifier.weight(1f)) {
-                                displaySlices.forEachIndexed { i, (cat, amt) ->
-                                    Row(
-                                        verticalAlignment = Alignment.CenterVertically,
-                                        modifier = Modifier.padding(vertical = 2.dp)
-                                    ) {
-                                        Box(
-                                            modifier = Modifier
-                                                .size(8.dp)
-                                                .clip(CircleShape)
-                                                .background(ChartPalette[i % ChartPalette.size])
-                                        )
-                                        Spacer(modifier = Modifier.width(6.dp))
-                                        Column {
-                                            Text(
-                                                text = cat,
-                                                style = MaterialTheme.typography.labelSmall,
-                                                fontWeight = FontWeight.SemiBold
-                                            )
-                                            Text(
-                                                text = Formatters.formatTaka(amt, useBengali = useBengaliDigits),
-                                                style = MaterialTheme.typography.labelSmall,
-                                                color = MaterialTheme.colorScheme.onSurfaceVariant
-                                            )
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            } // end if showChart
-        }
-
-        // Wallets / Accounts Slider
-        item {
-            if (dashboardPrefs.showWallets) {
-            Column(modifier = Modifier.padding(top = 16.dp)) {
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 16.dp),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Text(
-                        text = stringResource(R.string.dashboard_wallets_title),
-                        style = MaterialTheme.typography.titleMedium,
-                        fontWeight = FontWeight.Bold
-                    )
-                    Text(
-                        text = "${stringResource(R.string.dashboard_wallets_total)} ${Formatters.formatTaka(stats.totalWalletBalance, useBengali = useBengaliDigits)}",
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.primary,
-                        fontWeight = FontWeight.SemiBold
-                    )
-                }
-
-                Spacer(modifier = Modifier.height(8.dp))
-
-                LazyRow(
-                    contentPadding = PaddingValues(horizontal = 16.dp),
-                    horizontalArrangement = Arrangement.spacedBy(10.dp)
-                ) {
-                    items(wallets) { wallet ->
-                        WalletMiniCard(wallet = wallet, useBengaliDigits = useBengaliDigits)
-                    }
-                }
-            }
-            } // end if showWallets
-        }
-
-        // Top Payables / দেনা-পাওনা খাতা হাইলাইটস
-        item {
-            if (dashboardPrefs.showParties) {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 16.dp)
-            ) {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Text(
-                        text = stringResource(R.string.dashboard_parties_title),
-                        style = MaterialTheme.typography.titleMedium,
-                        fontWeight = FontWeight.Bold
-                    )
-                    Text(
-                        text = stringResource(R.string.dashboard_parties_all),
-                        style = MaterialTheme.typography.labelMedium,
-                        color = MaterialTheme.colorScheme.primary,
-                        modifier = Modifier.clickable { onNavigateToKhata() }
-                    )
-                }
-
-                Spacer(modifier = Modifier.height(8.dp))
-
-                if (topParties.isEmpty()) {
-                    EmptyCard(
-                        message = stringResource(R.string.dashboard_empty_parties),
-                        actionText = "নমুনা হিসাব লোড করুন",
-                        onAction = onLoadSampleData
-                    )
-                } else {
-                    topParties.take(5).forEach { party ->
-                        PartySummaryRow(
-                            party = party,
-                            useBengaliDigits = useBengaliDigits,
-                            onClick = { onSelectParty(party) }
-                        )
-                        Spacer(modifier = Modifier.height(6.dp))
-                    }
-                }
-            }
-            } // end if showParties
-        }
-
-        // Recent Transactions
-        item {
-            if (dashboardPrefs.showRecentTransactions) {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 8.dp)
-            ) {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Text(
-                        text = stringResource(R.string.dashboard_recent_title),
-                        style = MaterialTheme.typography.titleMedium,
-                        fontWeight = FontWeight.Bold
-                    )
-                    Text(
-                        text = stringResource(R.string.dashboard_recent_all),
-                        style = MaterialTheme.typography.labelMedium,
-                        color = MaterialTheme.colorScheme.primary,
-                        modifier = Modifier.clickable { onNavigateToTransactions() }
-                    )
-                }
-
-                Spacer(modifier = Modifier.height(8.dp))
-
-                if (recentTransactions.isEmpty()) {
-                    EmptyCard(
-                        message = stringResource(R.string.dashboard_empty_transactions),
-                        actionText = stringResource(R.string.dashboard_load_sample),
-                        onAction = onLoadSampleData
-                    )
-                } else {
-                    recentTransactions.take(5).forEach { tx ->
-                        TransactionMiniRow(
-                            tx = tx,
-                            useBengaliDigits = useBengaliDigits
-                        )
-                        Spacer(modifier = Modifier.height(6.dp))
-                    }
-                }
-            }
-            } // end if showRecentTransactions
-        }
-
         // Phase 4: Banner Ad (only when not premium and no active coins)
         item {
             if (!isPremium && !hasActiveCoins) {
@@ -736,6 +453,347 @@ fun DashboardScreen(
                         .fillMaxWidth()
                         .padding(horizontal = 16.dp, vertical = 8.dp)
                 )
+            }
+        }
+    }
+}
+
+@Composable
+private fun EarnCoinsSection(onEarnCoin: () -> Unit) {
+    ElevatedCard(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp, vertical = 4.dp)
+    ) {
+        Row(
+            modifier = Modifier.padding(16.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text("🪙", style = MaterialTheme.typography.headlineMedium)
+            Spacer(Modifier.width(12.dp))
+            Column(Modifier.weight(1f)) {
+                Text(stringResource(R.string.coin_earn_title), style = MaterialTheme.typography.titleSmall)
+                Text(stringResource(R.string.coin_earn_subtitle), style = MaterialTheme.typography.bodySmall)
+            }
+            OutlinedButton(onClick = onEarnCoin) {
+                Text(stringResource(R.string.coin_earn_button))
+            }
+        }
+    }
+}
+
+@Composable
+private fun NomineeBannerSection(onNavigateToNominees: () -> Unit) {
+    Card(
+        shape = RoundedCornerShape(18.dp),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondaryContainer),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp, vertical = 6.dp)
+            .clickable { onNavigateToNominees() }
+    ) {
+        Row(
+            modifier = Modifier.padding(14.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Box(
+                modifier = Modifier
+                    .size(38.dp)
+                    .clip(CircleShape)
+                    .background(MaterialTheme.colorScheme.secondary),
+                contentAlignment = Alignment.Center
+            ) {
+                Icon(
+                    Icons.Default.Security,
+                    contentDescription = null,
+                    tint = Color.White,
+                    modifier = Modifier.size(20.dp)
+                )
+            }
+            Spacer(modifier = Modifier.width(12.dp))
+            Column(modifier = Modifier.weight(1f)) {
+                Text(
+                    text = stringResource(R.string.dashboard_nominee_title),
+                    fontWeight = FontWeight.Bold,
+                    style = MaterialTheme.typography.titleSmall,
+                    color = MaterialTheme.colorScheme.onSecondaryContainer
+                )
+                Text(
+                    text = stringResource(R.string.dashboard_nominee_subtitle),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.85f)
+                )
+            }
+            Text(
+                text = stringResource(R.string.dashboard_nominee_action),
+                fontSize = 12.sp,
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.secondary
+            )
+        }
+    }
+}
+
+@Composable
+private fun AiInsightSection(aiInsight: String, onRefreshInsight: () -> Unit) {
+    ElevatedCard(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp, vertical = 4.dp),
+        colors = CardDefaults.elevatedCardColors(containerColor = MaterialTheme.colorScheme.secondaryContainer)
+    ) {
+        Row(
+            modifier = Modifier
+                .padding(12.dp)
+                .fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Icon(
+                Icons.Default.AutoAwesome,
+                contentDescription = null,
+                modifier = Modifier.size(24.dp)
+            )
+            Spacer(modifier = Modifier.width(8.dp))
+            Column(modifier = Modifier.weight(1f)) {
+                Text(
+                    text = stringResource(R.string.ai_insight_title),
+                    style = MaterialTheme.typography.labelMedium
+                )
+                Text(
+                    text = if (aiInsight.isBlank()) stringResource(R.string.ai_insight_loading) else aiInsight,
+                    style = MaterialTheme.typography.bodySmall
+                )
+            }
+            IconButton(onClick = onRefreshInsight) {
+                Icon(
+                    Icons.Default.Refresh,
+                    contentDescription = stringResource(R.string.ai_insight_refresh)
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun ChartSection(
+    recentTransactions: List<TransactionEntity>,
+    useBengaliDigits: Boolean
+) {
+    val expenseSlices = expenseByCategory(recentTransactions)
+    val totalExpense = expenseSlices.sumOf { it.second }
+    Card(
+        shape = RoundedCornerShape(16.dp),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp, vertical = 6.dp)
+    ) {
+        Column(modifier = Modifier.padding(16.dp)) {
+            Text(
+                text = stringResource(R.string.dashboard_chart_title),
+                style = MaterialTheme.typography.titleSmall,
+                fontWeight = FontWeight.Bold
+            )
+            Spacer(modifier = Modifier.height(12.dp))
+            if (totalExpense <= 0) {
+                Text(
+                    text = stringResource(R.string.dashboard_chart_empty),
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    style = MaterialTheme.typography.bodyMedium
+                )
+            } else {
+                val displaySlices = if (expenseSlices.size <= 6) {
+                    expenseSlices
+                } else {
+                    val top = expenseSlices.take(6)
+                    val otherAmt = expenseSlices.drop(6).sumOf { it.second }
+                    top + listOf("অন্যান্য" to otherAmt)
+                }
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Canvas(modifier = Modifier.size(140.dp)) {
+                        var startAngle = -90f
+                        displaySlices.forEachIndexed { i, (_, amt) ->
+                            val sweep = (amt / totalExpense * 360f).toFloat()
+                            drawArc(
+                                color = ChartPalette[i % ChartPalette.size],
+                                startAngle = startAngle,
+                                sweepAngle = sweep,
+                                useCenter = false,
+                                style = Stroke(width = 36.dp.toPx())
+                            )
+                            startAngle += sweep
+                        }
+                    }
+                    Spacer(modifier = Modifier.width(12.dp))
+                    Column(modifier = Modifier.weight(1f)) {
+                        displaySlices.forEachIndexed { i, (cat, amt) ->
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically,
+                                modifier = Modifier.padding(vertical = 2.dp)
+                            ) {
+                                Box(
+                                    modifier = Modifier
+                                        .size(8.dp)
+                                        .clip(CircleShape)
+                                        .background(ChartPalette[i % ChartPalette.size])
+                                )
+                                Spacer(modifier = Modifier.width(6.dp))
+                                Column {
+                                    Text(
+                                        text = cat,
+                                        style = MaterialTheme.typography.labelSmall,
+                                        fontWeight = FontWeight.SemiBold
+                                    )
+                                    Text(
+                                        text = Formatters.formatTaka(amt, useBengali = useBengaliDigits),
+                                        style = MaterialTheme.typography.labelSmall,
+                                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                                    )
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun WalletsSection(
+    wallets: List<WalletEntity>,
+    stats: AccountRepository.DashboardStats,
+    useBengaliDigits: Boolean
+) {
+    Column(modifier = Modifier.padding(top = 16.dp)) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = stringResource(R.string.dashboard_wallets_title),
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.Bold
+            )
+            Text(
+                text = "${stringResource(R.string.dashboard_wallets_total)} ${Formatters.formatTaka(stats.totalWalletBalance, useBengali = useBengaliDigits)}",
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.primary,
+                fontWeight = FontWeight.SemiBold
+            )
+        }
+        Spacer(modifier = Modifier.height(8.dp))
+        LazyRow(
+            contentPadding = PaddingValues(horizontal = 16.dp),
+            horizontalArrangement = Arrangement.spacedBy(10.dp)
+        ) {
+            items(wallets) { wallet ->
+                WalletMiniCard(wallet = wallet, useBengaliDigits = useBengaliDigits)
+            }
+        }
+    }
+}
+
+@Composable
+private fun PartiesSection(
+    topParties: List<PartyEntity>,
+    useBengaliDigits: Boolean,
+    onNavigateToKhata: () -> Unit,
+    onSelectParty: (PartyEntity) -> Unit,
+    onLoadSampleData: () -> Unit
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp, vertical = 16.dp)
+    ) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = stringResource(R.string.dashboard_parties_title),
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.Bold
+            )
+            Text(
+                text = stringResource(R.string.dashboard_parties_all),
+                style = MaterialTheme.typography.labelMedium,
+                color = MaterialTheme.colorScheme.primary,
+                modifier = Modifier.clickable { onNavigateToKhata() }
+            )
+        }
+        Spacer(modifier = Modifier.height(8.dp))
+        if (topParties.isEmpty()) {
+            EmptyCard(
+                message = stringResource(R.string.dashboard_empty_parties),
+                actionText = "নমুনা হিসাব লোড করুন",
+                onAction = onLoadSampleData
+            )
+        } else {
+            topParties.take(5).forEach { party ->
+                PartySummaryRow(
+                    party = party,
+                    useBengaliDigits = useBengaliDigits,
+                    onClick = { onSelectParty(party) }
+                )
+                Spacer(modifier = Modifier.height(6.dp))
+            }
+        }
+    }
+}
+
+@Composable
+private fun RecentTransactionsSection(
+    recentTransactions: List<TransactionEntity>,
+    useBengaliDigits: Boolean,
+    onNavigateToTransactions: () -> Unit,
+    onLoadSampleData: () -> Unit
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp, vertical = 8.dp)
+    ) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = stringResource(R.string.dashboard_recent_title),
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.Bold
+            )
+            Text(
+                text = stringResource(R.string.dashboard_recent_all),
+                style = MaterialTheme.typography.labelMedium,
+                color = MaterialTheme.colorScheme.primary,
+                modifier = Modifier.clickable { onNavigateToTransactions() }
+            )
+        }
+        Spacer(modifier = Modifier.height(8.dp))
+        if (recentTransactions.isEmpty()) {
+            EmptyCard(
+                message = stringResource(R.string.dashboard_empty_transactions),
+                actionText = stringResource(R.string.dashboard_load_sample),
+                onAction = onLoadSampleData
+            )
+        } else {
+            recentTransactions.take(5).forEach { tx ->
+                TransactionMiniRow(
+                    tx = tx,
+                    useBengaliDigits = useBengaliDigits
+                )
+                Spacer(modifier = Modifier.height(6.dp))
             }
         }
     }

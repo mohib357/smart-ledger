@@ -492,6 +492,7 @@
     <string name="dashboard_section_recent">Recent Transactions</string>
     <string name="dashboard_section_earn_coins">Earn Coins</string>
     <string name="dashboard_section_nominee">Nominee Banner</string>
+    <string name="dashboard_drag_handle_desc">Drag to reorder</string>
     <string name="export_excel_button">Export Excel (.xlsx)</string>
     <string name="export_excel_success">Excel file created!</string>
     <string name="export_excel_error">Excel export failed</string>

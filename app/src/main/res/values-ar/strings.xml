@@ -489,6 +489,7 @@
     <string name="dashboard_section_recent">المعاملات الأخيرة</string>
     <string name="dashboard_section_earn_coins">كسب العملات</string>
     <string name="dashboard_section_nominee">لافتة الورثة</string>
+    <string name="dashboard_drag_handle_desc">اسحب لإعادة الترتيب</string>
     <string name="export_excel_button">Excel (.xlsx) এক্সপোর্ট করুন</string>
     <string name="export_excel_success">Excel ফাইল তৈরি হয়েছে!</string>
     <string name="export_excel_error">Excel তৈরি ব্যর্থ হয়েছে</string>
