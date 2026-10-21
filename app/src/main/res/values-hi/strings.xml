@@ -477,4 +477,16 @@
     <string name="voice_entry_apply">इसका उपयोग करें</string>
     <string name="voice_entry_no_result">कुछ नहीं सुना</string>
     <string name="voice_entry_permission_required">माइक्रोफ़ोन अनुमति आवश्यक है</string>
+
+    <!-- Phase 6 — Customizable Dashboard -->
+    <string name="dashboard_customize_title">ड्यासबोर्ड कस्टमाइज़ करें</string>
+    <string name="dashboard_customize_save">सहेजें</string>
+    <string name="dashboard_section_quick_actions">त्वरित कार्य</string>
+    <string name="dashboard_section_ai_insight">AI सलाह कार्ड</string>
+    <string name="dashboard_section_chart">व्यय चार्ट</string>
+    <string name="dashboard_section_wallets">बटुआ और खाते</string>
+    <string name="dashboard_section_parties">देनदारियां</string>
+    <string name="dashboard_section_recent">हाल के लेनदेन</string>
+    <string name="dashboard_section_earn_coins">सिक्के कमाएं</string>
+    <string name="dashboard_section_nominee">वारिस बैनर</string>
 </resources>

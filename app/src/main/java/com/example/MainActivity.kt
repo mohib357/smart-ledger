@@ -60,6 +60,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.data.model.NomineeEntity
+import com.example.data.model.DashboardPrefs
 import com.example.R
 import com.example.ui.components.AddEditProductDialog
 import com.example.ui.components.AddNomineeDialog
@@ -67,6 +68,7 @@ import com.example.ui.components.AddPartyDialog
 import com.example.ui.components.AddTransactionDialog
 import com.example.ui.components.AppTopBar
 import com.example.ui.components.BackupRestoreDialog
+import com.example.ui.components.CustomizeDashboardDialog
 import com.example.ui.components.FeedbackDialog
 import com.example.ui.components.CreateInvoiceDialog
 import com.example.ui.components.SmsMarketingDialog
@@ -255,6 +257,10 @@ fun MainAppContent(viewModel: MainViewModel) {
 
     // Phase 6 AI Insights
     val aiInsight by viewModel.aiInsight.collectAsStateWithLifecycle()
+
+    // Phase 6 Dashboard Prefs
+    val dashboardPrefs by viewModel.dashboardPrefs.collectAsStateWithLifecycle()
+    var showCustomizeDashboard by remember { mutableStateOf(false) }
 
     // Start sync when composable is active
     androidx.compose.runtime.LaunchedEffect(Unit) {
@@ -461,7 +467,8 @@ fun MainAppContent(viewModel: MainViewModel) {
                                 }
                             },
                             aiInsight = aiInsight,
-                            onRefreshInsight = { viewModel.refreshAiInsight() }
+                            onRefreshInsight = { viewModel.refreshAiInsight() },
+                            dashboardPrefs = dashboardPrefs
                         )
                         1 -> TransactionsScreen(
                             transactions = transactions,
@@ -864,7 +871,8 @@ fun MainAppContent(viewModel: MainViewModel) {
                 isCloudBackupEnabled = viewModel.isCloudBackupEnabled,
                 isPremium = isPremium,
                 onManualSync = { viewModel.triggerManualSync() },
-                syncStatus = syncStatus
+                syncStatus = syncStatus,
+                onOpenCustomizeDashboard = { showCustomizeDashboard = true }
             )
         }
 
@@ -922,6 +930,15 @@ fun MainAppContent(viewModel: MainViewModel) {
                         snackbarHostState.showSnackbar(context.getString(R.string.feedback_no_email_app))
                     }
                 }
+            )
+        }
+
+        // Phase 6: Customize Dashboard dialog
+        if (showCustomizeDashboard) {
+            CustomizeDashboardDialog(
+                current = dashboardPrefs,
+                onSave = { viewModel.updateDashboardPrefs(it) },
+                onDismiss = { showCustomizeDashboard = false }
             )
         }
 

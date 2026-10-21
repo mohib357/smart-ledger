@@ -477,4 +477,16 @@
     <string name="voice_entry_apply">استخدم هذا</string>
     <string name="voice_entry_no_result">لم يُسمع شيء</string>
     <string name="voice_entry_permission_required">إذن الميكروفون مطلوب</string>
+
+    <!-- Phase 6 — Customizable Dashboard -->
+    <string name="dashboard_customize_title">تخصيص لوحة التحكم</string>
+    <string name="dashboard_customize_save">حفظ</string>
+    <string name="dashboard_section_quick_actions">الإجراءات السريعة</string>
+    <string name="dashboard_section_ai_insight">بطاقة نصيحة AI</string>
+    <string name="dashboard_section_chart">مخطط المصروفات</string>
+    <string name="dashboard_section_wallets">المحافظ والحسابات</string>
+    <string name="dashboard_section_parties">الديون والمستحقات</string>
+    <string name="dashboard_section_recent">المعاملات الأخيرة</string>
+    <string name="dashboard_section_earn_coins">كسب العملات</string>
+    <string name="dashboard_section_nominee">لافتة الورثة</string>
 </resources>

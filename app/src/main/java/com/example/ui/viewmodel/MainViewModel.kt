@@ -21,6 +21,7 @@ import com.example.data.cloud.BackupStatus
 import com.example.data.cloud.CloudBackupManager
 import com.example.data.cloud.FirebaseAuthManager
 import com.example.data.cloud.UserProfile
+import com.example.data.model.DashboardPrefs
 import com.example.util.Formatters
 import com.example.util.PdfExporter
 import com.example.util.PdfExportResult
@@ -189,6 +190,18 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             initialValue = emptyList()
         )
 
+    // ── Phase 6: Dashboard Prefs ───────────────────────────────────────────
+
+    private val _dashboardPrefs = MutableStateFlow(DashboardPrefs())
+    val dashboardPrefs: StateFlow<DashboardPrefs> = _dashboardPrefs.asStateFlow()
+
+    fun updateDashboardPrefs(p: DashboardPrefs) {
+        _dashboardPrefs.value = p
+        getApplication<Application>()
+            .getSharedPreferences("app_settings", Context.MODE_PRIVATE)
+            .edit().putString("dashboard_prefs", p.toJson()).apply()
+    }
+
     init {
         val prefs = getApplication<Application>().getSharedPreferences("app_settings", Context.MODE_PRIVATE)
 
@@ -276,6 +289,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
         // Start billing connection
         billingManager.startConnection()
+        // Load dashboard prefs
+        val savedPrefsJson = prefs.getString("dashboard_prefs", null)
+        _dashboardPrefs.value = if (savedPrefsJson != null) DashboardPrefs.fromJson(savedPrefsJson) else DashboardPrefs()
         // Load AI insight on startup
         refreshAiInsight()
     }

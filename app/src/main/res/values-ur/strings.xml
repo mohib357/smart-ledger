@@ -477,4 +477,16 @@
     <string name="voice_entry_apply">یہ استعمال کریں</string>
     <string name="voice_entry_no_result">کچھ نہیں سنا</string>
     <string name="voice_entry_permission_required">مائیکروفون کی اجازت درکار ہے</string>
+
+    <!-- Phase 6 — Customizable Dashboard -->
+    <string name="dashboard_customize_title">ڈیش بورڈ کسٹمائز کریں</string>
+    <string name="dashboard_customize_save">محفوظ کریں</string>
+    <string name="dashboard_section_quick_actions">فوری اعمال</string>
+    <string name="dashboard_section_ai_insight">AI مشورہ کارڈ</string>
+    <string name="dashboard_section_chart">خرچ چارٹ</string>
+    <string name="dashboard_section_wallets">بٹوے اور اکاؤنٹ</string>
+    <string name="dashboard_section_parties">واجبات</string>
+    <string name="dashboard_section_recent">حالیہ لین دین</string>
+    <string name="dashboard_section_earn_coins">سکے کمائیں</string>
+    <string name="dashboard_section_nominee">وارث بینر</string>
 </resources>

@@ -73,6 +73,7 @@ import com.example.ui.theme.IncomeGreen
 import com.example.ui.theme.IncomeGreenLight
 import com.example.ui.theme.PayableAmber
 import com.example.ui.theme.ReceivableBlue
+import com.example.data.model.DashboardPrefs
 import com.example.util.Formatters
 import com.example.util.expenseByCategory
 
@@ -101,7 +102,8 @@ fun DashboardScreen(
     hasActiveCoins: Boolean = false,
     onEarnCoin: () -> Unit = {},
     aiInsight: String = "",
-    onRefreshInsight: () -> Unit = {}
+    onRefreshInsight: () -> Unit = {},
+    dashboardPrefs: DashboardPrefs = DashboardPrefs()
 ) {
     LazyColumn(
         modifier = Modifier
@@ -119,15 +121,18 @@ fun DashboardScreen(
 
         // Quick Action Row
         item {
+            if (dashboardPrefs.showQuickActions) {
             QuickActionsRow(
                 onAddIncome = onAddIncome,
                 onAddExpense = onAddExpense,
                 onAddParty = onAddParty
             )
+            }
         }
 
         // Earn Coins card
         item {
+            if (dashboardPrefs.showEarnCoins) {
             ElevatedCard(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -148,10 +153,12 @@ fun DashboardScreen(
                     }
                 }
             }
+            }
         }
 
         // Emergency Heir / Nominee Access & Safety Feature Banner
         item {
+            if (dashboardPrefs.showNomineeBanner) {
             Card(
                 shape = RoundedCornerShape(18.dp),
                 colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondaryContainer),
@@ -199,6 +206,7 @@ fun DashboardScreen(
                         color = MaterialTheme.colorScheme.secondary
                     )
                 }
+            }
             }
         }
 
@@ -256,6 +264,7 @@ fun DashboardScreen(
 
         // AI Insights Card
         item {
+            if (dashboardPrefs.showAiInsight) {
             ElevatedCard(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -291,6 +300,7 @@ fun DashboardScreen(
                         )
                     }
                 }
+            }
             }
         }
 
@@ -492,6 +502,7 @@ fun DashboardScreen(
 
         // Expense Donut Chart
         item {
+            if (dashboardPrefs.showChart) {
             val expenseSlices = expenseByCategory(recentTransactions)
             val totalExpense = expenseSlices.sumOf { it.second }
             Card(
@@ -574,10 +585,12 @@ fun DashboardScreen(
                     }
                 }
             }
+            } // end if showChart
         }
 
         // Wallets / Accounts Slider
         item {
+            if (dashboardPrefs.showWallets) {
             Column(modifier = Modifier.padding(top = 16.dp)) {
                 Row(
                     modifier = Modifier
@@ -610,10 +623,12 @@ fun DashboardScreen(
                     }
                 }
             }
+            } // end if showWallets
         }
 
         // Top Payables / দেনা-পাওনা খাতা হাইলাইটস
         item {
+            if (dashboardPrefs.showParties) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -656,10 +671,12 @@ fun DashboardScreen(
                     }
                 }
             }
+            } // end if showParties
         }
 
         // Recent Transactions
         item {
+            if (dashboardPrefs.showRecentTransactions) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -701,6 +718,7 @@ fun DashboardScreen(
                     }
                 }
             }
+            } // end if showRecentTransactions
         }
 
         // Phase 4: Banner Ad (only when not premium and no active coins)

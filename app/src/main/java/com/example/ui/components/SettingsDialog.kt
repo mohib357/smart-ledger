@@ -94,9 +94,10 @@ fun SettingsDialog(
     isPremium: Boolean = false,
     // Phase 5 — Sync
     onManualSync: () -> Unit = {},
-    syncStatus: com.example.data.cloud.SyncStatus = com.example.data.cloud.SyncStatus.IDLE
-) {
-    val context = LocalContext.current
+    syncStatus: com.example.data.cloud.SyncStatus = com.example.data.cloud.SyncStatus.IDLE,
+    // Phase 6 — Customize Dashboard
+    onOpenCustomizeDashboard: () -> Unit = {}
+) {    val context = LocalContext.current
 
     Dialog(onDismissRequest = onDismiss) {
         Card(
@@ -555,6 +556,15 @@ fun SettingsDialog(
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Text(stringResource(R.string.sync_manual_button))
+                }
+
+                // ── Phase 6: Customize Dashboard ────────────────────────────────────
+                Spacer(modifier = Modifier.height(16.dp))
+                OutlinedButton(
+                    onClick = { onOpenCustomizeDashboard(); onDismiss() },
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text("🎨 " + stringResource(R.string.dashboard_customize_title))
                 }
             }
         }

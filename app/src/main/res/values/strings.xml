@@ -481,4 +481,16 @@
     <string name="voice_entry_apply">এটি ব্যবহার করুন</string>
     <string name="voice_entry_no_result">কিছু শোনা যায়নি</string>
     <string name="voice_entry_permission_required">মাইক্রোফোন অনুমতি প্রয়োজন</string>
+
+    <!-- Phase 6 — Customizable Dashboard -->
+    <string name="dashboard_customize_title">ড্যাশবোর্ড কাস্টমাইজ করুন</string>
+    <string name="dashboard_customize_save">সংরক্ষণ করুন</string>
+    <string name="dashboard_section_quick_actions">দ্রুত কার্যক্রম</string>
+    <string name="dashboard_section_ai_insight">AI পরামর্শ কার্ড</string>
+    <string name="dashboard_section_chart">ব্যয় চার্ট</string>
+    <string name="dashboard_section_wallets">ওয়ালেট ও অ্যাকাউন্ট</string>
+    <string name="dashboard_section_parties">দেনা-পাওনা</string>
+    <string name="dashboard_section_recent">সাম্প্রতিক লেনদেন</string>
+    <string name="dashboard_section_earn_coins">কয়েন অর্জন</string>
+    <string name="dashboard_section_nominee">উত্তরাধিকার ব্যানার</string>
 </resources>

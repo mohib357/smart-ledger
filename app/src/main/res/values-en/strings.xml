@@ -480,4 +480,16 @@
     <string name="voice_entry_apply">Use this</string>
     <string name="voice_entry_no_result">Nothing heard</string>
     <string name="voice_entry_permission_required">Microphone permission required</string>
+
+    <!-- Phase 6 — Customizable Dashboard -->
+    <string name="dashboard_customize_title">Customize Dashboard</string>
+    <string name="dashboard_customize_save">Save</string>
+    <string name="dashboard_section_quick_actions">Quick Actions</string>
+    <string name="dashboard_section_ai_insight">AI Insight Card</string>
+    <string name="dashboard_section_chart">Expense Chart</string>
+    <string name="dashboard_section_wallets">Wallets &amp; Accounts</string>
+    <string name="dashboard_section_parties">Payables &amp; Receivables</string>
+    <string name="dashboard_section_recent">Recent Transactions</string>
+    <string name="dashboard_section_earn_coins">Earn Coins</string>
+    <string name="dashboard_section_nominee">Nominee Banner</string>
 </resources>
