@@ -1,0 +1,25 @@
+{
+  "id": "FEAT-001",
+  "type": "fix",
+  "description": "Remove all Gemini branding from user-visible UI and fix GeminiService model name. Touches: ChatScreen.kt (2 text literals), GeminiService.kt (MODEL_NAME + 2 error messages), all 6 strings.xml files (dashboard_ai_title + onboarding_page4_desc), and AppTopBar.kt (move 2 icon buttons into overflow menu). Independent of FEAT-002 and FEAT-003.",
+  "status": "completed",
+  "steps": [
+    "1. In app/src/main/java/com/example/ui/screens/ChatScreen.kt: change title text literal 'হিসাব সহকারী (Gemini AI)' to 'হিসাব এআই সহকারী'. Change disclaimer text literal 'Gemini এআই উত্তর ভুল হতে পারে, আর্থিক গুরুত্বপূর্ণ সিদ্ধান্ত নেওয়ার আগে যাচাই করুন।' to 'এআই উত্তর সবসময় নির্ভুল নাও হতে পারে।'",
+    "2. In app/src/main/java/com/example/data/ai/GeminiService.kt: change MODEL_NAME from 'gemini-3.8-flash' to 'gemini-2.0-flash'. Change user-visible exception message 'Gemini API Key পাওয়া যায়নি...' to 'এআই সেবা চালু নেই। GEMINI_API_KEY সেট করুন।'. Change 'Gemini API Error: $errorMsg' to 'এআই সেবা ত্রুটি: $errorMsg'. Do NOT change API key, system prompt, OkHttp config, or any logic.",
+    "3. In all 6 strings.xml files, update 'dashboard_ai_title' to remove '(Gemini)': values → 'হিসাব এআই সহকারী', values-bn → 'হিসাব এআই সহকারী', values-en → 'Smart Ledger AI Assistant', values-ar → 'مساعد الذكاء الاصطناعي', values-hi → 'स्मार्ट AI सहायक', values-ur → 'سمارٹ AI معاون'.",
+    "4. In all 6 strings.xml files, update 'onboarding_page4_desc' to remove 'Gemini AI': values → 'স্মার্ট এআই দিয়ে আপনার হিসাব বিশ্লেষণ করুন এবং পরামর্শ নিন।', values-bn → same, values-en → 'Use Smart AI to analyze your finances and get smart advice.', values-ar → 'استخدم الذكاء الاصطناعي الذكي لتحليل أموالك والحصول على نصائح.', values-hi → 'अपने वित्त का विश्लेषण करने और स्मार्ट सलाह पाने के लिए AI का उपयोग करें।', values-ur → 'اپنے مالیات کا تجزیہ کرنے اور ذہین مشورہ پانے کے لیے سمارٹ AI استعمال کریں۔'",
+    "5. In app/src/main/java/com/example/ui/components/AppTopBar.kt: remove the two standalone IconButtons from the top Row — the CloudSync (onOpenBackupRestore) button and the Calculate (onOpenCalculator) button. Add them as the FIRST TWO items in the existing DropdownMenu (before Settings item): first item text '☁ ব্যাকআপ/রিস্টোর' with CloudSync leadingIcon, second item text '🔢 ক্যালকুলেটর' with Calculate leadingIcon. Also remove the later duplicate 'topbar_backup_menu' item from the dropdown. Keep onOpenBackupRestore and onOpenCalculator parameters on AppTopBar unchanged. The top Row should only have: title area + DigitToggleChip + SyncStatusIndicator + MoreVertButton."
+  ],
+  "acceptance_criteria": [
+    "No occurrence of 'Gemini' or 'gemini' in any user-visible string (strings.xml files or hardcoded text in ChatScreen.kt)",
+    "GeminiService.MODEL_NAME equals 'gemini-2.0-flash'",
+    "AppTopBar top Row contains only title, digit toggle chip, sync status indicator, and overflow menu button — CloudSync and Calculate icon buttons are gone from the Row",
+    "Both CloudSync and Calculate actions are accessible via the overflow dropdown menu",
+    ".\\gradlew assembleDebug completes with BUILD SUCCESSFUL"
+  ],
+  "verification": [
+    ".\\gradlew assembleDebug from c:\\Project\\smart-ledger — must succeed with 0 errors"
+  ],
+  "blocked_reason": null,
+  "findings": "All 5 steps implemented successfully. BUILD SUCCESSFUL (1m 56s, 40 tasks executed, 0 errors). Deprecation warnings in build are all pre-existing and unrelated to FEAT-001 changes. AppTopBar now has only title+DigitToggleChip+SyncStatusIndicator+MoreVertButton in top Row; CloudSync and Calculate moved as first two items in overflow dropdown; duplicate topbar_backup_menu item removed. GeminiService MODEL_NAME updated to gemini-2.0-flash, both error messages updated to Bengali. ChatScreen title and disclaimer updated. All 6 strings.xml files updated for dashboard_ai_title and onboarding_page4_desc."
+}
