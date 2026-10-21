@@ -196,10 +196,16 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             initialValue = emptyList()
         )
 
-    // ── Phase 6: Dashboard Prefs ───────────────────────────────────────────
+    // ── Phase 6: Dashboard Prefs, AI Insights & Excel Export ──────────────
 
     private val _dashboardPrefs = MutableStateFlow(DashboardPrefs())
     val dashboardPrefs: StateFlow<DashboardPrefs> = _dashboardPrefs.asStateFlow()
+
+    private val _aiInsight = MutableStateFlow("")
+    val aiInsight: StateFlow<String> = _aiInsight.asStateFlow()
+
+    private val _excelExportResult = MutableStateFlow<ExcelExportResult>(ExcelExportResult.Idle)
+    val excelExportResult: StateFlow<ExcelExportResult> = _excelExportResult.asStateFlow()
 
     fun updateDashboardPrefs(p: DashboardPrefs) {
         _dashboardPrefs.value = p
@@ -304,9 +310,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     // ── Phase 6: AI Insights ───────────────────────────────────────────────
 
-    private val _aiInsight = MutableStateFlow("")
-    val aiInsight: StateFlow<String> = _aiInsight.asStateFlow()
-
     fun refreshAiInsight() {
         viewModelScope.launch {
             val stats = dashboardStats.value
@@ -316,9 +319,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     // ── Phase 6: Excel Export ──────────────────────────────────────────────
-
-    private val _excelExportResult = MutableStateFlow<ExcelExportResult>(ExcelExportResult.Idle)
-    val excelExportResult: StateFlow<ExcelExportResult> = _excelExportResult.asStateFlow()
 
     fun exportExcel(context: android.content.Context) {
         viewModelScope.launch {
