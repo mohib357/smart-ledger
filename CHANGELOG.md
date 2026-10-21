@@ -9,10 +9,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Planned (Phase 6)
-- Voice entry
-- Advanced UX & Polish
-- Widget support
+---
+
+## [1.6.0] - 2026-10-21
+
+### Added
+- **AI Insights Card**: Auto-generated personalized financial advice on the dashboard via Gemini AI, with manual refresh
+- **Voice Entry**: Mic button in Add Transaction dialog — speak your transaction (amount, type, category) in Bengali, confirm to apply
+- **Customizable Dashboard**: Reorder and show/hide dashboard sections (Quick Actions, AI Insight, Chart, Wallets, Parties, Recent Transactions, Earn Coins, Nominee Banner) via Settings
+- **Excel Export (.xlsx)**: Export all transactions, parties, and products to a spreadsheet via Backup & Restore dialog (SpreadsheetML format, no external libraries)
+- **Onboarding Tutorial** (Phase 6 FEAT-005, already committed): 5-page onboarding flow for new users
 
 ---
 
