@@ -69,7 +69,7 @@
     <string name="dashboard_nominee_title">वारिस और आपातकालीन पहुंच</string>
     <string name="dashboard_nominee_subtitle">आपात स्थिति में ऋण निपटाने के लिए पहुंच दें</string>
     <string name="dashboard_nominee_action">प्रबंधन →</string>
-    <string name="dashboard_ai_title">AI सहायक (Gemini)</string>
+    <string name="dashboard_ai_title">स्मार्ट AI सहायक</string>
     <string name="dashboard_ai_subtitle">अपने वित्त के बारे में पूछें</string>
     <string name="dashboard_ai_action">चैट →</string>
     <string name="dashboard_calendar_title">कैलेंडर देखें</string>
@@ -461,7 +461,7 @@
     <string name="onboarding_page3_title">पार्टी और खाता बही</string>
     <string name="onboarding_page3_desc">कौन आपका देनदार है और आप किसके देनदार हैं, सरल खाता बही से प्रबंधित करें।</string>
     <string name="onboarding_page4_title">AI वित्त सहायक</string>
-    <string name="onboarding_page4_desc">अपने वित्त का विश्लेषण करने और स्मार्ट सलाह पाने के लिए Gemini AI का उपयोग करें।</string>
+    <string name="onboarding_page4_desc">अपने वित्त का विश्लेषण करने और स्मार्ट सलाह पाने के लिए AI का उपयोग करें।</string>
     <string name="onboarding_page5_title">आप तैयार हैं!</string>
 
     <!-- Phase 6 — AI Insights Card -->

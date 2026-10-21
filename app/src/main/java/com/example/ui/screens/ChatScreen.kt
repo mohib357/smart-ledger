@@ -1,4 +1,4 @@
-package com.example.ui.screens
+﻿package com.example.ui.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -119,7 +119,7 @@ fun ChatScreen(
                     Spacer(modifier = Modifier.width(10.dp))
                     Column {
                         Text(
-                            text = "হিসাব সহকারী (Gemini AI)",
+                            text = "হিসাব এআই সহকারী",
                             style = MaterialTheme.typography.titleMedium,
                             fontWeight = FontWeight.Bold,
                             color = MaterialTheme.colorScheme.primary
@@ -259,7 +259,7 @@ fun ChatScreen(
 
         // Prototype disclaimer notice
         Text(
-            text = "Gemini এআই উত্তর ভুল হতে পারে, আর্থিক গুরুত্বপূর্ণ সিদ্ধান্ত নেওয়ার আগে যাচাই করুন।",
+            text = "এআই উত্তর সবসময় নির্ভুল নাও হতে পারে।",
             fontSize = 10.sp,
             color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f),
             modifier = Modifier

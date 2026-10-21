@@ -461,7 +461,7 @@
     <string name="onboarding_page3_title">دفتر الحسابات</string>
     <string name="onboarding_page3_desc">أدر من يدين لك ومن تدين له بدفتر حسابات بسيط.</string>
     <string name="onboarding_page4_title">مساعد الذكاء الاصطناعي</string>
-    <string name="onboarding_page4_desc">استخدم Gemini AI لتحليل أموالك والحصول على نصائح ذكية.</string>
+    <string name="onboarding_page4_desc">استخدم الذكاء الاصطناعي الذكي لتحليل أموالك والحصول على نصائح.</string>
     <string name="onboarding_page5_title">أنت جاهز للبدء!</string>
 
     <!-- Phase 6 — AI Insights Card -->

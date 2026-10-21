@@ -1,4 +1,4 @@
-package com.example.data.ai
+﻿package com.example.data.ai
 
 import com.example.BuildConfig
 import kotlinx.coroutines.Dispatchers
@@ -25,11 +25,7 @@ enum class MessageSender {
 
 object GeminiService {
 
-    // Verified GA flash-tier model for the Generative Language API as of 2026-10
-    // (see https://ai.google.dev/gemini-api/docs). gemini-2.0-flash is deprecated
-    // (June 2026); gemini-4-argon is a heavy reasoning model (not Free tier), so
-    // gemini-3.8-flash remains the correct fast chat model for this app.
-    private const val MODEL_NAME = "gemini-3.8-flash"
+    private const val MODEL_NAME = "gemini-2.0-flash"
     private const val BASE_URL = "https://generativelanguage.googleapis.com/v1beta/models"
 
     private val client = OkHttpClient.Builder()
@@ -58,7 +54,7 @@ object GeminiService {
 
         if (apiKey.isBlank() || apiKey == "MY_GEMINI_API_KEY") {
             return@withContext Result.failure(
-                Exception("Gemini API Key পাওয়া যায়নি। AI Studio-এর Secrets প্যানেলে আপনার GEMINI_API_KEY যুক্ত করুন।")
+                Exception("এআই সেবা চালু নেই। GEMINI_API_KEY সেট করুন।")
             )
         }
 
@@ -125,7 +121,7 @@ object GeminiService {
                     } catch (_: Exception) {
                         "HTTP ${response.code}"
                     }
-                    return@withContext Result.failure(Exception("Gemini API Error: $errorMsg"))
+                    return@withContext Result.failure(Exception("এআই সেবা ত্রুটি: $errorMsg"))
                 }
 
                 val jsonResponse = JSONObject(responseBodyStr)

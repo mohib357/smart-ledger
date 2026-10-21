@@ -69,7 +69,7 @@
     <string name="dashboard_nominee_title">ورثاء اور ہنگامی رسائی</string>
     <string name="dashboard_nominee_subtitle">ہنگامی حالات میں قرض ادائیگی کے لیے رسائی دیں</string>
     <string name="dashboard_nominee_action">انتظام →</string>
-    <string name="dashboard_ai_title">AI معاون (Gemini)</string>
+    <string name="dashboard_ai_title">سمارٹ AI معاون</string>
     <string name="dashboard_ai_subtitle">اپنے مالیات کے بارے میں پوچھیں</string>
     <string name="dashboard_ai_action">چیٹ →</string>
     <string name="dashboard_calendar_title">کیلنڈر دیکھیں</string>
@@ -461,7 +461,7 @@
     <string name="onboarding_page3_title">پارٹی اور کھاتہ بہی</string>
     <string name="onboarding_page3_desc">کون آپ کا مقروض ہے اور آپ کس کے مقروض ہیں، سادہ کھاتہ بہی سے منظم کریں۔</string>
     <string name="onboarding_page4_title">AI مالیاتی معاون</string>
-    <string name="onboarding_page4_desc">اپنے مالیات کا تجزیہ کرنے اور ذہین مشورہ پانے کے لیے Gemini AI استعمال کریں۔</string>
+    <string name="onboarding_page4_desc">اپنے مالیات کا تجزیہ کرنے اور ذہین مشورہ پانے کے لیے سمارٹ AI استعمال کریں۔</string>
     <string name="onboarding_page5_title">آپ تیار ہیں!</string>
 
     <!-- Phase 6 — AI Insights Card -->

@@ -69,7 +69,7 @@
     <string name="dashboard_nominee_title">Nominees &amp; Emergency Access</string>
     <string name="dashboard_nominee_subtitle">Grant access to settle debts after death or emergency</string>
     <string name="dashboard_nominee_action">Manage →</string>
-    <string name="dashboard_ai_title">AI Assistant (Gemini)</string>
+    <string name="dashboard_ai_title">Smart Ledger AI Assistant</string>
     <string name="dashboard_ai_subtitle">Ask about your finances or get advice</string>
     <string name="dashboard_ai_action">Chat →</string>
     <string name="dashboard_calendar_title">View Calendar</string>
@@ -464,7 +464,7 @@
     <string name="onboarding_page3_title">Party &amp; Khata Ledger</string>
     <string name="onboarding_page3_desc">Manage who owes you and who you owe with a simple ledger.</string>
     <string name="onboarding_page4_title">AI Finance Assistant</string>
-    <string name="onboarding_page4_desc">Use Gemini AI to analyze your finances and get smart advice.</string>
+    <string name="onboarding_page4_desc">Use Smart AI to analyze your finances and get smart advice.</string>
     <string name="onboarding_page5_title">You\'re All Set!</string>
 
     <!-- Phase 6 — AI Insights Card -->

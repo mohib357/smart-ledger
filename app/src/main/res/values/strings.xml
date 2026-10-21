@@ -69,7 +69,7 @@
     <string name="dashboard_nominee_title">উত্তরাধিকার ও জরুরী এক্সেস (Nominee)</string>
     <string name="dashboard_nominee_subtitle">মৃত্যু বা বিপদে ঋণ পরিশোধ ও পাওনা আদায়ের জন্য এক্সেস দিন</string>
     <string name="dashboard_nominee_action">পরিচালনা →</string>
-    <string name="dashboard_ai_title">হিসাব সহকারী এআই (Gemini)</string>
+    <string name="dashboard_ai_title">হিসাব এআই সহকারী</string>
     <string name="dashboard_ai_subtitle">হিসাবের হিসাব বুঝতে বা পরামর্শ পেতে জিজ্ঞাসা করুন</string>
     <string name="dashboard_ai_action">চ্যাট →</string>
     <string name="dashboard_calendar_title">ক্যালেন্ডার দেখুন</string>
@@ -471,7 +471,7 @@
     <string name="onboarding_page3_title">দেনা-পাওনা খাতা</string>
     <string name="onboarding_page3_desc">পার্টি ও খাতা পরিচালনা করুন — কে কত দেয়, কে কত পাবে।</string>
     <string name="onboarding_page4_title">এআই হিসাব সহকারী</string>
-    <string name="onboarding_page4_desc">Gemini AI দিয়ে আপনার হিসাব বিশ্লেষণ করুন এবং পরামর্শ নিন।</string>
+    <string name="onboarding_page4_desc">স্মার্ট এআই দিয়ে আপনার হিসাব বিশ্লেষণ করুন এবং পরামর্শ নিন।</string>
     <string name="onboarding_page5_title">শুরু করার সময়!</string>
 
     <!-- Phase 6 — Voice Entry -->

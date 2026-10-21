@@ -134,30 +134,6 @@ fun AppTopBar(
                     // Sync status indicator
                     SyncStatusIndicator(syncStatus = syncStatus)
 
-                    // Backup & Sync Quick Icon Button
-                    IconButton(
-                        onClick = onOpenBackupRestore,
-                        modifier = Modifier.testTag("backup_button")
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.CloudSync,
-                            contentDescription = stringResource(R.string.topbar_backup),
-                            tint = MaterialTheme.colorScheme.primary
-                        )
-                    }
-
-                    // Calculator Icon Button
-                    IconButton(
-                        onClick = onOpenCalculator,
-                        modifier = Modifier.testTag("calculator_button")
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.Calculate,
-                            contentDescription = stringResource(R.string.topbar_calculator),
-                            tint = MaterialTheme.colorScheme.primary
-                        )
-                    }
-
                     // Overflow Menu
                     IconButton(
                         onClick = { showMenu = true },
@@ -174,6 +150,26 @@ fun AppTopBar(
                         expanded = showMenu,
                         onDismissRequest = { showMenu = false }
                     ) {
+                        DropdownMenuItem(
+                            leadingIcon = {
+                                Icon(Icons.Default.CloudSync, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
+                            },
+                            text = { Text("☁ ব্যাকআপ/রিস্টোর") },
+                            onClick = {
+                                showMenu = false
+                                onOpenBackupRestore()
+                            }
+                        )
+                        DropdownMenuItem(
+                            leadingIcon = {
+                                Icon(Icons.Default.Calculate, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
+                            },
+                            text = { Text("🔢 ক্যালকুলেটর") },
+                            onClick = {
+                                showMenu = false
+                                onOpenCalculator()
+                            }
+                        )
                         DropdownMenuItem(
                             leadingIcon = {
                                 Icon(Icons.Default.Settings, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
@@ -218,16 +214,6 @@ fun AppTopBar(
                             onClick = {
                                 showMenu = false
                                 onOpenSmsMarketing()
-                            }
-                        )
-                        DropdownMenuItem(
-                            leadingIcon = {
-                                Icon(Icons.Default.CloudSync, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
-                            },
-                            text = { Text(stringResource(R.string.topbar_backup_menu)) },
-                            onClick = {
-                                showMenu = false
-                                onOpenBackupRestore()
                             }
                         )
                         DropdownMenuItem(
