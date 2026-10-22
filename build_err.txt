@@ -1,0 +1,23 @@
+e: file:///C:/Project/smart-ledger/app/src/main/java/com/example/ui/screens/SupportScreen.kt:3:24 Conflicting import: imported name 'Intent' is ambiguous.
+e: file:///C:/Project/smart-ledger/app/src/main/java/com/example/ui/screens/SupportScreen.kt:4:20 Conflicting import: imported name 'Uri' is ambiguous.
+e: file:///C:/Project/smart-ledger/app/src/main/java/com/example/ui/screens/SupportScreen.kt:5:19 Conflicting import: imported name 'Build' is ambiguous.
+e: file:///C:/Project/smart-ledger/app/src/main/java/com/example/ui/screens/SupportScreen.kt:6:23 Conflicting import: imported name 'Toast' is ambiguous.
+e: file:///C:/Project/smart-ledger/app/src/main/java/com/example/ui/screens/SupportScreen.kt:7:24 Conflicting import: imported name 'Intent' is ambiguous.
+e: file:///C:/Project/smart-ledger/app/src/main/java/com/example/ui/screens/SupportScreen.kt:8:20 Conflicting import: imported name 'Uri' is ambiguous.
+e: file:///C:/Project/smart-ledger/app/src/main/java/com/example/ui/screens/SupportScreen.kt:9:19 Conflicting import: imported name 'Build' is ambiguous.
+e: file:///C:/Project/smart-ledger/app/src/main/java/com/example/ui/screens/SupportScreen.kt:10:23 Conflicting import: imported name 'Toast' is ambiguous.
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':app:compileDebugKotlin' (registered by plugin 'com.android.internal.application').
+> A failure occurred while executing org.jetbrains.kotlin.compilerRunner.GradleCompilerRunnerWithWorkers$GradleKotlinCompilerWorkAction
+   > Compilation error. See log for more details
+
+* Try:
+> Run with --stacktrace option to get the stack trace.
+> Run with --info or --debug option to get more log output.
+> Run with --scan to get full insights from a Build Scan (powered by Develocity).
+> Get more help at https://help.gradle.org.
+
+BUILD FAILED in 1m 48s

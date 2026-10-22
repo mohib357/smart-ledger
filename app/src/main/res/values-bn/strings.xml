@@ -641,4 +641,35 @@
     <!-- SupportScreen error messages -->
     <string name="support_whatsapp_error">হোয়াটসঅ্যাপ খোলা যায়নি</string>
     <string name="support_admin_chat_error">অ্যাডমিন চ্যাট সংযোগ নেই</string>
+
+    <!-- FEAT-002 — 8-page Onboarding new strings -->
+    <string name="onboarding_welcome_title">স্বাগতম হিসাব - Smart Ledger-এ</string>
+    <string name="onboarding_welcome_body">আপনার ব্যবসার সম্পূর্ণ হিসাব রাখুন একটি অ্যাপে। সহজ, নিরাপদ, এবং সব সময় আপনার সাথে।</string>
+    <string name="onboarding_dashboard_title">ড্যাশবোর্ড — সব কিছু এক জায়গায়</string>
+    <string name="onboarding_dashboard_body">আপনার মোট পাবো, মোট দেবো, এবং নিট ব্যালেন্স এক নজরে দেখুন।</string>
+    <string name="onboarding_transactions_title">আয়-ব্যয় হিসাব রাখুন</string>
+    <string name="onboarding_transactions_body">প্রতিটি আয় ও ব্যয় ক্যাটাগরি অনুযায়ী রেকর্ড করুন এবং বিস্তারিত বিশ্লেষণ দেখুন।</string>
+    <string name="onboarding_khata_title">দেনা-পাওনা খাতা</string>
+    <string name="onboarding_khata_body">কাস্টমার ও সাপ্লায়ারের হিসাব আলাদাভাবে রাখুন এবং সহজে তাগাদা পাঠান।</string>
+    <string name="onboarding_cashbox_title">ক্যাশবাক্স ব্যবস্থাপনা</string>
+    <string name="onboarding_cashbox_body">প্রতিদিনের ক্যাশ ইন/আউট ট্র্যাক করুন এবং দিনশেষে ক্যাশবাক্স মিলান।</string>
+    <string name="onboarding_reports_title">রিপোর্ট ও এক্সপোর্ট</string>
+    <string name="onboarding_reports_body">PDF রিপোর্ট, Excel এক্সপোর্ট এবং প্রফেশনাল ইনভয়েস তৈরি করুন।</string>
+    <string name="onboarding_security_title">নিরাপত্তা ও ব্যাকআপ</string>
+    <string name="onboarding_security_body">ফিঙ্গারপ্রিন্ট লক, PIN এবং ক্লাউড ব্যাকআপ দিয়ে আপনার তথ্য সুরক্ষিত রাখুন।</string>
+    <string name="onboarding_getstarted_title">আপনি প্রস্তুত!</string>
+    <string name="onboarding_getstarted_body">সব ফিচার ব্যবহার করুন এবং স্মার্টভাবে হিসাব রাখুন।</string>
+    <string name="onboarding_start">শুরু করুন</string>
+    <string name="help_guide_title">অ্যাপ গাইডলাইন</string>
+    <string name="menu_help_guide">অ্যাপ গাইডলাইন</string>
+    <string name="menu_help_guide_subtitle">কীভাবে ব্যবহার করবেন — বিস্তারিত জানুন</string>
+    <string name="help_getting_started">শুরু করুন</string>
+    <string name="help_dashboard">ড্যাশবোর্ড</string>
+    <string name="help_transactions">আয়-ব্যয়</string>
+    <string name="help_khata">দেনা-পাওনা খাতা</string>
+    <string name="help_cashbox">ক্যাশবাক্স</string>
+    <string name="help_reports">রিপোর্ট</string>
+    <string name="help_products">পণ্য ব্যবস্থাপনা</string>
+    <string name="help_security">নিরাপত্তা</string>
+    <string name="help_menu_settings">মেনু ও সেটিংস</string>
 </resources>

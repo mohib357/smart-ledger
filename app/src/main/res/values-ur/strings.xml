@@ -638,4 +638,35 @@
     <!-- SupportScreen error messages -->
     <string name="support_whatsapp_error">واٹس ایپ نہیں کھل سکا</string>
     <string name="support_admin_chat_error">ایڈمن چیٹ دستیاب نہیں ہے</string>
+
+    <!-- FEAT-002 — 8-page Onboarding new strings -->
+    <string name="onboarding_welcome_title">حساب - Smart Ledger میں خوش آمدید</string>
+    <string name="onboarding_welcome_body">اپنا پورا کاروباری حساب ایک ایپ میں رکھیں۔ آسان، محفوظ اور ہمیشہ آپ کے ساتھ۔</string>
+    <string name="onboarding_dashboard_title">ڈیش بورڈ — سب کچھ ایک جگہ</string>
+    <string name="onboarding_dashboard_body">اپنی کل وصولی، کل ادائیگی اور خالص بیلنس ایک نظر میں دیکھیں۔</string>
+    <string name="onboarding_transactions_title">آمدن و اخراجات کا حساب</string>
+    <string name="onboarding_transactions_body">ہر آمدن اور خرچ کو زمرے کے مطابق درج کریں اور تفصیلی تجزیہ دیکھیں۔</string>
+    <string name="onboarding_khata_title">ادھار بہی کھاتہ</string>
+    <string name="onboarding_khata_body">گاہک اور فروش کے حساب الگ الگ رکھیں اور آسانی سے یاد دہانی بھیجیں۔</string>
+    <string name="onboarding_cashbox_title">کیش باکس انتظام</string>
+    <string name="onboarding_cashbox_body">روزانہ نقد آمدن و اخراجات ٹریک کریں اور دن کے آخر میں مطابقت کریں۔</string>
+    <string name="onboarding_reports_title">رپورٹس اور ایکسپورٹ</string>
+    <string name="onboarding_reports_body">PDF رپورٹس، Excel ایکسپورٹ اور پیشہ ورانہ انوائس بنائیں۔</string>
+    <string name="onboarding_security_title">سیکیورٹی اور بیک اپ</string>
+    <string name="onboarding_security_body">فنگر پرنٹ لاک، PIN اور کلاؤڈ بیک اپ سے اپنا ڈیٹا محفوظ رکھیں۔</string>
+    <string name="onboarding_getstarted_title">آپ تیار ہیں!</string>
+    <string name="onboarding_getstarted_body">تمام خصوصیات استعمال کریں اور ہوشیاری سے حساب رکھیں۔</string>
+    <string name="onboarding_start">شروع کریں</string>
+    <string name="help_guide_title">ایپ گائیڈ</string>
+    <string name="menu_help_guide">ایپ گائیڈ</string>
+    <string name="menu_help_guide_subtitle">استعمال کا طریقہ — تفصیل سے جانیں</string>
+    <string name="help_getting_started">شروعات</string>
+    <string name="help_dashboard">ڈیش بورڈ</string>
+    <string name="help_transactions">آمدن و اخراجات</string>
+    <string name="help_khata">ادھار بہی کھاتہ</string>
+    <string name="help_cashbox">کیش باکس</string>
+    <string name="help_reports">رپورٹس</string>
+    <string name="help_products">مصنوعات کا انتظام</string>
+    <string name="help_security">سیکیورٹی</string>
+    <string name="help_menu_settings">مینو اور ترتیبات</string>
 </resources>

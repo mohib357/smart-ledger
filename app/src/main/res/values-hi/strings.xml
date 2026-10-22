@@ -638,4 +638,35 @@
     <!-- SupportScreen error messages -->
     <string name="support_whatsapp_error">व्हाट्सएप नहीं खुल सका</string>
     <string name="support_admin_chat_error">एडमिन चैट उपलब्ध नहीं है</string>
+
+    <!-- FEAT-002 — 8-page Onboarding new strings -->
+    <string name="onboarding_welcome_title">हिसाब - Smart Ledger में आपका स्वागत है</string>
+    <string name="onboarding_welcome_body">एक ऐप में अपना पूरा व्यापारिक हिसाब रखें। सरल, सुरक्षित और हमेशा आपके साथ।</string>
+    <string name="onboarding_dashboard_title">डैशबोर्ड — सब एक जगह</string>
+    <string name="onboarding_dashboard_body">अपनी कुल प्राप्य, कुल देय और शुद्ध शेष एक नज़र में देखें।</string>
+    <string name="onboarding_transactions_title">आय-व्यय का हिसाब रखें</string>
+    <string name="onboarding_transactions_body">हर आय और व्यय को श्रेणी के अनुसार दर्ज करें और विस्तृत विश्लेषण देखें।</string>
+    <string name="onboarding_khata_title">उधार खाता</string>
+    <string name="onboarding_khata_body">ग्राहक और आपूर्तिकर्ता के खाते अलग-अलग रखें और आसानी से अनुस्मारक भेजें।</string>
+    <string name="onboarding_cashbox_title">कैश बॉक्स प्रबंधन</string>
+    <string name="onboarding_cashbox_body">रोज़ाना नकद आय-व्यय को ट्रैक करें और दिन के अंत में मिलान करें।</string>
+    <string name="onboarding_reports_title">रिपोर्ट और निर्यात</string>
+    <string name="onboarding_reports_body">PDF रिपोर्ट, Excel निर्यात और पेशेवर चालान बनाएं।</string>
+    <string name="onboarding_security_title">सुरक्षा और बैकअप</string>
+    <string name="onboarding_security_body">फिंगरप्रिंट लॉक, PIN और क्लाउड बैकअप से अपना डेटा सुरक्षित रखें।</string>
+    <string name="onboarding_getstarted_title">आप तैयार हैं!</string>
+    <string name="onboarding_getstarted_body">सभी सुविधाओं का उपयोग करें और स्मार्ट तरीके से हिसाब रखें।</string>
+    <string name="onboarding_start">शुरू करें</string>
+    <string name="help_guide_title">ऐप गाइड</string>
+    <string name="menu_help_guide">ऐप गाइड</string>
+    <string name="menu_help_guide_subtitle">उपयोग कैसे करें — विस्तार से जानें</string>
+    <string name="help_getting_started">शुरुआत</string>
+    <string name="help_dashboard">डैशबोर्ड</string>
+    <string name="help_transactions">आय-व्यय</string>
+    <string name="help_khata">उधार खाता</string>
+    <string name="help_cashbox">कैश बॉक्स</string>
+    <string name="help_reports">रिपोर्ट</string>
+    <string name="help_products">उत्पाद प्रबंधन</string>
+    <string name="help_security">सुरक्षा</string>
+    <string name="help_menu_settings">मेनू और सेटिंग्स</string>
 </resources>

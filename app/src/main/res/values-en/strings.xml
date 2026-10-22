@@ -648,4 +648,35 @@
     <!-- SupportScreen error messages -->
     <string name="support_whatsapp_error">WhatsApp could not be opened</string>
     <string name="support_admin_chat_error">Admin chat is unavailable</string>
+
+    <!-- FEAT-002 — 8-page Onboarding new strings -->
+    <string name="onboarding_welcome_title">Welcome to Hisab - Smart Ledger</string>
+    <string name="onboarding_welcome_body">Manage your complete business accounts in one app. Simple, secure, and always with you.</string>
+    <string name="onboarding_dashboard_title">Dashboard — Everything in One Place</string>
+    <string name="onboarding_dashboard_body">View your total receivables, total payables, and net balance at a glance.</string>
+    <string name="onboarding_transactions_title">Track Income &amp; Expense</string>
+    <string name="onboarding_transactions_body">Record every income and expense by category and view detailed analysis.</string>
+    <string name="onboarding_khata_title">Party Ledger</string>
+    <string name="onboarding_khata_body">Manage customer and supplier accounts separately and send reminders easily.</string>
+    <string name="onboarding_cashbox_title">Cash Box Management</string>
+    <string name="onboarding_cashbox_body">Track daily cash in/out and reconcile your cash box at end of day.</string>
+    <string name="onboarding_reports_title">Reports &amp; Export</string>
+    <string name="onboarding_reports_body">Generate PDF reports, Excel exports, and professional invoices.</string>
+    <string name="onboarding_security_title">Security &amp; Backup</string>
+    <string name="onboarding_security_body">Keep your data safe with fingerprint lock, PIN, and cloud backup.</string>
+    <string name="onboarding_getstarted_title">You\'re Ready!</string>
+    <string name="onboarding_getstarted_body">Use all features and manage your accounts smartly.</string>
+    <string name="onboarding_start">Get Started</string>
+    <string name="help_guide_title">App Guide</string>
+    <string name="menu_help_guide">App Guide</string>
+    <string name="menu_help_guide_subtitle">How to use — learn in detail</string>
+    <string name="help_getting_started">Getting Started</string>
+    <string name="help_dashboard">Dashboard</string>
+    <string name="help_transactions">Income &amp; Expense</string>
+    <string name="help_khata">Party Ledger</string>
+    <string name="help_cashbox">Cash Box</string>
+    <string name="help_reports">Reports</string>
+    <string name="help_products">Product Management</string>
+    <string name="help_security">Security</string>
+    <string name="help_menu_settings">Menu &amp; Settings</string>
 </resources>

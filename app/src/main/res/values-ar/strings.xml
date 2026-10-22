@@ -638,4 +638,35 @@
     <!-- SupportScreen error messages -->
     <string name="support_whatsapp_error">تعذر فتح واتساب</string>
     <string name="support_admin_chat_error">الدردشة مع المسؤول غير متاحة</string>
+
+    <!-- FEAT-002 — 8-page Onboarding new strings -->
+    <string name="onboarding_welcome_title">مرحباً بك في حساب - Smart Ledger</string>
+    <string name="onboarding_welcome_body">أدر حساباتك التجارية الكاملة في تطبيق واحد. بسيط وآمن ومعك دائمًا.</string>
+    <string name="onboarding_dashboard_title">لوحة التحكم — كل شيء في مكان واحد</string>
+    <string name="onboarding_dashboard_body">اعرض إجمالي المستحقات والمدفوعات والرصيد الصافي بنظرة واحدة.</string>
+    <string name="onboarding_transactions_title">تتبع الدخل والمصروفات</string>
+    <string name="onboarding_transactions_body">سجّل كل دخل ومصروف حسب الفئة واعرض التحليل التفصيلي.</string>
+    <string name="onboarding_khata_title">دفتر الحسابات</string>
+    <string name="onboarding_khata_body">أدر حسابات العملاء والموردين بشكل منفصل وأرسل التذكيرات بسهولة.</string>
+    <string name="onboarding_cashbox_title">إدارة صندوق النقد</string>
+    <string name="onboarding_cashbox_body">تتبع النقد اليومي الداخل والخارج وطابق صندوق النقد في نهاية اليوم.</string>
+    <string name="onboarding_reports_title">التقارير والتصدير</string>
+    <string name="onboarding_reports_body">أنشئ تقارير PDF وتصدير Excel وفواتير احترافية.</string>
+    <string name="onboarding_security_title">الأمان والنسخ الاحتياطي</string>
+    <string name="onboarding_security_body">احمِ بياناتك بقفل بصمة الإصبع ورمز PIN والنسخ الاحتياطي السحابي.</string>
+    <string name="onboarding_getstarted_title">أنت جاهز!</string>
+    <string name="onboarding_getstarted_body">استخدم جميع الميزات وأدر حساباتك بذكاء.</string>
+    <string name="onboarding_start">ابدأ الآن</string>
+    <string name="help_guide_title">دليل التطبيق</string>
+    <string name="menu_help_guide">دليل التطبيق</string>
+    <string name="menu_help_guide_subtitle">كيفية الاستخدام — تعرف على التفاصيل</string>
+    <string name="help_getting_started">البدء</string>
+    <string name="help_dashboard">لوحة التحكم</string>
+    <string name="help_transactions">الدخل والمصروفات</string>
+    <string name="help_khata">دفتر الحسابات</string>
+    <string name="help_cashbox">صندوق النقد</string>
+    <string name="help_reports">التقارير</string>
+    <string name="help_products">إدارة المنتجات</string>
+    <string name="help_security">الأمان</string>
+    <string name="help_menu_settings">القائمة والإعدادات</string>
 </resources>
