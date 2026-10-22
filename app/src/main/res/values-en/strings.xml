@@ -645,4 +645,7 @@
     <string name="support_admin_chat_subtitle">Chat directly with the support team</string>
     <string name="support_start_chat">Start Chat</string>
     <string name="support_contact_heading">Contact Us</string>
+    <!-- SupportScreen error messages -->
+    <string name="support_whatsapp_error">WhatsApp could not be opened</string>
+    <string name="support_admin_chat_error">Admin chat is unavailable</string>
 </resources>

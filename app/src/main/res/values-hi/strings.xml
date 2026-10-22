@@ -635,4 +635,7 @@
     <string name="support_admin_chat_subtitle">सहायता टीम से सीधे बात करें</string>
     <string name="support_start_chat">चैट शुरू करें</string>
     <string name="support_contact_heading">संपर्क करें</string>
+    <!-- SupportScreen error messages -->
+    <string name="support_whatsapp_error">व्हाट्सएप नहीं खुल सका</string>
+    <string name="support_admin_chat_error">एडमिन चैट उपलब्ध नहीं है</string>
 </resources>

@@ -648,4 +648,8 @@
         <item>💰 প্রতি মাসে সঞ্চয় বাড়ানোর সহজ উপায়</item>
         <item>📝 ব্যবসায় বা দোকানে বাকি খাতা নিয়ন্ত্রণের নিয়ম</item>
     </string-array>
+    <!-- SupportScreen error messages -->
+    <string name="support_whatsapp_error">হোয়াটসঅ্যাপ খোলা যায়নি</string>
+    <string name="support_admin_chat_error">অ্যাডমিন চ্যাট সংযোগ নেই</string>
 </resources>
+

@@ -635,4 +635,7 @@
     <string name="support_admin_chat_subtitle">تحدث مباشرة مع فريق الدعم</string>
     <string name="support_start_chat">بدء المحادثة</string>
     <string name="support_contact_heading">اتصل بنا</string>
+    <!-- SupportScreen error messages -->
+    <string name="support_whatsapp_error">تعذر فتح واتساب</string>
+    <string name="support_admin_chat_error">الدردشة مع المسؤول غير متاحة</string>
 </resources>

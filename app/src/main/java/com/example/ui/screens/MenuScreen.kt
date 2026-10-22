@@ -134,7 +134,7 @@ fun MenuScreen(viewModel: MainViewModel) {
                     OutlinedButton(
                         onClick = { viewModel.showProfileScreen.value = true }
                     ) {
-                        Text("প্রোফাইল", fontSize = 12.sp)
+                        Text(stringResource(R.string.menu_profile), fontSize = 12.sp)
                     }
                 }
             }
@@ -375,7 +375,7 @@ fun MenuScreen(viewModel: MainViewModel) {
             },
             confirmButton = {
                 TextButton(onClick = { showLanguageDialog = false }) {
-                    Text("বাতিল")
+                    Text(stringResource(R.string.action_cancel))
                 }
             }
         )
@@ -410,7 +410,7 @@ fun MenuScreen(viewModel: MainViewModel) {
             },
             confirmButton = {
                 TextButton(onClick = { showThemeDialog = false }) {
-                    Text("বাতিল")
+                    Text(stringResource(R.string.action_cancel))
                 }
             }
         )
@@ -437,7 +437,7 @@ fun MenuScreen(viewModel: MainViewModel) {
             },
             dismissButton = {
                 TextButton(onClick = { showResetDialog = false }) {
-                    Text("বাতিল")
+                    Text(stringResource(R.string.action_cancel))
                 }
             }
         )

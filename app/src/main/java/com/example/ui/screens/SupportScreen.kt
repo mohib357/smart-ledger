@@ -47,6 +47,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -106,7 +107,7 @@ fun SupportScreen(viewModel: MainViewModel) {
                 IconButton(onClick = { viewModel.setTab(0) }) {
                     Icon(
                         imageVector = Icons.Default.ArrowBack,
-                        contentDescription = "পিছনে"
+                        contentDescription = stringResource(R.string.action_back)
                     )
                 }
                 Spacer(modifier = Modifier.width(8.dp))
@@ -226,7 +227,7 @@ fun SupportScreen(viewModel: MainViewModel) {
                         val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://wa.me/8801700000000"))
                         context.startActivity(intent)
                     } catch (_: Exception) {
-                        Toast.makeText(context, "হোয়াটসঅ্যাপ খোলা যায়নি", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, context.getString(R.string.support_whatsapp_error), Toast.LENGTH_SHORT).show()
                     }
                 }
             )
@@ -266,35 +267,46 @@ fun SupportScreen(viewModel: MainViewModel) {
                 buttonText = stringResource(R.string.support_start_chat),
                 onButtonClick = {
                     showAdminChat = true
-                    // Start listening to admin chat messages
-                    try {
-                        val userId = FirebaseAuth.getInstance().currentUser?.uid ?: return@SupportContactCard
-                        FirebaseFirestore.getInstance()
-                            .collection("admin_chats")
-                            .document(userId)
-                            .collection("messages")
-                            .orderBy("timestamp")
-                            .addSnapshotListener { snapshot, error ->
-                                if (error != null || snapshot == null) {
-                                    adminChatError = true
-                                    return@addSnapshotListener
-                                }
-                                adminChatMessages = snapshot.documents.map { doc ->
-                                    val text = doc.getString("text") ?: ""
-                                    val fromUser = doc.getBoolean("fromUser") ?: true
-                                    text to fromUser
-                                }
-                            }
-                    } catch (_: Exception) {
-                        adminChatError = true
-                    }
                 }
             )
         }
 
-        // Admin chat inline
+        // Admin chat inline — listener managed via DisposableEffect
         item {
             AnimatedVisibility(visible = showAdminChat) {
+                val userId = FirebaseAuth.getInstance().currentUser?.uid
+
+                // Register / cancel Firestore listener tied to composition lifetime
+                DisposableEffect(userId) {
+                    if (userId != null) {
+                        val registration = try {
+                            FirebaseFirestore.getInstance()
+                                .collection("admin_chats")
+                                .document(userId)
+                                .collection("messages")
+                                .orderBy("timestamp")
+                                .addSnapshotListener { snapshot, error ->
+                                    if (error != null || snapshot == null) {
+                                        adminChatError = true
+                                        return@addSnapshotListener
+                                    }
+                                    adminChatMessages = snapshot.documents.map { doc ->
+                                        val text = doc.getString("text") ?: ""
+                                        val fromUser = doc.getBoolean("fromUser") ?: true
+                                        text to fromUser
+                                    }
+                                }
+                        } catch (_: Exception) {
+                            adminChatError = true
+                            null
+                        }
+                        onDispose { registration?.remove() }
+                    } else {
+                        adminChatError = true
+                        onDispose {}
+                    }
+                }
+
                 Card(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -304,7 +316,7 @@ fun SupportScreen(viewModel: MainViewModel) {
                     Column(modifier = Modifier.padding(16.dp)) {
                         if (adminChatError) {
                             Text(
-                                text = "অ্যাডমিন চ্যাট সংযোগ নেই",
+                                text = stringResource(R.string.support_admin_chat_error),
                                 color = MaterialTheme.colorScheme.error,
                                 style = MaterialTheme.typography.bodyMedium
                             )
@@ -356,11 +368,11 @@ fun SupportScreen(viewModel: MainViewModel) {
                                         val msg = adminChatInput.trim()
                                         if (msg.isNotEmpty()) {
                                             try {
-                                                val userId = FirebaseAuth.getInstance().currentUser?.uid
-                                                if (userId != null) {
+                                                val uid = FirebaseAuth.getInstance().currentUser?.uid
+                                                if (uid != null) {
                                                     FirebaseFirestore.getInstance()
                                                         .collection("admin_chats")
-                                                        .document(userId)
+                                                        .document(uid)
                                                         .collection("messages")
                                                         .add(
                                                             mapOf(

@@ -635,4 +635,7 @@
     <string name="support_admin_chat_subtitle">سپورٹ ٹیم سے براہ راست بات کریں</string>
     <string name="support_start_chat">چیٹ شروع کریں</string>
     <string name="support_contact_heading">ہم سے رابطہ کریں</string>
+    <!-- SupportScreen error messages -->
+    <string name="support_whatsapp_error">واٹس ایپ نہیں کھل سکا</string>
+    <string name="support_admin_chat_error">ایڈمن چیٹ دستیاب نہیں ہے</string>
 </resources>
