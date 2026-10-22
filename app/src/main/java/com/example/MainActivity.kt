@@ -84,6 +84,7 @@ import com.example.ui.screens.CalendarScreen
 import com.example.ui.screens.CashBoxScreen
 import com.example.ui.screens.ChatScreen
 import com.example.ui.screens.DashboardScreen
+import com.example.ui.screens.HelpGuideScreen
 import com.example.ui.screens.KhataScreen
 import com.example.ui.screens.LoginScreen
 import com.example.ui.screens.MenuScreen
@@ -180,12 +181,11 @@ class MainActivity : ComponentActivity() {
 fun MainAppContent(viewModel: MainViewModel) {
     val context = LocalContext.current
 
-    // Phase 6 — Onboarding guard
-    val prefs = context.getSharedPreferences("app_settings", Context.MODE_PRIVATE)
-    var onboardingDone by rememberSaveable { mutableStateOf(prefs.getBoolean("onboarding_done", false)) }
+    // FEAT-001 — ViewModel-driven onboarding gate
+    val showOnboarding by viewModel.showOnboarding.collectAsStateWithLifecycle()
 
-    if (!onboardingDone) {
-        OnboardingScreen(onComplete = { onboardingDone = true })
+    if (showOnboarding) {
+        OnboardingScreen(onComplete = { viewModel.completeOnboarding() })
         return
     }
 
@@ -559,7 +559,7 @@ fun MainAppContent(viewModel: MainViewModel) {
                                 }
                             }
                         )
-                        4 -> MenuScreen(viewModel = viewModel)
+                        4 -> MenuScreen(viewModel = viewModel, onNavigateToHelp = { viewModel.setTab(15) })
                         5 -> ChatScreen(
                             messages = chatMessages,
                             isLoading = isChatLoading,
@@ -665,6 +665,7 @@ fun MainAppContent(viewModel: MainViewModel) {
                                 }
                             }
                         )
+                        15 -> HelpGuideScreen(onBack = { viewModel.setTab(4) })
                     }
                 }
             }

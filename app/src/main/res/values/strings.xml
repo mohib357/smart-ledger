@@ -460,7 +460,7 @@
     <string name="ai_insight_refresh">পরামর্শ রিফ্রেশ করুন</string>
     <string name="ai_insight_error">পরামর্শ পেতে ব্যর্থ হয়েছে।</string>
 
-    <!-- Phase 6 — Onboarding -->
+    <!-- Phase 6 — Onboarding (legacy keys retained for backward compat) -->
     <string name="onboarding_skip">এড়িয়ে যান</string>
     <string name="onboarding_next">পরবর্তী</string>
     <string name="onboarding_get_started">শুরু করুন</string>
@@ -473,6 +473,27 @@
     <string name="onboarding_page4_title">এআই হিসাব সহকারী</string>
     <string name="onboarding_page4_desc">স্মার্ট এআই দিয়ে আপনার হিসাব বিশ্লেষণ করুন এবং পরামর্শ নিন।</string>
     <string name="onboarding_page5_title">শুরু করার সময়!</string>
+
+    <!-- FEAT-001 — 8-page Onboarding strings -->
+    <string name="onboarding_welcome_title">হিসাব অ্যাপে স্বাগতম! 🎉</string>
+    <string name="onboarding_welcome_body">আপনার ব্যক্তিগত ও ব্যবসায়িক হিসাব এখন এক জায়গায়। সহজে, দ্রুত এবং নিরাপদে।</string>
+    <string name="onboarding_dashboard_title">ড্যাশবোর্ড</string>
+    <string name="onboarding_dashboard_body">এক নজরে দেখুন মোট আয়, ব্যয়, পাওনা ও দেনার সম্পূর্ণ চিত্র।</string>
+    <string name="onboarding_transactions_title">লেনদেন ট্র্যাকিং</string>
+    <string name="onboarding_transactions_body">প্রতিটি আয়-ব্যয় ক্যাটাগরি, ওয়ালেট ও তারিখ অনুযায়ী সাজিয়ে রাখুন।</string>
+    <string name="onboarding_khata_title">খাতা ব্যবস্থাপনা</string>
+    <string name="onboarding_khata_body">কাস্টমার ও সাপ্লায়ারের দেনা-পাওনা আলাদাভাবে ট্র্যাক করুন এবং তাগাদা পাঠান।</string>
+    <string name="onboarding_cashbox_title">ক্যাশবাক্স</string>
+    <string name="onboarding_cashbox_body">দিনের ক্যাশ ইন, ক্যাশ আউট এবং খরচ রেকর্ড করুন। দিনশেষে মিলিয়ে নিন।</string>
+    <string name="onboarding_reports_title">রিপোর্ট ও বিশ্লেষণ</string>
+    <string name="onboarding_reports_body">PDF ও Excel ফরম্যাটে বিস্তারিত রিপোর্ট তৈরি করুন এবং শেয়ার করুন।</string>
+    <string name="onboarding_security_title">নিরাপত্তা ও ব্যাকআপ</string>
+    <string name="onboarding_security_body">ফিঙ্গারপ্রিন্ট বা PIN দিয়ে অ্যাপ লক করুন এবং ক্লাউডে ডেটা সুরক্ষিত রাখুন।</string>
+    <string name="onboarding_getstarted_title">আপনি প্রস্তুত! 🚀</string>
+    <string name="onboarding_start">শুরু করুন</string>
+
+    <!-- FEAT-001 — MenuScreen guideline card -->
+    <string name="menu_help_guide_subtitle">ছবিসহ বিস্তারিত গাইডলাইন দেখুন</string>
 
     <!-- Phase 6 — Voice Entry -->
     <string name="voice_entry_hint">বলুন: আয় ৫০০ টাকা বেতন</string>

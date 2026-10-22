@@ -78,6 +78,13 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     private val _currentTab = MutableStateFlow(0)
     val currentTab: StateFlow<Int> = _currentTab.asStateFlow()
 
+    // FEAT-001 — Onboarding gate
+    private val _showOnboarding = MutableStateFlow(
+        !getApplication<Application>().getSharedPreferences("app_settings", android.content.Context.MODE_PRIVATE)
+            .getBoolean("onboarding_v2_done", false)
+    )
+    val showOnboarding: StateFlow<Boolean> = _showOnboarding.asStateFlow()
+
     private val _useBengaliDigits = MutableStateFlow(true)
     val useBengaliDigits: StateFlow<Boolean> = _useBengaliDigits.asStateFlow()
 
@@ -384,6 +391,13 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     fun setTab(index: Int) {
         _currentTab.value = index
+    }
+
+    fun completeOnboarding() {
+        getApplication<Application>()
+            .getSharedPreferences("app_settings", android.content.Context.MODE_PRIVATE)
+            .edit().putBoolean("onboarding_v2_done", true).apply()
+        _showOnboarding.value = false
     }
 
     fun toggleBengaliDigits() {
