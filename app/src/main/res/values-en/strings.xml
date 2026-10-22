@@ -496,4 +496,91 @@
     <string name="export_excel_button">Export Excel (.xlsx)</string>
     <string name="export_excel_success">Excel file created!</string>
     <string name="export_excel_error">Excel export failed</string>
+
+    <!-- CashBox screen -->
+    <string name="cashbox_today_sales">Today\'s Sales</string>
+    <string name="cashbox_current_cash">Current Cash</string>
+    <string name="cashbox_cash_in">Received Today</string>
+    <string name="cashbox_cash_out">Given Today</string>
+    <string name="cashbox_expense">Expense</string>
+    <string name="cashbox_owner_in">Owner In</string>
+    <string name="cashbox_owner_out">Owner Out</string>
+    <string name="cashbox_type_cash_in">Cash In</string>
+    <string name="cashbox_type_cash_out">Cash Out</string>
+    <string name="cashbox_reconcile">Reconcile Cashbox</string>
+    <string name="cashbox_reconcile_message">Yesterday\'s cashbox was not reconciled. Reconcile it now?</string>
+    <string name="cashbox_reconcile_yes">Reconcile</string>
+    <string name="cashbox_reconcile_no">Don\'t Reconcile</string>
+    <string name="cashbox_no_entries">No entries today</string>
+    <string name="cashbox_note_optional">Description (optional)</string>
+
+    <!-- Dashboard additions -->
+    <string name="quick_action_income">+Income</string>
+    <string name="quick_action_expense">-Expense</string>
+    <string name="quick_action_ledger">Ledger</string>
+    <string name="quick_action_reports">Reports</string>
+    <string name="quick_action_calendar">Calendar</string>
+    <string name="quick_action_stock">Stock</string>
+    <string name="quick_action_ai">AI Assistant</string>
+    <string name="quick_action_cashbox">Cashbox</string>
+    <string name="shortcut_ai">AI Assistant</string>
+    <string name="shortcut_calendar">Calendar</string>
+    <string name="shortcut_reports">Reports</string>
+    <string name="shortcut_stock">Stock</string>
+    <string name="shortcut_invoices">Invoices</string>
+    <string name="chart_others">Others</string>
+
+    <!-- Khata additions -->
+    <string name="khata_search_placeholder">Search person or organization...</string>
+    <string name="khata_pdf_report">PDF Report</string>
+    <string name="khata_filter_supplier">Suppliers</string>
+    <string name="khata_filter_customer">Customers</string>
+    <string name="khata_total_payable">Total Payable: %1$s</string>
+    <string name="khata_total_receivable">Total Receivable: %1$s</string>
+    <string name="khata_empty_parties">No ledger found.\nUse the \'+\' button below to add a new person or organization.</string>
+    <string name="khata_balance_status">Balance</string>
+    <string name="time_today">Today</string>
+    <string name="time_yesterday">Yesterday</string>
+    <string name="time_days_ago">%1$d days ago</string>
+    <string name="time_weeks_ago">%1$d weeks ago</string>
+    <string name="time_months_ago">%1$d months ago</string>
+
+    <!-- PartyDetail additions -->
+    <string name="party_type_payable_title">Payable Ledger (They get)</string>
+    <string name="party_type_receivable_title">Receivable Ledger (I get)</string>
+    <string name="party_back">Back</string>
+    <string name="party_current_payable">Current Payable (They get)</string>
+    <string name="party_current_receivable">Current Receivable (I get)</string>
+    <string name="party_action_pay">Pay</string>
+    <string name="party_action_collect">Collect</string>
+    <string name="party_action_take_due">Take Due</string>
+    <string name="party_action_new_due">New Due</string>
+    <string name="party_reminder_sms">Send Reminder</string>
+    <string name="party_reminder_sms_body">You owe us %1$s taka. Please pay.</string>
+    <string name="party_report">Report</string>
+    <string name="party_transaction_history">Transaction History (%1$d)</string>
+    <string name="party_empty_history">No transaction history.\nUse the buttons above to add a new transaction.</string>
+    <string name="party_delete_confirm_title">Delete ledger?</string>
+    <string name="party_delete_confirm_message">The entire ledger and all transaction records of \'%1$s\' will be deleted.</string>
+    <string name="party_entry_settlement_paid">Payment made</string>
+    <string name="party_entry_due_received">Due received</string>
+    <string name="party_entry_collected">Amount collected</string>
+    <string name="party_entry_new_due_given">New due given</string>
+    <string name="party_running_balance">Balance: %1$s</string>
+
+    <!-- Chat additions -->
+    <string name="chat_subtitle">Personal &amp; business accounting assistant</string>
+    <string name="chat_empty_greeting">Welcome! I\'m your accounting assistant</string>
+    <string name="chat_empty_description">Ask anything about your income, expenses, debts, or financial planning.</string>
+    <string name="chat_empty_start_prompt">Start with any of these:</string>
+    <string name="chat_disclaimer">AI answers may not always be accurate.</string>
+    <string name="chat_input_placeholder">Type a question...</string>
+    <string name="chat_loading">Generating answer...</string>
+
+    <string-array name="chat_suggested_questions">
+        <item>📊 Analyze my current finances and status</item>
+        <item>💡 Good strategies to repay debts quickly?</item>
+        <item>💰 Easy ways to save more each month</item>
+        <item>📝 Rules to manage dues in business or shop</item>
+    </string-array>
 </resources>

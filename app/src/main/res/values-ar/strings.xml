@@ -493,4 +493,91 @@
     <string name="export_excel_button">Excel (.xlsx) এক্সপোর্ট করুন</string>
     <string name="export_excel_success">Excel ফাইল তৈরি হয়েছে!</string>
     <string name="export_excel_error">Excel তৈরি ব্যর্থ হয়েছে</string>
+
+    <!-- CashBox screen -->
+    <string name="cashbox_today_sales">مبيعات اليوم</string>
+    <string name="cashbox_current_cash">النقد الحالي</string>
+    <string name="cashbox_cash_in">استلمت اليوم</string>
+    <string name="cashbox_cash_out">دفعت اليوم</string>
+    <string name="cashbox_expense">مصروف</string>
+    <string name="cashbox_owner_in">إيداع المالك</string>
+    <string name="cashbox_owner_out">سحب المالك</string>
+    <string name="cashbox_type_cash_in">نقد داخل</string>
+    <string name="cashbox_type_cash_out">نقد خارج</string>
+    <string name="cashbox_reconcile">تسوية الصندوق</string>
+    <string name="cashbox_reconcile_message">لم تتم تسوية الصندوق أمس. هل تريد تسويته الآن؟</string>
+    <string name="cashbox_reconcile_yes">تسوية</string>
+    <string name="cashbox_reconcile_no">عدم التسوية</string>
+    <string name="cashbox_no_entries">لا توجد مدخلات اليوم</string>
+    <string name="cashbox_note_optional">الوصف (اختياري)</string>
+
+    <!-- Dashboard additions -->
+    <string name="quick_action_income">+دخل</string>
+    <string name="quick_action_expense">-مصروف</string>
+    <string name="quick_action_ledger">الحسابات</string>
+    <string name="quick_action_reports">تقارير</string>
+    <string name="quick_action_calendar">التقويم</string>
+    <string name="quick_action_stock">المخزون</string>
+    <string name="quick_action_ai">مساعد AI</string>
+    <string name="quick_action_cashbox">الصندوق</string>
+    <string name="shortcut_ai">مساعد AI</string>
+    <string name="shortcut_calendar">التقويم</string>
+    <string name="shortcut_reports">تقارير</string>
+    <string name="shortcut_stock">المخزون</string>
+    <string name="shortcut_invoices">الفواتير</string>
+    <string name="chart_others">أخرى</string>
+
+    <!-- Khata additions -->
+    <string name="khata_search_placeholder">ابحث عن شخص أو مؤسسة...</string>
+    <string name="khata_pdf_report">تقرير PDF</string>
+    <string name="khata_filter_supplier">الموردون</string>
+    <string name="khata_filter_customer">العملاء</string>
+    <string name="khata_total_payable">إجمالي المدفوع: %1$s</string>
+    <string name="khata_total_receivable">إجمالي المستحق: %1$s</string>
+    <string name="khata_empty_parties">لم يتم العثور على حسابات.\nاستخدم زر \'+\' لإضافة شخص أو مؤسسة جديدة.</string>
+    <string name="khata_balance_status">الرصيد</string>
+    <string name="time_today">اليوم</string>
+    <string name="time_yesterday">أمس</string>
+    <string name="time_days_ago">قبل %1$d أيام</string>
+    <string name="time_weeks_ago">قبل %1$d أسابيع</string>
+    <string name="time_months_ago">قبل %1$d أشهر</string>
+
+    <!-- PartyDetail additions -->
+    <string name="party_type_payable_title">حساب الدين (يستحق)</string>
+    <string name="party_type_receivable_title">حساب المستحق (أستحق)</string>
+    <string name="party_back">رجوع</string>
+    <string name="party_current_payable">الدين الحالي (يستحق)</string>
+    <string name="party_current_receivable">المستحق الحالي (أستحق)</string>
+    <string name="party_action_pay">ادفع</string>
+    <string name="party_action_collect">تحصيل</string>
+    <string name="party_action_take_due">استلام الدين</string>
+    <string name="party_action_new_due">دين جديد</string>
+    <string name="party_reminder_sms">إرسال تذكير</string>
+    <string name="party_reminder_sms_body">لديك دين لنا بقيمة %1$s تاكا. يرجى السداد.</string>
+    <string name="party_report">تقرير</string>
+    <string name="party_transaction_history">سجل المعاملات (%1$d)</string>
+    <string name="party_empty_history">لا يوجد سجل معاملات.\nاستخدم الأزرار أعلاه لإضافة معاملة جديدة.</string>
+    <string name="party_delete_confirm_title">حذف الحساب؟</string>
+    <string name="party_delete_confirm_message">سيتم حذف الحساب بالكامل وسجل المعاملات لـ \'%1$s\'.</string>
+    <string name="party_entry_settlement_paid">تم الدفع</string>
+    <string name="party_entry_due_received">تم استلام الدين</string>
+    <string name="party_entry_collected">تم التحصيل</string>
+    <string name="party_entry_new_due_given">تم منح دين جديد</string>
+    <string name="party_running_balance">الرصيد: %1$s</string>
+
+    <!-- Chat additions -->
+    <string name="chat_subtitle">مساعد المحاسبة الشخصية والتجارية</string>
+    <string name="chat_empty_greeting">مرحباً! أنا مساعدك المحاسبي</string>
+    <string name="chat_empty_description">اسأل أي شيء عن دخلك ومصروفاتك وديونك أو تخطيطك المالي.</string>
+    <string name="chat_empty_start_prompt">ابدأ بأي من هذه:</string>
+    <string name="chat_disclaimer">إجابات الذكاء الاصطناعي قد لا تكون دقيقة دائماً.</string>
+    <string name="chat_input_placeholder">اكتب سؤالاً...</string>
+    <string name="chat_loading">جارٍ إنشاء الرد...</string>
+
+    <string-array name="chat_suggested_questions">
+        <item>📊 حلل وضعي المالي الحالي</item>
+        <item>💡 ما هي طرق سداد الديون بسرعة؟</item>
+        <item>💰 طرق سهلة لزيادة الادخار شهرياً</item>
+        <item>📝 قواعد إدارة الديون في التجارة</item>
+    </string-array>
 </resources>

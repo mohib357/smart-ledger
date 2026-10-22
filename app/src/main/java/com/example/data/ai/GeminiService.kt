@@ -54,7 +54,7 @@ object GeminiService {
 
         if (apiKey.isBlank() || apiKey == "MY_GEMINI_API_KEY") {
             return@withContext Result.failure(
-                Exception("এআই সেবা চালু নেই। GEMINI_API_KEY সেট করুন।")
+                Exception("এআই সেবা চালু নেই। অ্যাপ ডেভেলপারের সাথে যোগাযোগ করুন।")
             )
         }
 

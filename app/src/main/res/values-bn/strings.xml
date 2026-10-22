@@ -496,4 +496,91 @@
     <string name="export_excel_button">Excel (.xlsx) এক্সপোর্ট করুন</string>
     <string name="export_excel_success">Excel ফাইল তৈরি হয়েছে!</string>
     <string name="export_excel_error">Excel তৈরি ব্যর্থ হয়েছে</string>
+
+    <!-- CashBox screen -->
+    <string name="cashbox_today_sales">আজকের বিক্রি</string>
+    <string name="cashbox_current_cash">বর্তমান ক্যাশ</string>
+    <string name="cashbox_cash_in">আজ পেলাম</string>
+    <string name="cashbox_cash_out">আজ দিলাম</string>
+    <string name="cashbox_expense">খরচ</string>
+    <string name="cashbox_owner_in">মালিক দিল</string>
+    <string name="cashbox_owner_out">মালিক নিল</string>
+    <string name="cashbox_type_cash_in">ক্যাশ ইন</string>
+    <string name="cashbox_type_cash_out">ক্যাশ আউট</string>
+    <string name="cashbox_reconcile">ক্যাশবাক্স মিলাই</string>
+    <string name="cashbox_reconcile_message">গতকাল দিনশেষে ক্যাশবাক্স মিলানো হয়নি। এখন কি ক্যাশবাক্স মিলাতে চান?</string>
+    <string name="cashbox_reconcile_yes">মিলাতে চাই</string>
+    <string name="cashbox_reconcile_no">মিলাবো না</string>
+    <string name="cashbox_no_entries">আজকের কোনো এন্ট্রি নেই</string>
+    <string name="cashbox_note_optional">বিবরণ (ঐচ্ছিক)</string>
+
+    <!-- Dashboard additions -->
+    <string name="quick_action_income">+আয়</string>
+    <string name="quick_action_expense">-ব্যয়</string>
+    <string name="quick_action_ledger">দেনা/পাওনা</string>
+    <string name="quick_action_reports">রিপোর্ট</string>
+    <string name="quick_action_calendar">ক্যালেন্ডার</string>
+    <string name="quick_action_stock">স্টক হিসাব</string>
+    <string name="quick_action_ai">এআই সহকারী</string>
+    <string name="quick_action_cashbox">ক্যাশবাক্স</string>
+    <string name="shortcut_ai">এআই সহকারী</string>
+    <string name="shortcut_calendar">ক্যালেন্ডার</string>
+    <string name="shortcut_reports">রিপোর্ট</string>
+    <string name="shortcut_stock">স্টক</string>
+    <string name="shortcut_invoices">চালান</string>
+    <string name="chart_others">অন্যান্য</string>
+
+    <!-- Khata additions -->
+    <string name="khata_search_placeholder">ব্যক্তি বা প্রতিষ্ঠানের নাম খুঁজুন...</string>
+    <string name="khata_pdf_report">PDF রিপোর্ট</string>
+    <string name="khata_filter_supplier">সাপ্লায়ার</string>
+    <string name="khata_filter_customer">কাস্টমার</string>
+    <string name="khata_total_payable">মোট দেনা: %1$s</string>
+    <string name="khata_total_receivable">মোট পাওনা: %1$s</string>
+    <string name="khata_empty_parties">কোনো হিসাব খাতা পাওয়া যায়নি।\nনিচের \'+\' বোতাম দিয়ে নতুন ব্যক্তি বা প্রতিষ্ঠানের খাতা যোগ করুন।</string>
+    <string name="khata_balance_status">বাকি স্থিতি</string>
+    <string name="time_today">আজ</string>
+    <string name="time_yesterday">গতকাল</string>
+    <string name="time_days_ago">%1$d দিন আগে</string>
+    <string name="time_weeks_ago">%1$d সপ্তাহ আগে</string>
+    <string name="time_months_ago">%1$d মাস আগে</string>
+
+    <!-- PartyDetail additions -->
+    <string name="party_type_payable_title">দেনা খাতা (সে পাবে)</string>
+    <string name="party_type_receivable_title">পাওনা খাতা (আমি পাবো)</string>
+    <string name="party_back">ফিরে যান</string>
+    <string name="party_current_payable">বর্তমান দেনা (সে পাবে)</string>
+    <string name="party_current_receivable">বর্তমান পাওনা (আমি পাবো)</string>
+    <string name="party_action_pay">টাকা পরিশোধ</string>
+    <string name="party_action_collect">টাকা আদায়</string>
+    <string name="party_action_take_due">বাকি নেওয়া</string>
+    <string name="party_action_new_due">নতুন বাকি</string>
+    <string name="party_reminder_sms">তাগাদা পাঠাও</string>
+    <string name="party_reminder_sms_body">আপনার কাছে আমাদের পাওনা আছে %1$s টাকা। অনুগ্রহ করে পরিশোধ করুন।</string>
+    <string name="party_report">রিপোর্ট</string>
+    <string name="party_transaction_history">লেনদেনের ইতিহাস (%1$d)</string>
+    <string name="party_empty_history">কোনো লেনদেনের ইতিহাস নেই।\nউপরের বোতাম দিয়ে নতুন লেনদেন যোগ করুন।</string>
+    <string name="party_delete_confirm_title">খাতা মুছে ফেলবেন?</string>
+    <string name="party_delete_confirm_message">\'%1$s\' এর পুরো খাতা এবং লেনদেনের সকল রেকর্ড মুছে ফেলা হবে।</string>
+    <string name="party_entry_settlement_paid">টাকা পরিশোধ করা হলো</string>
+    <string name="party_entry_due_received">বাকি নেওয়া হলো</string>
+    <string name="party_entry_collected">টাকা আদায় হলো</string>
+    <string name="party_entry_new_due_given">নতুন বাকি দেওয়া হলো</string>
+    <string name="party_running_balance">স্থিতি: %1$s</string>
+
+    <!-- Chat additions -->
+    <string name="chat_subtitle">ব্যক্তিগত ও ব্যবসায়িক হিসাব সহায়ক</string>
+    <string name="chat_empty_greeting">স্বাগতম! আমি আপনার হিসাব সহকারী</string>
+    <string name="chat_empty_description">আপনার খাতার আয়-ব্যয়, দেনা-পাওনা কিংবা আর্থিক পরিকল্পনা সম্পর্কে যেকোনো প্রশ্ন করতে পারেন।</string>
+    <string name="chat_empty_start_prompt">যেকোনো একটি দিয়ে শুরু করুন:</string>
+    <string name="chat_disclaimer">এআই উত্তর সবসময় নির্ভুল নাও হতে পারে।</string>
+    <string name="chat_input_placeholder">প্রশ্ন লিখুন...</string>
+    <string name="chat_loading">উত্তর তৈরি হচ্ছে...</string>
+
+    <string-array name="chat_suggested_questions">
+        <item>📊 আমার বর্তমান হিসাব ও স্থিতি বিশ্লেষণ কর</item>
+        <item>💡 দেনা দ্রুত পরিশোধ করার ভালো কৌশল কি?</item>
+        <item>💰 প্রতি মাসে সঞ্চয় বাড়ানোর সহজ উপায়</item>
+        <item>📝 ব্যবসায় বা দোকানে বাকি খাতা নিয়ন্ত্রণের নিয়ম</item>
+    </string-array>
 </resources>

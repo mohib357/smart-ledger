@@ -30,33 +30,37 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.R
 import com.example.data.model.CashBoxEntryEntity
 import com.example.ui.theme.IncomeGreen
 import com.example.ui.theme.ReceivableBlue
 import com.example.util.Formatters
 
-private data class EntryType(
-    val key: String,
-    val label: String
-)
-
 private val entryTypes = listOf(
-    EntryType("CASH_IN",   "আজ পেলাম"),
-    EntryType("CASH_OUT",  "আজ দিলাম"),
-    EntryType("EXPENSE",   "খরচ"),
-    EntryType("OWNER_IN",  "মালিক দিল"),
-    EntryType("OWNER_OUT", "মালিক নিল")
+    "CASH_IN", "CASH_OUT", "EXPENSE", "OWNER_IN", "OWNER_OUT"
 )
 
+@Composable
+private fun entryTypeButtonLabel(key: String): String = when (key) {
+    "CASH_IN"   -> stringResource(R.string.cashbox_cash_in)
+    "CASH_OUT"  -> stringResource(R.string.cashbox_cash_out)
+    "EXPENSE"   -> stringResource(R.string.cashbox_expense)
+    "OWNER_IN"  -> stringResource(R.string.cashbox_owner_in)
+    "OWNER_OUT" -> stringResource(R.string.cashbox_owner_out)
+    else        -> key
+}
+
+@Composable
 private fun typeLabel(type: String): String = when (type) {
-    "CASH_IN"   -> "ক্যাশ ইন"
-    "CASH_OUT"  -> "ক্যাশ আউট"
-    "EXPENSE"   -> "খরচ"
-    "OWNER_IN"  -> "মালিক দিল"
-    "OWNER_OUT" -> "মালিক নিল"
+    "CASH_IN"   -> stringResource(R.string.cashbox_type_cash_in)
+    "CASH_OUT"  -> stringResource(R.string.cashbox_type_cash_out)
+    "EXPENSE"   -> stringResource(R.string.cashbox_expense)
+    "OWNER_IN"  -> stringResource(R.string.cashbox_owner_in)
+    "OWNER_OUT" -> stringResource(R.string.cashbox_owner_out)
     else        -> type
 }
 
@@ -94,7 +98,7 @@ fun CashBoxScreen(
                 ) {
                     Column(modifier = Modifier.padding(12.dp)) {
                         Text(
-                            text = "আজকের বিক্রি",
+                            text = stringResource(R.string.cashbox_today_sales),
                             style = MaterialTheme.typography.labelMedium,
                             color = IncomeGreen
                         )
@@ -115,7 +119,7 @@ fun CashBoxScreen(
                 ) {
                     Column(modifier = Modifier.padding(12.dp)) {
                         Text(
-                            text = "বর্তমান ক্যাশ",
+                            text = stringResource(R.string.cashbox_current_cash),
                             style = MaterialTheme.typography.labelMedium,
                             color = ReceivableBlue
                         )
@@ -137,15 +141,15 @@ fun CashBoxScreen(
                     .padding(horizontal = 12.dp),
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                items(entryTypes) { et ->
+                items(entryTypes) { key ->
                     Button(
-                        onClick = { showEntryDialog = et.key },
+                        onClick = { showEntryDialog = key },
                         colors = ButtonDefaults.buttonColors(
-                            containerColor = if (et.key == "CASH_IN" || et.key == "OWNER_IN")
+                            containerColor = if (key == "CASH_IN" || key == "OWNER_IN")
                                 IncomeGreen else ReceivableBlue
                         )
                     ) {
-                        Text(text = et.label, fontSize = 12.sp)
+                        Text(text = entryTypeButtonLabel(key), fontSize = 12.sp)
                     }
                 }
             }
@@ -162,7 +166,7 @@ fun CashBoxScreen(
                 if (cashEntries.isEmpty()) {
                     item {
                         Text(
-                            text = "আজকের কোনো এন্ট্রি নেই",
+                            text = stringResource(R.string.cashbox_no_entries),
                             style = MaterialTheme.typography.bodyMedium,
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                             modifier = Modifier.padding(top = 16.dp)
@@ -185,7 +189,7 @@ fun CashBoxScreen(
                     .fillMaxWidth()
                     .padding(12.dp)
             ) {
-                Text(text = "ক্যাশবাক্স মিলাই")
+                Text(text = stringResource(R.string.cashbox_reconcile))
             }
         }
     }
@@ -207,20 +211,20 @@ fun CashBoxScreen(
     if (showReconcileDialog) {
         AlertDialog(
             onDismissRequest = { showReconcileDialog = false },
-            title = { Text(text = "ক্যাশবাক্স মিলাই") },
+            title = { Text(text = stringResource(R.string.cashbox_reconcile)) },
             text = {
                 Text(
-                    text = "গতকাল দিনশেষে ক্যাশবাক্স মিলানো হয়নি। এখন কি ক্যাশবাক্স মিলাতে চান?"
+                    text = stringResource(R.string.cashbox_reconcile_message)
                 )
             },
             confirmButton = {
                 TextButton(onClick = { showReconcileDialog = false }) {
-                    Text(text = "মিলাতে চাই")
+                    Text(text = stringResource(R.string.cashbox_reconcile_yes))
                 }
             },
             dismissButton = {
                 TextButton(onClick = { showReconcileDialog = false }) {
-                    Text(text = "মিলাবো না")
+                    Text(text = stringResource(R.string.cashbox_reconcile_no))
                 }
             }
         )
@@ -292,13 +296,13 @@ private fun EntryInputDialog(
                 OutlinedTextField(
                     value = amountText,
                     onValueChange = { amountText = it },
-                    label = { Text("পরিমাণ (৳)") },
+                    label = { Text(stringResource(R.string.dialog_payment_amount_hint)) },
                     singleLine = true
                 )
                 OutlinedTextField(
                     value = noteText,
                     onValueChange = { noteText = it },
-                    label = { Text("বিবরণ (ঐচ্ছিক)") },
+                    label = { Text(stringResource(R.string.cashbox_note_optional)) },
                     singleLine = true
                 )
             }
@@ -310,12 +314,12 @@ private fun EntryInputDialog(
                     if (amount > 0) onConfirm(amount, noteText.trim())
                 }
             ) {
-                Text(text = "যোগ করুন")
+                Text(text = stringResource(R.string.action_add))
             }
         },
         dismissButton = {
             TextButton(onClick = onDismiss) {
-                Text(text = "বাতিল")
+                Text(text = stringResource(R.string.action_cancel))
             }
         }
     )

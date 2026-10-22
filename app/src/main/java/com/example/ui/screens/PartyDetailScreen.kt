@@ -1,4 +1,4 @@
-package com.example.ui.screens
+﻿package com.example.ui.screens
 
 import android.content.Intent
 import android.net.Uri
@@ -98,7 +98,7 @@ fun PartyDetailScreen(
                     Column {
                         Text(party.name, fontWeight = FontWeight.Bold, style = MaterialTheme.typography.titleMedium)
                         Text(
-                            text = if (isPayable) "দেনা খাতা (সে পাবে)" else "পাওনা খাতা (আমি পাবো)",
+                            text = if (isPayable) stringResource(R.string.party_type_payable_title) else stringResource(R.string.party_type_receivable_title),
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
@@ -106,7 +106,7 @@ fun PartyDetailScreen(
                 },
                 navigationIcon = {
                     IconButton(onClick = onBack) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "ফিরে যান")
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(R.string.party_back))
                     }
                 },
                 actions = {
@@ -147,7 +147,7 @@ fun PartyDetailScreen(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text(
-                        text = if (isPayable) "বর্তমান দেনা (সে পাবে)" else "বর্তমান পাওনা (আমি পাবো)",
+                        text = if (isPayable) stringResource(R.string.party_current_payable) else stringResource(R.string.party_current_receivable),
                         style = MaterialTheme.typography.bodyMedium,
                         color = if (isPayable) MaterialTheme.colorScheme.onErrorContainer else MaterialTheme.colorScheme.onPrimaryContainer
                     )
@@ -186,7 +186,7 @@ fun PartyDetailScreen(
                 ) {
                     Icon(Icons.Default.Payments, contentDescription = null, modifier = Modifier.size(18.dp))
                     Spacer(modifier = Modifier.width(4.dp))
-                    Text(if (isPayable) "টাকা পরিশোধ" else "টাকা আদায়", fontWeight = FontWeight.Bold)
+                    Text(if (isPayable) stringResource(R.string.party_action_pay) else stringResource(R.string.party_action_collect), fontWeight = FontWeight.Bold)
                 }
 
                 Button(
@@ -199,7 +199,7 @@ fun PartyDetailScreen(
                 ) {
                     Icon(Icons.Default.Add, contentDescription = null, modifier = Modifier.size(18.dp))
                     Spacer(modifier = Modifier.width(4.dp))
-                    Text(if (isPayable) "বাকি নেওয়া" else "নতুন বাকি", fontWeight = FontWeight.Bold)
+                    Text(if (isPayable) stringResource(R.string.party_action_take_due) else stringResource(R.string.party_action_new_due), fontWeight = FontWeight.Bold)
                 }
             }
 
@@ -209,7 +209,7 @@ fun PartyDetailScreen(
             if (isPayable && party.phone.isNotBlank()) {
                 OutlinedButton(
                     onClick = {
-                        val smsBody = "আপনার কাছে আমাদের পাওনা আছে ${Formatters.formatTaka(party.currentAmount, useBengali = false)} টাকা। অনুগ্রহ করে পরিশোধ করুন।"
+                        val smsBody = context.getString(R.string.party_reminder_sms_body, Formatters.formatTaka(party.currentAmount, useBengali = false))
                         val intent = Intent(Intent.ACTION_VIEW, Uri.parse("sms:${party.phone}"))
                         intent.putExtra("sms_body", smsBody)
                         context.startActivity(intent)
@@ -220,7 +220,7 @@ fun PartyDetailScreen(
                 ) {
                     Icon(Icons.Default.Message, contentDescription = null, modifier = Modifier.size(18.dp))
                     Spacer(modifier = Modifier.width(6.dp))
-                    Text("তাগাদা পাঠাও")
+                    Text(stringResource(R.string.party_reminder_sms))
                 }
                 Spacer(modifier = Modifier.height(8.dp))
             }
@@ -234,14 +234,14 @@ fun PartyDetailScreen(
             ) {
                 Icon(Icons.Default.Download, contentDescription = null, modifier = Modifier.size(18.dp))
                 Spacer(modifier = Modifier.width(6.dp))
-                Text("রিপোর্ট")
+                Text(stringResource(R.string.party_report))
             }
 
             Spacer(modifier = Modifier.height(16.dp))
 
             // History Header
             Text(
-                text = "লেনদেনের ইতিহাস (${entries.size})",
+                text = stringResource(R.string.party_transaction_history, entries.size),
                 style = MaterialTheme.typography.titleSmall,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(horizontal = 16.dp)
@@ -269,7 +269,7 @@ fun PartyDetailScreen(
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
-                        text = "কোনো লেনদেনের ইতিহাস নেই।\nউপরের বোতাম দিয়ে নতুন লেনদেন যোগ করুন।",
+                        text = stringResource(R.string.party_empty_history),
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         textAlign = androidx.compose.ui.text.style.TextAlign.Center
@@ -300,8 +300,8 @@ fun PartyDetailScreen(
     if (showDeleteConfirm) {
         AlertDialog(
             onDismissRequest = { showDeleteConfirm = false },
-            title = { Text("খাতা মুছে ফেলবেন?") },
-            text = { Text("'${party.name}' এর পুরো খাতা এবং লেনদেনের সকল রেকর্ড মুছে ফেলা হবে।") },
+            title = { Text(stringResource(R.string.party_delete_confirm_title)) },
+            text = { Text(stringResource(R.string.party_delete_confirm_message, party.name)) },
             confirmButton = {
                 TextButton(
                     onClick = {
@@ -329,11 +329,11 @@ private fun PartyEntryCard(
     runningBalance: Double = 0.0
 ) {
     val isGive = entry.entryType == "GIVE"
-    val isSettlement = if (isPayable) isGive else isGive
+    val isSettlement = isGive
     val typeTitle = if (isPayable) {
-        if (isGive) "টাকা পরিশোধ করা হলো" else "বাকি নেওয়া হলো"
+        if (isGive) stringResource(R.string.party_entry_settlement_paid) else stringResource(R.string.party_entry_due_received)
     } else {
-        if (isGive) "টাকা আদায় হলো" else "নতুন বাকি দেওয়া হলো"
+        if (isGive) stringResource(R.string.party_entry_collected) else stringResource(R.string.party_entry_new_due_given)
     }
 
     Card(
@@ -389,7 +389,7 @@ private fun PartyEntryCard(
                     color = if (isSettlement) IncomeGreen else ExpenseRed
                 )
                 Text(
-                    text = "স্থিতি: ${Formatters.formatTaka(runningBalance, useBengali = useBengaliDigits)}",
+                    text = stringResource(R.string.party_running_balance, Formatters.formatTaka(runningBalance, useBengali = useBengaliDigits)),
                     style = MaterialTheme.typography.labelSmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )

@@ -50,6 +50,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
 import com.example.R
 import com.example.data.ai.ChatMessage
@@ -76,12 +77,7 @@ fun ChatScreen(
         }
     }
 
-    val suggestedQuestions = listOf(
-        "📊 আমার বর্তমান হিসাব ও স্থিতি বিশ্লেষণ কর",
-        "💡 দেনা দ্রুত পরিশোধ করার ভালো কৌশল কি?",
-        "💰 প্রতি মাসে সঞ্চয় বাড়ানোর সহজ উপায়",
-        "📝 ব্যবসায় বা দোকানে বাকি খাতা নিয়ন্ত্রণের নিয়ম"
-    )
+    val suggestedQuestions = stringArrayResource(R.array.chat_suggested_questions).toList()
 
     Column(
         modifier = Modifier
@@ -119,13 +115,13 @@ fun ChatScreen(
                     Spacer(modifier = Modifier.width(10.dp))
                     Column {
                         Text(
-                            text = "হিসাব এআই সহকারী",
+                            text = stringResource(R.string.chat_title),
                             style = MaterialTheme.typography.titleMedium,
                             fontWeight = FontWeight.Bold,
                             color = MaterialTheme.colorScheme.primary
                         )
                         Text(
-                            text = "ব্যক্তিগত ও ব্যবসায়িক হিসাব সহায়ক",
+                            text = stringResource(R.string.chat_subtitle),
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
@@ -177,13 +173,13 @@ fun ChatScreen(
                     Spacer(modifier = Modifier.height(16.dp))
 
                     Text(
-                        text = "স্বাগতম! আমি আপনার হিসাব সহকারী",
+                        text = stringResource(R.string.chat_empty_greeting),
                         style = MaterialTheme.typography.titleMedium,
                         fontWeight = FontWeight.Bold
                     )
                     Spacer(modifier = Modifier.height(6.dp))
                     Text(
-                        text = "আপনার খাতার আয়-ব্যয়, দেনা-পাওনা কিংবা আর্থিক পরিকল্পনা সম্পর্কে যেকোনো প্রশ্ন করতে পারেন।",
+                        text = stringResource(R.string.chat_empty_description),
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         textAlign = androidx.compose.ui.text.style.TextAlign.Center
@@ -192,7 +188,7 @@ fun ChatScreen(
                     Spacer(modifier = Modifier.height(24.dp))
 
                     Text(
-                        text = "যেকোনো একটি দিয়ে শুরু করুন:",
+                        text = stringResource(R.string.chat_empty_start_prompt),
                         style = MaterialTheme.typography.bodySmall,
                         fontWeight = FontWeight.SemiBold,
                         color = MaterialTheme.colorScheme.primary
@@ -259,7 +255,7 @@ fun ChatScreen(
 
         // Prototype disclaimer notice
         Text(
-            text = "এআই উত্তর সবসময় নির্ভুল নাও হতে পারে।",
+            text = stringResource(R.string.chat_disclaimer),
             fontSize = 10.sp,
             color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f),
             modifier = Modifier
@@ -286,7 +282,7 @@ fun ChatScreen(
                 OutlinedTextField(
                     value = inputText,
                     onValueChange = { inputText = it },
-                    placeholder = { Text("প্রশ্ন লিখুন...") },
+                    placeholder = { Text(stringResource(R.string.chat_input_placeholder)) },
                     maxLines = 4,
                     shape = RoundedCornerShape(24.dp),
                     modifier = Modifier
@@ -436,7 +432,7 @@ private fun AILoadingBubble() {
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 Text(
-                    text = "উত্তর তৈরি হচ্ছে...",
+                    text = stringResource(R.string.chat_loading),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )

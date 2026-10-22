@@ -117,7 +117,7 @@ fun KhataScreen(
                 OutlinedTextField(
                     value = searchQuery,
                     onValueChange = onSearchChange,
-                    placeholder = { Text("ব্যক্তি বা প্রতিষ্ঠানের নাম খুঁজুন...") },
+                    placeholder = { Text(stringResource(R.string.khata_search_placeholder)) },
                     leadingIcon = { Icon(Icons.Default.Search, contentDescription = null) },
                     singleLine = true,
                     shape = RoundedCornerShape(16.dp),
@@ -126,7 +126,7 @@ fun KhataScreen(
                         .testTag("party_search_field")
                 )
                 IconButton(onClick = onExportPartyPdf) {
-                    Icon(Icons.Default.Download, contentDescription = "PDF রিপোর্ট")
+                    Icon(Icons.Default.Download, contentDescription = stringResource(R.string.khata_pdf_report))
                 }
             }
 
@@ -145,7 +145,7 @@ fun KhataScreen(
                 FilterChip(
                     selected = filter == "PAYABLE",
                     onClick = { onFilterChange("PAYABLE") },
-                    label = { Text("সাপ্লায়ার ($payableCount)") },
+                    label = { Text("${stringResource(R.string.khata_filter_supplier)} ($payableCount)") },
                     colors = FilterChipDefaults.filterChipColors(
                         selectedContainerColor = PayableAmberLight,
                         selectedLabelColor = PayableAmber
@@ -154,7 +154,7 @@ fun KhataScreen(
                 FilterChip(
                     selected = filter == "RECEIVABLE",
                     onClick = { onFilterChange("RECEIVABLE") },
-                    label = { Text("কাস্টমার ($receivableCount)") },
+                    label = { Text("${stringResource(R.string.khata_filter_customer)} ($receivableCount)") },
                     colors = FilterChipDefaults.filterChipColors(
                         selectedContainerColor = ReceivableBlueLight,
                         selectedLabelColor = ReceivableBlue
@@ -177,13 +177,13 @@ fun KhataScreen(
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Text(
-                        text = "মোট দেনা: ${Formatters.formatTaka(totalPayable, useBengali = useBengaliDigits)}",
+                        text = stringResource(R.string.khata_total_payable, Formatters.formatTaka(totalPayable, useBengali = useBengaliDigits)),
                         style = MaterialTheme.typography.bodyMedium,
                         fontWeight = FontWeight.Bold,
                         color = ExpenseRed
                     )
                     Text(
-                        text = "মোট পাওনা: ${Formatters.formatTaka(totalReceivable, useBengali = useBengaliDigits)}",
+                        text = stringResource(R.string.khata_total_receivable, Formatters.formatTaka(totalReceivable, useBengali = useBengaliDigits)),
                         style = MaterialTheme.typography.bodyMedium,
                         fontWeight = FontWeight.Bold,
                         color = IncomeGreen
@@ -200,7 +200,7 @@ fun KhataScreen(
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
-                        text = "কোনো হিসাব খাতা পাওয়া যায়নি।\nনিচের '+' বোতাম দিয়ে নতুন ব্যক্তি বা প্রতিষ্ঠানের খাতা যোগ করুন।",
+                        text = stringResource(R.string.khata_empty_parties),
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         textAlign = androidx.compose.ui.text.style.TextAlign.Center
@@ -228,17 +228,19 @@ fun KhataScreen(
     }
 }
 
-private fun relativeTime(millis: Long): String {
+@Composable
+private fun relativeTime(millis: Long, useBengaliDigits: Boolean): String {
     val now = System.currentTimeMillis()
     val diff = now - millis
     val days = (diff / (1000L * 60 * 60 * 24)).toInt()
-    return when {
-        days <= 0 -> "আজ"
-        days == 1 -> "গতকাল"
-        days < 7 -> "${days} দিন আগে"
-        days < 30 -> "${days / 7} সপ্তাহ আগে"
-        else -> "${days / 30} মাস আগে"
+    val raw = when {
+        days <= 0 -> stringResource(R.string.time_today)
+        days == 1 -> stringResource(R.string.time_yesterday)
+        days < 7 -> stringResource(R.string.time_days_ago, days)
+        days < 30 -> stringResource(R.string.time_weeks_ago, days / 7)
+        else -> stringResource(R.string.time_months_ago, days / 30)
     }
+    return if (useBengaliDigits) Formatters.toBengaliDigits(raw) else raw
 }
 @Composable
 private fun PartyCardItem(
@@ -327,7 +329,7 @@ private fun PartyCardItem(
                     }
                     Spacer(modifier = Modifier.height(2.dp))
                     Text(
-                        text = relativeTime(party.updatedAt),
+                        text = relativeTime(party.updatedAt, useBengaliDigits),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -343,7 +345,7 @@ private fun PartyCardItem(
                         color = if (party.partyType == "PAYABLE") ExpenseRed else IncomeGreen
                     )
                     Text(
-                        text = "বাকি স্থিতি",
+                        text = stringResource(R.string.khata_balance_status),
                         style = MaterialTheme.typography.labelSmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )

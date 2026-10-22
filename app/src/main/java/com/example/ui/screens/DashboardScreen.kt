@@ -390,7 +390,7 @@ private fun ChartSection(
                 } else {
                     val top = expenseSlices.take(6)
                     val otherAmt = expenseSlices.drop(6).sumOf { it.second }
-                    top + listOf("অন্যান্য" to otherAmt)
+                    top + listOf(stringResource(R.string.chart_others) to otherAmt)
                 }
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -517,7 +517,7 @@ private fun PartiesSection(
         if (topParties.isEmpty()) {
             EmptyCard(
                 message = stringResource(R.string.dashboard_empty_parties),
-                actionText = "নমুনা হিসাব লোড করুন",
+                actionText = stringResource(R.string.dashboard_load_sample),
                 onAction = onLoadSampleData
             )
         } else {
@@ -708,7 +708,7 @@ private fun QuickActionsGrid(
     onNavigateToChat: () -> Unit,
     onNavigateToCashBox: () -> Unit
 ) {
-    val labels = listOf("+আয়", "-ব্যয়", "দেনা/পাওনা", "রিপোর্ট", "ক্যালেন্ডার", "স্টক হিসাব", "এআই সহকারী", "ক্যাশবাক্স")
+    val labels = listOf(stringResource(R.string.quick_action_income), stringResource(R.string.quick_action_expense), stringResource(R.string.quick_action_ledger), stringResource(R.string.quick_action_reports), stringResource(R.string.quick_action_calendar), stringResource(R.string.quick_action_stock), stringResource(R.string.quick_action_ai), stringResource(R.string.quick_action_cashbox))
     val colors = listOf(
         IncomeGreen, ExpenseRed, ReceivableBlue, Color(0xFF7C3AED),
         Color(0xFF0D9488), Color(0xFFF97316), Color(0xFF4F46E5), Color(0xFF6B7280)
@@ -775,7 +775,7 @@ private fun FeatureShortcutsGrid(
     onNavigateToProducts: () -> Unit,
     onNavigateToInvoices: () -> Unit
 ) {
-    val tileLabels = listOf("এআই সহকারী", "ক্যালেন্ডার", "রিপোর্ট", "স্টক", "চালান")
+    val tileLabels = listOf(stringResource(R.string.shortcut_ai), stringResource(R.string.shortcut_calendar), stringResource(R.string.shortcut_reports), stringResource(R.string.shortcut_stock), stringResource(R.string.shortcut_invoices))
     val tileIcons = listOf(
         Icons.Default.AutoAwesome, Icons.Default.DateRange, Icons.Default.BarChart,
         Icons.Default.Inventory2, Icons.Default.Receipt

@@ -154,7 +154,7 @@ fun AppTopBar(
                             leadingIcon = {
                                 Icon(Icons.Default.CloudSync, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
                             },
-                            text = { Text("☁ ব্যাকআপ/রিস্টোর") },
+                            text = { Text(stringResource(R.string.topbar_backup_menu)) },
                             onClick = {
                                 showMenu = false
                                 onOpenBackupRestore()
@@ -164,7 +164,7 @@ fun AppTopBar(
                             leadingIcon = {
                                 Icon(Icons.Default.Calculate, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
                             },
-                            text = { Text("🔢 ক্যালকুলেটর") },
+                            text = { Text(stringResource(R.string.topbar_calculator)) },
                             onClick = {
                                 showMenu = false
                                 onOpenCalculator()

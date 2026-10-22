@@ -493,4 +493,91 @@
     <string name="export_excel_button">Excel (.xlsx) ایکسپورٹ کریں</string>
     <string name="export_excel_success">Excel فائل بنائی گئی!</string>
     <string name="export_excel_error">Excel برآمد ناکام</string>
+
+    <!-- CashBox screen -->
+    <string name="cashbox_today_sales">آج کی فروخت</string>
+    <string name="cashbox_current_cash">موجودہ نقد</string>
+    <string name="cashbox_cash_in">آج ملا</string>
+    <string name="cashbox_cash_out">آج دیا</string>
+    <string name="cashbox_expense">خرچ</string>
+    <string name="cashbox_owner_in">مالک ڈالا</string>
+    <string name="cashbox_owner_out">مالک نکالا</string>
+    <string name="cashbox_type_cash_in">نقد اِن</string>
+    <string name="cashbox_type_cash_out">نقد آؤٹ</string>
+    <string name="cashbox_reconcile">کیش باکس میلا</string>
+    <string name="cashbox_reconcile_message">کل کا کیش باکس میلا نہیں ہوا۔ اب ملیں؟</string>
+    <string name="cashbox_reconcile_yes">میلا</string>
+    <string name="cashbox_reconcile_no">نہ ملیں</string>
+    <string name="cashbox_no_entries">آج کوئی اندراج نہیں</string>
+    <string name="cashbox_note_optional">تفصیل (اختیاری)</string>
+
+    <!-- Dashboard additions -->
+    <string name="quick_action_income">+آمدنی</string>
+    <string name="quick_action_expense">-خرچ</string>
+    <string name="quick_action_ledger">واجب/وصولی</string>
+    <string name="quick_action_reports">رپورٹ</string>
+    <string name="quick_action_calendar">کیلنڈر</string>
+    <string name="quick_action_stock">اسٹاک</string>
+    <string name="quick_action_ai">AI معاون</string>
+    <string name="quick_action_cashbox">کیش باکس</string>
+    <string name="shortcut_ai">AI معاون</string>
+    <string name="shortcut_calendar">کیلنڈر</string>
+    <string name="shortcut_reports">رپورٹ</string>
+    <string name="shortcut_stock">اسٹاک</string>
+    <string name="shortcut_invoices">انوائس</string>
+    <string name="chart_others">دگر</string>
+
+    <!-- Khata additions -->
+    <string name="khata_search_placeholder">شخص یا ادارہ تلاش کریں...</string>
+    <string name="khata_pdf_report">PDF رپورٹ</string>
+    <string name="khata_filter_supplier">فراہم کرنے والے</string>
+    <string name="khata_filter_customer">گاہک</string>
+    <string name="khata_total_payable">کل واجب: %1$s</string>
+    <string name="khata_total_receivable">کل وصولی: %1$s</string>
+    <string name="khata_empty_parties">کوئی کھاتہ نہیں ملا۔\nنیچے دیے \'+\' بٹن سے نیا شخص یا ادارہ شامل کریں۔</string>
+    <string name="khata_balance_status">بقایا</string>
+    <string name="time_today">آج</string>
+    <string name="time_yesterday">کل</string>
+    <string name="time_days_ago">%1$d دن پہلے</string>
+    <string name="time_weeks_ago">%1$d ہفتے پہلے</string>
+    <string name="time_months_ago">%1$d مہینے پہلے</string>
+
+    <!-- PartyDetail additions -->
+    <string name="party_type_payable_title">واجب کھاتہ (انہیں ملے گا)</string>
+    <string name="party_type_receivable_title">وصولی کھاتہ (مجھے ملے گا)</string>
+    <string name="party_back">واپس جائیں</string>
+    <string name="party_current_payable">موجودہ واجب (انہیں ملے گا)</string>
+    <string name="party_current_receivable">موجودہ وصولی (مجھے ملے گا)</string>
+    <string name="party_action_pay">ادائیگی کریں</string>
+    <string name="party_action_collect">وصول کریں</string>
+    <string name="party_action_take_due">بقایا وصول</string>
+    <string name="party_action_new_due">نیا بقایا</string>
+    <string name="party_reminder_sms">یاد دہانی بھیجیں</string>
+    <string name="party_reminder_sms_body">آپ پر ہمارے %1$s ٹکا واجب ہیں۔ براہ کرم ادا کریں۔</string>
+    <string name="party_report">رپورٹ</string>
+    <string name="party_transaction_history">لین دین کی تاریخ (%1$d)</string>
+    <string name="party_empty_history">کوئی لین دین کی تاریخ نہیں۔\nاوپر کے بٹن سے نیا لین دین شامل کریں۔</string>
+    <string name="party_delete_confirm_title">کھاتہ حذف کریں؟</string>
+    <string name="party_delete_confirm_message">\'%1$s\' کا پورا کھاتہ اور تمام لین دین ریکارڈ حذف ہو جائیں گے۔</string>
+    <string name="party_entry_settlement_paid">ادائیگی ہو گئی</string>
+    <string name="party_entry_due_received">بقایا وصول ہوا</string>
+    <string name="party_entry_collected">وصولی ہوئی</string>
+    <string name="party_entry_new_due_given">نیا بقایا دیا گیا</string>
+    <string name="party_running_balance">بیلنس: %1$s</string>
+
+    <!-- Chat additions -->
+    <string name="chat_subtitle">ذاتی اور کاروباری اکاؤنٹنگ معاون</string>
+    <string name="chat_empty_greeting">خوش آمدید! میں آپ کا اکاؤنٹنگ معاون ہوں</string>
+    <string name="chat_empty_description">اپنی آمدنی، اخراجات، واجبات یا مالی منصوبہ بندی کے بارے میں کچھ بھی پوچھیں۔</string>
+    <string name="chat_empty_start_prompt">ان میں سے کسی سے شروع کریں:</string>
+    <string name="chat_disclaimer">AI جوابات ہمیشہ درست نہیں ہو سکتے۔</string>
+    <string name="chat_input_placeholder">سوال لکھیں...</string>
+    <string name="chat_loading">جواب تیار ہو رہا ہے...</string>
+
+    <string-array name="chat_suggested_questions">
+        <item>📊 میرے موجودہ مالیات کا تجزیہ کریں</item>
+        <item>💡 قرضے جلد ادا کرنے کی اچھی حکمت عملی؟</item>
+        <item>💰 ہر ماہ بچت بڑھانے کے آسان طریقے</item>
+        <item>📝 کاروبار یا دکان میں بقایا انتظام کے اصول</item>
+    </string-array>
 </resources>
