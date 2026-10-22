@@ -79,6 +79,7 @@ import com.example.ui.components.SettingsDialog
 import com.example.ui.components.TransferDialog
 import com.example.ui.screens.AppLockScreen
 import com.example.ui.screens.CalendarScreen
+import com.example.ui.screens.CashBoxScreen
 import com.example.ui.screens.ChatScreen
 import com.example.ui.screens.DashboardScreen
 import com.example.ui.screens.KhataScreen
@@ -265,6 +266,12 @@ fun MainAppContent(viewModel: MainViewModel) {
 
     // Phase 6 Excel Export
     val excelExportResult by viewModel.excelExportResult.collectAsStateWithLifecycle()
+
+    // FEAT-003: Cash Box state
+    val cashBoxEntries by viewModel.cashBoxEntries.collectAsStateWithLifecycle()
+    val currentCashBalance by viewModel.currentCashBalance.collectAsStateWithLifecycle()
+    val todaySales by viewModel.todaySales.collectAsStateWithLifecycle()
+    val todayCashEntries by viewModel.todayCashEntries.collectAsStateWithLifecycle()
 
     // Start sync when composable is active
     androidx.compose.runtime.LaunchedEffect(Unit) {
@@ -663,6 +670,15 @@ fun MainAppContent(viewModel: MainViewModel) {
                                 coroutineScope.launch {
                                     snackbarHostState.showSnackbar(context.getString(R.string.snackbar_invoice_deleted))
                                 }
+                            }
+                        )
+                        10 -> CashBoxScreen(
+                            cashEntries = todayCashEntries,
+                            todaySales = todaySales,
+                            currentCashBalance = currentCashBalance,
+                            useBengaliDigits = useBengaliDigits,
+                            onAddEntry = { type, amount, note ->
+                                viewModel.addCashBoxEntry(type, amount, note)
                             }
                         )
                     }

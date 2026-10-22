@@ -7,6 +7,7 @@ import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.data.dao.AuditSnapshotDao
+import com.example.data.dao.CashBoxDao
 import com.example.data.dao.ChatMessageDao
 import com.example.data.dao.CoinDao
 import com.example.data.dao.InvoiceDao
@@ -17,6 +18,7 @@ import com.example.data.dao.ProductDao
 import com.example.data.dao.TransactionDao
 import com.example.data.dao.WalletDao
 import com.example.data.model.AuditSnapshotEntity
+import com.example.data.model.CashBoxEntryEntity
 import com.example.data.model.ChatMessageEntity
 import com.example.data.model.CoinEntity
 import com.example.data.model.InvoiceEntity
@@ -40,9 +42,10 @@ import com.example.data.model.WalletEntity
         ProductEntity::class,
         InvoiceEntity::class,
         InvoiceItemEntity::class,
-        CoinEntity::class
+        CoinEntity::class,
+        CashBoxEntryEntity::class
     ],
-    version = 6,
+    version = 7,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -56,6 +59,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun productDao(): ProductDao
     abstract fun invoiceDao(): InvoiceDao
     abstract fun coinDao(): CoinDao
+    abstract fun cashBoxDao(): CashBoxDao
 
     companion object {
         @Volatile
@@ -123,6 +127,14 @@ abstract class AppDatabase : RoomDatabase() {
             }
         }
 
+        val MIGRATION_6_7 = object : Migration(6, 7) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL(
+                    "CREATE TABLE IF NOT EXISTS `cash_box_entries` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `type` TEXT NOT NULL, `amount` REAL NOT NULL, `note` TEXT NOT NULL DEFAULT '', `dateMillis` INTEGER NOT NULL, `reconciledDate` INTEGER)"
+                )
+            }
+        }
+
         fun getDatabase(context: Context): AppDatabase {
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
@@ -130,7 +142,7 @@ abstract class AppDatabase : RoomDatabase() {
                     AppDatabase::class.java,
                     "shohoj_hisab_database"
                 )
-                    .addMigrations(MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6)
+                    .addMigrations(MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6, MIGRATION_6_7)
                     .build()
                 INSTANCE = instance
                 instance

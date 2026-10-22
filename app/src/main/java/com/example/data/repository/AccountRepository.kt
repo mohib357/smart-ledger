@@ -1,6 +1,7 @@
-package com.example.data.repository
+﻿package com.example.data.repository
 
 import com.example.data.dao.AuditSnapshotDao
+import com.example.data.dao.CashBoxDao
 import com.example.data.dao.ChatMessageDao
 import com.example.data.dao.NomineeDao
 import com.example.data.dao.PartyDao
@@ -10,6 +11,7 @@ import com.example.data.dao.TransactionDao
 import com.example.data.dao.WalletDao
 import com.example.data.database.AppDatabase
 import com.example.data.model.AuditSnapshotEntity
+import com.example.data.model.CashBoxEntryEntity
 import com.example.data.model.ChatMessageEntity
 import com.example.data.model.NomineeEntity
 import com.example.data.model.PartyEntity
@@ -38,6 +40,7 @@ class AccountRepository(private val database: AppDatabase) {
     private val productDao: ProductDao = database.productDao()
     private val invoiceDao: com.example.data.dao.InvoiceDao = database.invoiceDao()
     private val coinDao: com.example.data.dao.CoinDao = database.coinDao()
+    private val cashBoxDao: CashBoxDao = database.cashBoxDao()
 
     val allTransactions: Flow<List<TransactionEntity>> = transactionDao.getAllTransactions()
     val allParties: Flow<List<PartyEntity>> = partyDao.getAllParties()
@@ -781,4 +784,18 @@ class AccountRepository(private val database: AppDatabase) {
             )
         )
     }
+
+    // -- Cash Box --
+
+    suspend fun addCashBoxEntry(entry: com.example.data.model.CashBoxEntryEntity) = cashBoxDao.insert(entry)
+
+    fun getCashBoxEntries(): kotlinx.coroutines.flow.Flow<List<com.example.data.model.CashBoxEntryEntity>> = cashBoxDao.getAllEntries()
+
+    fun getCashBalance(): kotlinx.coroutines.flow.Flow<Double?> = cashBoxDao.getCurrentCashBalance()
+
+    fun getTodaySales(startOfDay: Long, endOfDay: Long): kotlinx.coroutines.flow.Flow<Double?> =
+        cashBoxDao.getTodaySales(startOfDay, endOfDay)
+
+    fun getTodayEntries(startOfDay: Long, endOfDay: Long): kotlinx.coroutines.flow.Flow<List<com.example.data.model.CashBoxEntryEntity>> =
+        cashBoxDao.getTodayEntries(startOfDay, endOfDay)
 }

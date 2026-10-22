@@ -1,4 +1,4 @@
-package com.example.ui.viewmodel
+﻿package com.example.ui.viewmodel
 
 import android.app.Application
 import android.content.Context
@@ -6,6 +6,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.data.database.AppDatabase
 import com.example.data.model.AuditSnapshotEntity
+import com.example.data.model.CashBoxEntryEntity
 import com.example.data.model.NomineeEntity
 import com.example.data.model.PartyEntity
 import com.example.data.model.PartyLedgerEntryEntity
@@ -58,6 +59,14 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     lateinit var allProducts: StateFlow<List<ProductEntity>>
         private set
     lateinit var productProfitSummary: StateFlow<List<ProductProfitSummary>>
+        private set
+    lateinit var todaySales: StateFlow<Double>
+        private set
+    lateinit var todayCashEntries: StateFlow<List<CashBoxEntryEntity>>
+        private set
+    lateinit var cashBoxEntries: StateFlow<List<CashBoxEntryEntity>>
+        private set
+    lateinit var currentCashBalance: StateFlow<Double>
         private set
 
     // Navigation and Filters
@@ -306,6 +315,19 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         _dashboardPrefs.value = if (savedPrefsJson != null) DashboardPrefs.fromJson(savedPrefsJson) else DashboardPrefs()
         // Load AI insight on startup
         refreshAiInsight()
+
+        // FEAT-003: Cash Box init
+        val (startDay, endDay) = todayRange()
+        todaySales = repository.getTodaySales(startDay, endDay)
+            .map { it ?: 0.0 }
+            .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), 0.0)
+        todayCashEntries = repository.getTodayEntries(startDay, endDay)
+            .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
+        cashBoxEntries = repository.getCashBoxEntries()
+            .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
+        currentCashBalance = repository.getCashBalance()
+            .map { it ?: 0.0 }
+            .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), 0.0)
     }
 
     // ── Phase 6: AI Insights ───────────────────────────────────────────────
@@ -532,6 +554,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     val showCreateInvoice = MutableStateFlow(false)
+
+    // ── FEAT-003: Cash Box StateFlows ──────────────────────────────────────
+    val showAddCashBoxEntry = MutableStateFlow(false)
 
     fun createInvoice(
         customerName: String,
@@ -961,4 +986,24 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         if (uid.isEmpty()) return
         viewModelScope.launch { syncManager.pushAllToFirestore() }
     }
+
+    // ── FEAT-003: Cash Box helpers ─────────────────────────────────────────
+
+    private fun todayRange(): Pair<Long, Long> {
+        val cal = java.util.Calendar.getInstance()
+        cal.set(java.util.Calendar.HOUR_OF_DAY, 0)
+        cal.set(java.util.Calendar.MINUTE, 0)
+        cal.set(java.util.Calendar.SECOND, 0)
+        cal.set(java.util.Calendar.MILLISECOND, 0)
+        val start = cal.timeInMillis
+        val end = start + 86400000L
+        return Pair(start, end)
+    }
+
+    fun addCashBoxEntry(type: String, amount: Double, note: String) {
+        viewModelScope.launch {
+            repository.addCashBoxEntry(CashBoxEntryEntity(type = type, amount = amount, note = note))
+        }
+    }
 }
+
