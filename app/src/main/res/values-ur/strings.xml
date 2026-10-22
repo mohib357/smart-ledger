@@ -580,4 +580,20 @@
         <item>💰 ہر ماہ بچت بڑھانے کے آسان طریقے</item>
         <item>📝 کاروبار یا دکان میں بقایا انتظام کے اصول</item>
     </string-array>
+
+    <string name="topbar_notifications">اطلاعات</string>
+    <string name="topbar_support">سپورٹ</string>
+    <string name="nav_menu">مینو</string>
+    <string name="support_center">سپورٹ سینٹر</string>
+    <string name="support_whatsapp">واٹس ایپ سپورٹ</string>
+    <string name="support_ticket">سپورٹ ٹکٹ</string>
+    <string name="support_admin_chat">ایڈمن چیٹ</string>
+    <string name="notifications_title">اطلاعات</string>
+    <string name="notifications_empty">کوئی اطلاع نہیں</string>
+    <string name="notifications_mark_all_read">سب پڑھ لئے</string>
+    <string name="menu_language">زبان اور ڈسپلے</string>
+    <string name="menu_tools">لیجر ٹولز</string>
+    <string name="menu_data_sync">ڈیٹا اور سنک</string>
+    <string name="menu_account">اکاؤنٹ اور ایپ</string>
+    <string name="menu_help">مدد</string>
 </resources>

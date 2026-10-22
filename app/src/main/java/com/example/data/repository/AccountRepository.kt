@@ -4,6 +4,7 @@ import com.example.data.dao.AuditSnapshotDao
 import com.example.data.dao.CashBoxDao
 import com.example.data.dao.ChatMessageDao
 import com.example.data.dao.NomineeDao
+import com.example.data.dao.NotificationDao
 import com.example.data.dao.PartyDao
 import com.example.data.dao.PartyLedgerEntryDao
 import com.example.data.dao.ProductDao
@@ -13,6 +14,7 @@ import com.example.data.database.AppDatabase
 import com.example.data.model.AuditSnapshotEntity
 import com.example.data.model.CashBoxEntryEntity
 import com.example.data.model.ChatMessageEntity
+import com.example.data.model.NotificationEntity
 import com.example.data.model.NomineeEntity
 import com.example.data.model.PartyEntity
 import com.example.data.model.PartyLedgerEntryEntity
@@ -23,6 +25,7 @@ import com.example.util.Formatters
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import org.json.JSONArray
 import org.json.JSONObject
@@ -41,6 +44,7 @@ class AccountRepository(private val database: AppDatabase) {
     private val invoiceDao: com.example.data.dao.InvoiceDao = database.invoiceDao()
     private val coinDao: com.example.data.dao.CoinDao = database.coinDao()
     private val cashBoxDao: CashBoxDao = database.cashBoxDao()
+    private val notificationDao: NotificationDao = database.notificationDao()
 
     val allTransactions: Flow<List<TransactionEntity>> = transactionDao.getAllTransactions()
     val allParties: Flow<List<PartyEntity>> = partyDao.getAllParties()
@@ -52,6 +56,63 @@ class AccountRepository(private val database: AppDatabase) {
     val allProducts: Flow<List<ProductEntity>> = productDao.getAllProducts()
     val allInvoices: Flow<List<com.example.data.model.InvoiceEntity>> = invoiceDao.getAllInvoices()
     val allCoins: Flow<List<com.example.data.model.CoinEntity>> = coinDao.getAllCoins()
+
+    val allNotifications: Flow<List<NotificationEntity>> = notificationDao.getAllNotifications()
+    val unreadNotificationCount: Flow<Int> = notificationDao.getUnreadCount()
+
+    suspend fun markNotificationRead(id: String) = notificationDao.markAsRead(id)
+    suspend fun markAllNotificationsRead() = notificationDao.markAllAsRead()
+    suspend fun deleteNotification(notification: NotificationEntity) = notificationDao.delete(notification)
+
+    fun syncNotificationsFromFirestore(userId: String) {
+        try {
+            val db = com.google.firebase.firestore.FirebaseFirestore.getInstance()
+            val scope = kotlinx.coroutines.CoroutineScope(kotlinx.coroutines.Dispatchers.IO)
+            // Listen to admin-broadcast notifications
+            db.collection("admin_notifications")
+                .addSnapshotListener { snapshot, error ->
+                    if (error != null || snapshot == null) return@addSnapshotListener
+                    scope.launch {
+                        try {
+                            snapshot.documents.forEach { doc ->
+                                val notification = NotificationEntity(
+                                    id = doc.id,
+                                    title = doc.getString("title") ?: "",
+                                    body = doc.getString("body") ?: "",
+                                    timestamp = doc.getLong("timestamp") ?: System.currentTimeMillis(),
+                                    isRead = false,
+                                    type = doc.getString("type") ?: "admin"
+                                )
+                                notificationDao.insert(notification)
+                            }
+                        } catch (_: Exception) {}
+                    }
+                }
+            // Listen to user-specific notifications
+            if (userId.isNotEmpty()) {
+                db.collection("user_notifications").document(userId)
+                    .collection("items")
+                    .addSnapshotListener { snapshot, error ->
+                        if (error != null || snapshot == null) return@addSnapshotListener
+                        scope.launch {
+                            try {
+                                snapshot.documents.forEach { doc ->
+                                    val notification = NotificationEntity(
+                                        id = doc.id,
+                                        title = doc.getString("title") ?: "",
+                                        body = doc.getString("body") ?: "",
+                                        timestamp = doc.getLong("timestamp") ?: System.currentTimeMillis(),
+                                        isRead = false,
+                                        type = doc.getString("type") ?: "user"
+                                    )
+                                    notificationDao.insert(notification)
+                                }
+                            } catch (_: Exception) {}
+                        }
+                    }
+            }
+        } catch (_: Exception) {}
+    }
 
     suspend fun insertChatMessage(content: String, isFromUser: Boolean) {
         chatMessageDao.insertMessage(ChatMessageEntity(content = content, isFromUser = isFromUser))

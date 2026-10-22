@@ -8,6 +8,7 @@ import com.example.data.database.AppDatabase
 import com.example.data.model.AuditSnapshotEntity
 import com.example.data.model.CashBoxEntryEntity
 import com.example.data.model.NomineeEntity
+import com.example.data.model.NotificationEntity
 import com.example.data.model.PartyEntity
 import com.example.data.model.PartyLedgerEntryEntity
 import com.example.data.model.ProductEntity
@@ -67,6 +68,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     lateinit var cashBoxEntries: StateFlow<List<CashBoxEntryEntity>>
         private set
     lateinit var currentCashBalance: StateFlow<Double>
+        private set
+    lateinit var allNotifications: StateFlow<List<NotificationEntity>>
+        private set
+    lateinit var unreadNotificationCount: StateFlow<Int>
         private set
 
     // Navigation and Filters
@@ -328,6 +333,22 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         currentCashBalance = repository.getCashBalance()
             .map { it ?: 0.0 }
             .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), 0.0)
+
+        allNotifications = repository.allNotifications.stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = emptyList()
+        )
+        unreadNotificationCount = repository.unreadNotificationCount.stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = 0
+        )
+        // Sync notifications when user is authenticated
+        viewModelScope.launch {
+            val uid = firebaseAuthManager.getCurrentUid()
+            repository.syncNotificationsFromFirestore(uid)
+        }
     }
 
     // ── Phase 6: AI Insights ───────────────────────────────────────────────
@@ -836,6 +857,20 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             repository.clearChatMessages()
         }
         _chatErrorMessage.value = null
+    }
+
+    // ── Notifications ──────────────────────────────────────────────────────
+
+    fun markNotificationRead(id: String) {
+        viewModelScope.launch { repository.markNotificationRead(id) }
+    }
+
+    fun markAllNotificationsRead() {
+        viewModelScope.launch { repository.markAllNotificationsRead() }
+    }
+
+    fun deleteNotification(notification: NotificationEntity) {
+        viewModelScope.launch { repository.deleteNotification(notification) }
     }
 
     // ── Phase 2: F5 — Feedback ──────────────────────────────────────────────

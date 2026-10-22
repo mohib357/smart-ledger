@@ -583,4 +583,20 @@
         <item>💰 প্রতি মাসে সঞ্চয় বাড়ানোর সহজ উপায়</item>
         <item>📝 ব্যবসায় বা দোকানে বাকি খাতা নিয়ন্ত্রণের নিয়ম</item>
     </string-array>
+
+    <string name="topbar_notifications">নোটিফিকেশন</string>
+    <string name="topbar_support">সাপোর্ট</string>
+    <string name="nav_menu">মেনু</string>
+    <string name="support_center">সাপোর্ট সেন্টার</string>
+    <string name="support_whatsapp">হোয়াটসঅ্যাপে যোগাযোগ</string>
+    <string name="support_ticket">সাপোর্ট টিকেট</string>
+    <string name="support_admin_chat">অ্যাডমিন চ্যাট</string>
+    <string name="notifications_title">নোটিফিকেশন</string>
+    <string name="notifications_empty">কোনো নোটিফিকেশন নেই</string>
+    <string name="notifications_mark_all_read">সব পড়া হয়েছে</string>
+    <string name="menu_language">ভাষা ও প্রদর্শন</string>
+    <string name="menu_tools">হিসাব সরঞ্জাম</string>
+    <string name="menu_data_sync">ডেটা ও সিঙ্ক</string>
+    <string name="menu_account">অ্যাকাউন্ট ও অ্যাপ</string>
+    <string name="menu_help">সাহায্য</string>
 </resources>

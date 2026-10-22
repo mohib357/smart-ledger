@@ -11,6 +11,7 @@ import com.example.data.dao.CashBoxDao
 import com.example.data.dao.ChatMessageDao
 import com.example.data.dao.CoinDao
 import com.example.data.dao.InvoiceDao
+import com.example.data.dao.NotificationDao
 import com.example.data.dao.NomineeDao
 import com.example.data.dao.PartyDao
 import com.example.data.dao.PartyLedgerEntryDao
@@ -23,6 +24,7 @@ import com.example.data.model.ChatMessageEntity
 import com.example.data.model.CoinEntity
 import com.example.data.model.InvoiceEntity
 import com.example.data.model.InvoiceItemEntity
+import com.example.data.model.NotificationEntity
 import com.example.data.model.NomineeEntity
 import com.example.data.model.PartyEntity
 import com.example.data.model.PartyLedgerEntryEntity
@@ -43,9 +45,10 @@ import com.example.data.model.WalletEntity
         InvoiceEntity::class,
         InvoiceItemEntity::class,
         CoinEntity::class,
-        CashBoxEntryEntity::class
+        CashBoxEntryEntity::class,
+        NotificationEntity::class
     ],
-    version = 7,
+    version = 8,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -60,6 +63,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun invoiceDao(): InvoiceDao
     abstract fun coinDao(): CoinDao
     abstract fun cashBoxDao(): CashBoxDao
+    abstract fun notificationDao(): NotificationDao
 
     companion object {
         @Volatile
@@ -135,6 +139,22 @@ abstract class AppDatabase : RoomDatabase() {
             }
         }
 
+        val MIGRATION_7_8 = object : Migration(7, 8) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL(
+                    """CREATE TABLE IF NOT EXISTS `notifications` (
+                        `id` TEXT NOT NULL,
+                        `title` TEXT NOT NULL,
+                        `body` TEXT NOT NULL,
+                        `timestamp` INTEGER NOT NULL,
+                        `isRead` INTEGER NOT NULL DEFAULT 0,
+                        `type` TEXT NOT NULL DEFAULT 'general',
+                        PRIMARY KEY(`id`)
+                    )"""
+                )
+            }
+        }
+
         fun getDatabase(context: Context): AppDatabase {
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
@@ -142,7 +162,7 @@ abstract class AppDatabase : RoomDatabase() {
                     AppDatabase::class.java,
                     "shohoj_hisab_database"
                 )
-                    .addMigrations(MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6, MIGRATION_6_7)
+                    .addMigrations(MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5, MIGRATION_5_6, MIGRATION_6_7, MIGRATION_7_8)
                     .build()
                 INSTANCE = instance
                 instance

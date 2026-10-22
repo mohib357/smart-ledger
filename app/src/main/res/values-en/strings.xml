@@ -583,4 +583,21 @@
         <item>💰 Easy ways to save more each month</item>
         <item>📝 Rules to manage dues in business or shop</item>
     </string-array>
+
+    <!-- AppTopBar new icons -->
+    <string name="topbar_notifications">Notifications</string>
+    <string name="topbar_support">Support</string>
+    <string name="nav_menu">Menu</string>
+    <string name="support_center">Support Center</string>
+    <string name="support_whatsapp">WhatsApp Support</string>
+    <string name="support_ticket">Support Ticket</string>
+    <string name="support_admin_chat">Admin Chat</string>
+    <string name="notifications_title">Notifications</string>
+    <string name="notifications_empty">No notifications</string>
+    <string name="notifications_mark_all_read">Mark all read</string>
+    <string name="menu_language">Language &amp; Display</string>
+    <string name="menu_tools">Ledger Tools</string>
+    <string name="menu_data_sync">Data &amp; Sync</string>
+    <string name="menu_account">Account &amp; App</string>
+    <string name="menu_help">Help</string>
 </resources>

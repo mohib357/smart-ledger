@@ -27,12 +27,14 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBalanceWallet
 import androidx.compose.material.icons.filled.AutoAwesome
 import androidx.compose.material.icons.filled.Dashboard
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.People
 import androidx.compose.material.icons.filled.ReceiptLong
 import androidx.compose.material.icons.filled.Security
 import androidx.compose.material.icons.outlined.AccountBalanceWallet
 import androidx.compose.material.icons.outlined.AutoAwesome
 import androidx.compose.material.icons.outlined.Dashboard
+import androidx.compose.material.icons.outlined.Menu
 import androidx.compose.material.icons.outlined.People
 import androidx.compose.material.icons.outlined.ReceiptLong
 import androidx.compose.material.icons.outlined.Security
@@ -84,6 +86,8 @@ import com.example.ui.screens.ChatScreen
 import com.example.ui.screens.DashboardScreen
 import com.example.ui.screens.KhataScreen
 import com.example.ui.screens.LoginScreen
+import com.example.ui.screens.MenuScreen
+import com.example.ui.screens.NotificationsScreen
 import com.example.ui.screens.OnboardingScreen
 import com.example.ui.screens.ProfileScreen
 import com.example.ui.screens.NomineesScreen
@@ -92,6 +96,7 @@ import com.example.ui.screens.ProductsScreen
 import com.example.ui.screens.InvoicesScreen
 import com.example.ui.screens.PremiumScreen
 import com.example.ui.screens.ReportsScreen
+import com.example.ui.screens.SupportScreen
 import com.example.ui.screens.TransactionsScreen
 import com.example.ui.screens.WalletsScreen
 import com.example.ui.theme.MyApplicationTheme
@@ -273,7 +278,9 @@ fun MainAppContent(viewModel: MainViewModel) {
     val todaySales by viewModel.todaySales.collectAsStateWithLifecycle()
     val todayCashEntries by viewModel.todayCashEntries.collectAsStateWithLifecycle()
 
-    // Start sync when composable is active
+    // Notifications
+    val unreadNotificationCount by viewModel.unreadNotificationCount.collectAsStateWithLifecycle()
+
     androidx.compose.runtime.LaunchedEffect(Unit) {
         viewModel.startSync()
     }
@@ -346,35 +353,9 @@ fun MainAppContent(viewModel: MainViewModel) {
                 if (selectedParty == null) {
                     AppTopBar(
                         useBengaliDigits = useBengaliDigits,
-                        onToggleDigits = { viewModel.toggleBengaliDigits() },
-                        onOpenCalculator = { viewModel.showCalculator.value = true },
-                        onOpenBackupRestore = { viewModel.showBackupRestore.value = true },
-                        onOpenNominees = { viewModel.setTab(4) },
-                        onLoadSampleData = {
-                            viewModel.loadSampleData()
-                            coroutineScope.launch {
-                                snackbarHostState.showSnackbar(context.getString(R.string.snackbar_sample_loaded))
-                            }
-                        },
-                        onClearAllData = {
-                            viewModel.clearAllData()
-                            coroutineScope.launch {
-                                snackbarHostState.showSnackbar(context.getString(R.string.snackbar_data_reset))
-                            }
-                        },
-                        onSaveSnapshot = {
-                            viewModel.saveTodaySnapshot()
-                            coroutineScope.launch {
-                                snackbarHostState.showSnackbar(context.getString(R.string.snackbar_snapshot_saved))
-                            }
-                        },
-                        onOpenSettings = { viewModel.showSettings.value = true },
-                        onOpenCalendar = { viewModel.setTab(6) },
-                        onOpenReports = { viewModel.setTab(7) },
-                        onOpenProducts = { viewModel.setTab(8) },
-                        onOpenInvoices = { viewModel.setTab(9) },
-                        onOpenSmsMarketing = { viewModel.showSmsMarketing.value = true },
-                        syncStatus = syncStatus
+                        unreadNotificationCount = unreadNotificationCount,
+                        onNotificationClick = { viewModel.setTab(13) },
+                        onSupportClick = { viewModel.setTab(11) }
                     )
                 }
             },
@@ -390,7 +371,7 @@ fun MainAppContent(viewModel: MainViewModel) {
                             Triple(1, stringResource(R.string.nav_transactions), Icons.Filled.ReceiptLong to Icons.Outlined.ReceiptLong),
                             Triple(2, stringResource(R.string.nav_khata), Icons.Filled.People to Icons.Outlined.People),
                             Triple(3, stringResource(R.string.nav_wallets), Icons.Filled.AccountBalanceWallet to Icons.Outlined.AccountBalanceWallet),
-                            Triple(4, stringResource(R.string.nav_nominees), Icons.Filled.Security to Icons.Outlined.Security)
+                            Triple(4, stringResource(R.string.nav_menu), Icons.Filled.Menu to Icons.Outlined.Menu)
                         )
 
                         navItems.forEach { (index, label, icons) ->
@@ -475,7 +456,7 @@ fun MainAppContent(viewModel: MainViewModel) {
                             onAddParty = { viewModel.showAddParty.value = true },
                             onNavigateToTransactions = { viewModel.setTab(1) },
                             onNavigateToKhata = { viewModel.setTab(2) },
-                            onNavigateToNominees = { viewModel.setTab(4) },
+                            onNavigateToNominees = { viewModel.setTab(14) },
                             onOpenBackupRestore = { viewModel.showBackupRestore.value = true },
                             onNavigateToChat = { viewModel.setTab(5) },
                             onNavigateToCalendar = { viewModel.setTab(6) },
@@ -578,19 +559,7 @@ fun MainAppContent(viewModel: MainViewModel) {
                                 }
                             }
                         )
-                        4 -> NomineesScreen(
-                            nominees = nominees,
-                            stats = stats,
-                            parties = parties,
-                            useBengaliDigits = useBengaliDigits,
-                            onAddNominee = { viewModel.showAddNominee.value = true },
-                            onDeleteNominee = { nom ->
-                                viewModel.deleteNominee(nom)
-                                coroutineScope.launch {
-                                    snackbarHostState.showSnackbar("'${nom.name}' ${context.getString(R.string.nominees_delete_confirm)}")
-                                }
-                            }
-                        )
+                        4 -> MenuScreen(viewModel = viewModel)
                         5 -> ChatScreen(
                             messages = chatMessages,
                             isLoading = isChatLoading,
@@ -679,6 +648,21 @@ fun MainAppContent(viewModel: MainViewModel) {
                             useBengaliDigits = useBengaliDigits,
                             onAddEntry = { type, amount, note ->
                                 viewModel.addCashBoxEntry(type, amount, note)
+                            }
+                        )
+                        11 -> SupportScreen(viewModel = viewModel)
+                        13 -> NotificationsScreen(viewModel = viewModel)
+                        14 -> NomineesScreen(
+                            nominees = nominees,
+                            stats = stats,
+                            parties = parties,
+                            useBengaliDigits = useBengaliDigits,
+                            onAddNominee = { viewModel.showAddNominee.value = true },
+                            onDeleteNominee = { nom ->
+                                viewModel.deleteNominee(nom)
+                                coroutineScope.launch {
+                                    snackbarHostState.showSnackbar("'${nom.name}' ${context.getString(R.string.nominees_delete_confirm)}")
+                                }
                             }
                         )
                     }

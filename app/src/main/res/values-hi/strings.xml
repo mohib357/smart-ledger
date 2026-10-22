@@ -580,4 +580,20 @@
         <item>💰 हर महीने बचत बढ़ाने के आसान तरीके</item>
         <item>📝 व्यवसाय या दुकान में बकाया प्रबंधन के नियम</item>
     </string-array>
+
+    <string name="topbar_notifications">सूचनाएं</string>
+    <string name="topbar_support">सहायता</string>
+    <string name="nav_menu">मेनू</string>
+    <string name="support_center">सहायता केंद्र</string>
+    <string name="support_whatsapp">व्हाट्सएप सहायता</string>
+    <string name="support_ticket">सहायता टिकट</string>
+    <string name="support_admin_chat">एडमिन चैट</string>
+    <string name="notifications_title">सूचनाएं</string>
+    <string name="notifications_empty">कोई सूचना नहीं</string>
+    <string name="notifications_mark_all_read">सभी पढ़े हुए</string>
+    <string name="menu_language">भाषा और प्रदर्शन</string>
+    <string name="menu_tools">लेजर टूल्स</string>
+    <string name="menu_data_sync">डेटा और सिंक</string>
+    <string name="menu_account">खाता और ऐप</string>
+    <string name="menu_help">सहायता</string>
 </resources>

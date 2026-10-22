@@ -580,4 +580,20 @@
         <item>💰 طرق سهلة لزيادة الادخار شهرياً</item>
         <item>📝 قواعد إدارة الديون في التجارة</item>
     </string-array>
+
+    <string name="topbar_notifications">الإشعارات</string>
+    <string name="topbar_support">الدعم</string>
+    <string name="nav_menu">القائمة</string>
+    <string name="support_center">مركز الدعم</string>
+    <string name="support_whatsapp">دعم واتساب</string>
+    <string name="support_ticket">تذكرة الدعم</string>
+    <string name="support_admin_chat">محادثة المشرف</string>
+    <string name="notifications_title">الإشعارات</string>
+    <string name="notifications_empty">لا توجد إشعارات</string>
+    <string name="notifications_mark_all_read">تحديد الكل كمقروء</string>
+    <string name="menu_language">اللغة والعرض</string>
+    <string name="menu_tools">أدوات السجل</string>
+    <string name="menu_data_sync">البيانات والمزامنة</string>
+    <string name="menu_account">الحساب والتطبيق</string>
+    <string name="menu_help">مساعدة</string>
 </resources>
