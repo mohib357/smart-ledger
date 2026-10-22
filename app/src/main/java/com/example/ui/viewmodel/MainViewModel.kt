@@ -1051,7 +1051,15 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     fun triggerManualSync() {
         val uid = firebaseAuthManager.getCurrentUid()
         if (uid.isEmpty()) return
-        viewModelScope.launch { syncManager.pushAllToFirestore() }
+        viewModelScope.launch {
+            syncManager.pushAllToFirestore()
+            syncManager.pushPartiesToFirestore()
+            syncManager.pushWalletsToFirestore()
+            syncManager.pushCashBoxEntriesToFirestore()
+            syncManager.pushProductsToFirestore()
+            syncManager.pushInvoicesToFirestore()
+            syncManager.pushNomineesToFirestore()
+        }
     }
 
     // ── FEAT-001: Network Connectivity + Recycle Bin ───────────────────────

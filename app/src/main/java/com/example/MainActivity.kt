@@ -263,9 +263,6 @@ fun MainAppContent(viewModel: MainViewModel) {
     val backupStatus by viewModel.backupStatus.collectAsStateWithLifecycle()
     val lastBackupTime by viewModel.lastBackupTime.collectAsStateWithLifecycle()
 
-    // Phase 5 sync state
-    val syncStatus by viewModel.syncStatus.collectAsStateWithLifecycle()
-
     // Phase 6 AI Insights
     val aiInsight by viewModel.aiInsight.collectAsStateWithLifecycle()
 
@@ -934,8 +931,6 @@ fun MainAppContent(viewModel: MainViewModel) {
                 onCloudBackupToggle = { viewModel.setCloudBackupEnabled(it, context) },
                 isCloudBackupEnabled = viewModel.isCloudBackupEnabled,
                 isPremium = isPremium,
-                onManualSync = { viewModel.triggerManualSync() },
-                syncStatus = syncStatus,
                 onOpenCustomizeDashboard = { showCustomizeDashboard = true }
             )
         }

@@ -92,9 +92,6 @@ fun SettingsDialog(
     onCloudBackupToggle: (Boolean) -> Unit = {},
     isCloudBackupEnabled: Boolean = false,
     isPremium: Boolean = false,
-    // Phase 5 — Sync
-    onManualSync: () -> Unit = {},
-    syncStatus: com.example.data.cloud.SyncStatus = com.example.data.cloud.SyncStatus.IDLE,
     // Phase 6 — Customize Dashboard
     onOpenCustomizeDashboard: () -> Unit = {}
 ) {    val context = LocalContext.current
@@ -521,41 +518,6 @@ fun SettingsDialog(
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Text(stringResource(R.string.cloud_backup_restore_button))
-                }
-
-                // ── Phase 5: Sync section ────────────────────────────────────────────
-                Spacer(modifier = Modifier.height(16.dp))
-                Text(
-                    text = stringResource(R.string.sync_section_title),
-                    style = MaterialTheme.typography.labelLarge,
-                    fontWeight = FontWeight.SemiBold,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-                Spacer(modifier = Modifier.height(8.dp))
-                val syncStatusText = when (syncStatus) {
-                    com.example.data.cloud.SyncStatus.SYNCING -> stringResource(R.string.sync_status_syncing)
-                    com.example.data.cloud.SyncStatus.SYNCED -> stringResource(R.string.sync_status_synced)
-                    com.example.data.cloud.SyncStatus.OFFLINE -> stringResource(R.string.sync_status_offline)
-                    com.example.data.cloud.SyncStatus.ERROR -> stringResource(R.string.sync_status_error)
-                    com.example.data.cloud.SyncStatus.IDLE -> ""
-                }
-                if (syncStatusText.isNotEmpty()) {
-                    Text(
-                        text = syncStatusText,
-                        style = MaterialTheme.typography.bodySmall,
-                        color = when (syncStatus) {
-                            com.example.data.cloud.SyncStatus.SYNCED -> MaterialTheme.colorScheme.primary
-                            com.example.data.cloud.SyncStatus.ERROR, com.example.data.cloud.SyncStatus.OFFLINE -> MaterialTheme.colorScheme.error
-                            else -> MaterialTheme.colorScheme.onSurfaceVariant
-                        }
-                    )
-                    Spacer(modifier = Modifier.height(8.dp))
-                }
-                OutlinedButton(
-                    onClick = onManualSync,
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Text(stringResource(R.string.sync_manual_button))
                 }
 
                 // ── Phase 6: Customize Dashboard ────────────────────────────────────

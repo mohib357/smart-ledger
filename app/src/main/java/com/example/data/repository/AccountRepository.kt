@@ -279,6 +279,11 @@ class AccountRepository(private val database: AppDatabase) {
         transactionDao.insert(tx) // OnConflictStrategy.REPLACE
     }
 
+    // FEAT-002 — Sync: soft-delete by id without reversing wallet (used when remote says deleted)
+    suspend fun softDeleteTransactionById(id: Long, deletedAt: Long) {
+        transactionDao.softDeleteById(id, deletedAt)
+    }
+
     suspend fun upsertParty(party: PartyEntity) {
         partyDao.insert(party) // OnConflictStrategy.REPLACE
     }
