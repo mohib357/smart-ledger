@@ -434,7 +434,8 @@ fun MainAppContent(viewModel: MainViewModel) {
                             coroutineScope.launch {
                                 snackbarHostState.showSnackbar("'${party.name}' ${context.getString(R.string.snackbar_party_deleted)}")
                             }
-                        }
+                        },
+                        onExportReport = { android.widget.Toast.makeText(context, "শীঘ্রই আসছে", android.widget.Toast.LENGTH_SHORT).show() }
                     )
                 } else {
                     when (currentTab) {
@@ -481,6 +482,7 @@ fun MainAppContent(viewModel: MainViewModel) {
                             },
                             onNavigateToProducts = { viewModel.setTab(8) },
                             onNavigateToInvoices = { viewModel.setTab(9) },
+                            onNavigateToCashBox = { viewModel.setTab(10) },
                             isPremium = isPremium,
                             hasActiveCoins = hasActiveCoins,
                             onEarnCoin = {
@@ -553,7 +555,8 @@ fun MainAppContent(viewModel: MainViewModel) {
                             onFilterChange = { viewModel.setPartyFilter(it) },
                             onSearchChange = { viewModel.setSearchQuery(it) },
                             onAddParty = { viewModel.showAddParty.value = true },
-                            onSelectParty = { viewModel.selectParty(it) }
+                            onSelectParty = { viewModel.selectParty(it) },
+                            onExportPartyPdf = { android.widget.Toast.makeText(context, "শীঘ্রই আসছে", android.widget.Toast.LENGTH_SHORT).show() }
                         )
                         3 -> WalletsScreen(
                             wallets = wallets,

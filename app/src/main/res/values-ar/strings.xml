@@ -64,8 +64,8 @@
     <!-- Dashboard -->
     <string name="dashboard_net_balance">الرصيد الصافي الحالي</string>
     <string name="dashboard_live_badge">رصيد مباشر</string>
-    <string name="dashboard_assets_label">إجمالي الأصول</string>
-    <string name="dashboard_liabilities_label">إجمالي الديون</string>
+    <string name="dashboard_assets_label">إجمالي المستحق</string>
+    <string name="dashboard_liabilities_label">إجمالي المدفوع</string>
     <string name="dashboard_nominee_title">الورثة والوصول الطارئ</string>
     <string name="dashboard_nominee_subtitle">منح الوصول لتسوية الديون في حالات الطوارئ</string>
     <string name="dashboard_nominee_action">إدارة →</string>

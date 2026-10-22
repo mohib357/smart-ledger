@@ -1,4 +1,4 @@
-package com.example.ui.screens
+﻿package com.example.ui.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -20,6 +20,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ChevronRight
+import androidx.compose.material.icons.filled.Download
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.PersonAdd
 import androidx.compose.material.icons.filled.Phone
@@ -31,6 +32,7 @@ import androidx.compose.material3.FilterChip
 import androidx.compose.material3.FilterChipDefaults
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
@@ -64,7 +66,8 @@ fun KhataScreen(
     onFilterChange: (String) -> Unit,
     onSearchChange: (String) -> Unit,
     onAddParty: () -> Unit,
-    onSelectParty: (PartyEntity) -> Unit
+    onSelectParty: (PartyEntity) -> Unit,
+    onExportPartyPdf: () -> Unit = {}
 ) {
     val filteredList = parties.filter { party ->
         val matchesFilter = when (filter) {
@@ -82,6 +85,8 @@ fun KhataScreen(
     val totalPayable = parties.filter { it.partyType == "PAYABLE" }.sumOf { it.currentAmount }
     val totalReceivable = parties.filter { it.partyType == "RECEIVABLE" }.sumOf { it.currentAmount }
 
+    val payableCount = parties.count { it.partyType == "PAYABLE" }
+    val receivableCount = parties.count { it.partyType == "RECEIVABLE" }
     Scaffold(
         floatingActionButton = {
             FloatingActionButton(
@@ -102,19 +107,28 @@ fun KhataScreen(
                 .padding(innerPadding)
                 .testTag("khata_screen")
         ) {
-            // Search Field
-            OutlinedTextField(
-                value = searchQuery,
-                onValueChange = onSearchChange,
-                placeholder = { Text("ব্যক্তি বা প্রতিষ্ঠানের নাম খুঁজুন...") },
-                leadingIcon = { Icon(Icons.Default.Search, contentDescription = null) },
-                singleLine = true,
-                shape = RoundedCornerShape(16.dp),
+            // Search Field with PDF export icon
+            Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 8.dp)
-                    .testTag("party_search_field")
-            )
+                    .padding(horizontal = 16.dp, vertical = 8.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                OutlinedTextField(
+                    value = searchQuery,
+                    onValueChange = onSearchChange,
+                    placeholder = { Text("ব্যক্তি বা প্রতিষ্ঠানের নাম খুঁজুন...") },
+                    leadingIcon = { Icon(Icons.Default.Search, contentDescription = null) },
+                    singleLine = true,
+                    shape = RoundedCornerShape(16.dp),
+                    modifier = Modifier
+                        .weight(1f)
+                        .testTag("party_search_field")
+                )
+                IconButton(onClick = onExportPartyPdf) {
+                    Icon(Icons.Default.Download, contentDescription = "PDF রিপোর্ট")
+                }
+            }
 
             // Filter Chips
             Row(
@@ -131,7 +145,7 @@ fun KhataScreen(
                 FilterChip(
                     selected = filter == "PAYABLE",
                     onClick = { onFilterChange("PAYABLE") },
-                    label = { Text("সে পাবে (দেনা)") },
+                    label = { Text("সাপ্লায়ার ($payableCount)") },
                     colors = FilterChipDefaults.filterChipColors(
                         selectedContainerColor = PayableAmberLight,
                         selectedLabelColor = PayableAmber
@@ -140,7 +154,7 @@ fun KhataScreen(
                 FilterChip(
                     selected = filter == "RECEIVABLE",
                     onClick = { onFilterChange("RECEIVABLE") },
-                    label = { Text("আমি পাবো (পাওনা)") },
+                    label = { Text("কাস্টমার ($receivableCount)") },
                     colors = FilterChipDefaults.filterChipColors(
                         selectedContainerColor = ReceivableBlueLight,
                         selectedLabelColor = ReceivableBlue
@@ -214,6 +228,18 @@ fun KhataScreen(
     }
 }
 
+private fun relativeTime(millis: Long): String {
+    val now = System.currentTimeMillis()
+    val diff = now - millis
+    val days = (diff / (1000L * 60 * 60 * 24)).toInt()
+    return when {
+        days <= 0 -> "আজ"
+        days == 1 -> "গতকাল"
+        days < 7 -> "${days} দিন আগে"
+        days < 30 -> "${days / 7} সপ্তাহ আগে"
+        else -> "${days / 30} মাস আগে"
+    }
+}
 @Composable
 private fun PartyCardItem(
     party: PartyEntity,
@@ -299,6 +325,12 @@ private fun PartyCardItem(
                             color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.8f)
                         )
                     }
+                    Spacer(modifier = Modifier.height(2.dp))
+                    Text(
+                        text = relativeTime(party.updatedAt),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
                 }
             }
 

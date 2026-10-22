@@ -64,8 +64,8 @@
     <!-- Dashboard -->
     <string name="dashboard_net_balance">বর্তমান নিট স্থিতি (Net Balance)</string>
     <string name="dashboard_live_badge">লাইভ ব্যালেন্স</string>
-    <string name="dashboard_assets_label">মোট আছে (ক্যাশ + পাওনা)</string>
-    <string name="dashboard_liabilities_label">মোট পাবে (দেনা)</string>
+    <string name="dashboard_assets_label">মোট পাবো</string>
+    <string name="dashboard_liabilities_label">মোট দেবো</string>
     <string name="dashboard_nominee_title">উত্তরাধিকার ও জরুরী এক্সেস (Nominee)</string>
     <string name="dashboard_nominee_subtitle">মৃত্যু বা বিপদে ঋণ পরিশোধ ও পাওনা আদায়ের জন্য এক্সেস দিন</string>
     <string name="dashboard_nominee_action">পরিচালনা →</string>

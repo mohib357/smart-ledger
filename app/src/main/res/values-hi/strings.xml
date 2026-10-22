@@ -64,8 +64,8 @@
     <!-- Dashboard -->
     <string name="dashboard_net_balance">वर्तमान शुद्ध शेष</string>
     <string name="dashboard_live_badge">लाइव बैलेंस</string>
-    <string name="dashboard_assets_label">कुल संपत्ति</string>
-    <string name="dashboard_liabilities_label">कुल देयता</string>
+    <string name="dashboard_assets_label">कुल पाने योग्य</string>
+    <string name="dashboard_liabilities_label">कुल देने योग्य</string>
     <string name="dashboard_nominee_title">वारिस और आपातकालीन पहुंच</string>
     <string name="dashboard_nominee_subtitle">आपात स्थिति में ऋण निपटाने के लिए पहुंच दें</string>
     <string name="dashboard_nominee_action">प्रबंधन →</string>

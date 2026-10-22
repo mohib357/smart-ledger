@@ -64,8 +64,8 @@
     <!-- Dashboard -->
     <string name="dashboard_net_balance">Current Net Balance</string>
     <string name="dashboard_live_badge">Live Balance</string>
-    <string name="dashboard_assets_label">Total Assets (Cash + Receivable)</string>
-    <string name="dashboard_liabilities_label">Total Payable (Debt)</string>
+    <string name="dashboard_assets_label">Total Receivable (I get)</string>
+    <string name="dashboard_liabilities_label">Total Payable (I give)</string>
     <string name="dashboard_nominee_title">Nominees &amp; Emergency Access</string>
     <string name="dashboard_nominee_subtitle">Grant access to settle debts after death or emergency</string>
     <string name="dashboard_nominee_action">Manage →</string>

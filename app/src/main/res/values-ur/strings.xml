@@ -64,8 +64,8 @@
     <!-- Dashboard -->
     <string name="dashboard_net_balance">موجودہ خالص بیلنس</string>
     <string name="dashboard_live_badge">لائیو بیلنس</string>
-    <string name="dashboard_assets_label">کل اثاثے</string>
-    <string name="dashboard_liabilities_label">کل واجبات</string>
+    <string name="dashboard_assets_label">کل وصولی</string>
+    <string name="dashboard_liabilities_label">کل ادائیگی</string>
     <string name="dashboard_nominee_title">ورثاء اور ہنگامی رسائی</string>
     <string name="dashboard_nominee_subtitle">ہنگامی حالات میں قرض ادائیگی کے لیے رسائی دیں</string>
     <string name="dashboard_nominee_action">انتظام →</string>

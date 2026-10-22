@@ -1,4 +1,4 @@
-package com.example.ui.screens
+﻿package com.example.ui.screens
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
@@ -27,6 +27,10 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowDownward
 import androidx.compose.material.icons.filled.ArrowUpward
 import androidx.compose.material.icons.filled.AutoAwesome
+import androidx.compose.material.icons.filled.BarChart
+import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.material.icons.filled.Inventory2
+import androidx.compose.material.icons.filled.Receipt
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.IconButton
 import androidx.compose.material.icons.filled.CreditCard
@@ -98,6 +102,7 @@ fun DashboardScreen(
     onLoadSampleData: () -> Unit,
     onNavigateToProducts: () -> Unit,
     onNavigateToInvoices: () -> Unit,
+    onNavigateToCashBox: () -> Unit = {},
     isPremium: Boolean = false,
     hasActiveCoins: Boolean = false,
     onEarnCoin: () -> Unit = {},
@@ -124,10 +129,15 @@ fun DashboardScreen(
             when (key) {
                 "quick_actions" -> {
                     if (dashboardPrefs.showQuickActions) {
-                        QuickActionsRow(
+                        QuickActionsGrid(
                             onAddIncome = onAddIncome,
                             onAddExpense = onAddExpense,
-                            onAddParty = onAddParty
+                            onNavigateToKhata = onNavigateToKhata,
+                            onNavigateToReports = onNavigateToReports,
+                            onNavigateToCalendar = onNavigateToCalendar,
+                            onNavigateToProducts = onNavigateToProducts,
+                            onNavigateToChat = onNavigateToChat,
+                            onNavigateToCashBox = onNavigateToCashBox
                         )
                     }
                 }
@@ -190,243 +200,15 @@ fun DashboardScreen(
             }
         }
 
-        // AI Assistant Callout Banner
+        // Feature shortcuts replacing the 5 individual nav cards
         item {
-            Card(
-                shape = RoundedCornerShape(18.dp),
-                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 4.dp)
-                    .clickable { onNavigateToChat() }
-            ) {
-                Row(
-                    modifier = Modifier.padding(14.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Box(
-                        modifier = Modifier
-                            .size(38.dp)
-                            .clip(CircleShape)
-                            .background(MaterialTheme.colorScheme.primary),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Icon(
-                            Icons.Default.AutoAwesome,
-                            contentDescription = null,
-                            tint = Color.White,
-                            modifier = Modifier.size(20.dp)
-                        )
-                    }
-                    Spacer(modifier = Modifier.width(12.dp))
-                    Column(modifier = Modifier.weight(1f)) {
-                        Text(
-                            text = stringResource(R.string.dashboard_ai_title),
-                            fontWeight = FontWeight.Bold,
-                            style = MaterialTheme.typography.titleSmall,
-                            color = MaterialTheme.colorScheme.onPrimaryContainer
-                        )
-                        Text(
-                            text = stringResource(R.string.dashboard_ai_subtitle),
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.8f)
-                        )
-                    }
-                    Text(
-                        text = stringResource(R.string.dashboard_ai_action),
-                        fontSize = 12.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.primary
-                    )
-                }
-            }
-        }
-
-        // Calendar navigation card
-        item {
-            Card(
-                shape = RoundedCornerShape(18.dp),
-                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondaryContainer),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 4.dp)
-                    .clickable { onNavigateToCalendar() }
-            ) {
-                Row(
-                    modifier = Modifier.padding(14.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Box(
-                        modifier = Modifier
-                            .size(38.dp)
-                            .clip(CircleShape)
-                            .background(MaterialTheme.colorScheme.secondary),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Text(text = "📅", fontSize = 18.sp)
-                    }
-                    Spacer(modifier = Modifier.width(12.dp))
-                    Column(modifier = Modifier.weight(1f)) {
-                        Text(
-                            text = stringResource(R.string.dashboard_calendar_title),
-                            fontWeight = FontWeight.Bold,
-                            style = MaterialTheme.typography.titleSmall,
-                            color = MaterialTheme.colorScheme.onSecondaryContainer
-                        )
-                        Text(
-                            text = stringResource(R.string.dashboard_calendar_subtitle),
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.85f)
-                        )
-                    }
-                    Text(
-                        text = stringResource(R.string.dashboard_calendar_action),
-                        fontSize = 12.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.secondary
-                    )
-                }
-            }
-        }
-
-        // Reports navigation card
-        item {
-            Card(
-                shape = RoundedCornerShape(18.dp),
-                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.tertiaryContainer.takeIf { true } ?: MaterialTheme.colorScheme.surfaceVariant),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 4.dp)
-                    .clickable { onNavigateToReports() }
-            ) {
-                Row(
-                    modifier = Modifier.padding(14.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Box(
-                        modifier = Modifier
-                            .size(38.dp)
-                            .clip(CircleShape)
-                            .background(EmeraldPrimary),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Text(text = "📊", fontSize = 18.sp)
-                    }
-                    Spacer(modifier = Modifier.width(12.dp))
-                    Column(modifier = Modifier.weight(1f)) {
-                        Text(
-                            text = stringResource(R.string.dashboard_reports_title),
-                            fontWeight = FontWeight.Bold,
-                            style = MaterialTheme.typography.titleSmall
-                        )
-                        Text(
-                            text = stringResource(R.string.dashboard_reports_subtitle),
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
-                    }
-                    Text(
-                        text = stringResource(R.string.dashboard_reports_action),
-                        fontSize = 12.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.primary
-                    )
-                }
-            }
-        }
-
-        // Products navigation card
-        item {
-            Card(
-                shape = RoundedCornerShape(18.dp),
-                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primaryContainer),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 4.dp)
-                    .clickable { onNavigateToProducts() }
-            ) {
-                Row(
-                    modifier = Modifier.padding(14.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Box(
-                        modifier = Modifier
-                            .size(38.dp)
-                            .clip(CircleShape)
-                            .background(MaterialTheme.colorScheme.primary),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Text(text = "📦", fontSize = 18.sp)
-                    }
-                    Spacer(modifier = Modifier.width(12.dp))
-                    Column(modifier = Modifier.weight(1f)) {
-                        Text(
-                            text = stringResource(R.string.dashboard_products_title),
-                            fontWeight = FontWeight.Bold,
-                            style = MaterialTheme.typography.titleSmall,
-                            color = MaterialTheme.colorScheme.onPrimaryContainer
-                        )
-                        Text(
-                            text = stringResource(R.string.dashboard_products_subtitle),
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.onPrimaryContainer.copy(alpha = 0.8f)
-                        )
-                    }
-                    Text(
-                        text = stringResource(R.string.dashboard_products_action),
-                        fontSize = 12.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.primary
-                    )
-                }
-            }
-        }
-
-        // Invoices placeholder navigation card
-        item {
-            Card(
-                shape = RoundedCornerShape(18.dp),
-                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondaryContainer),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 4.dp)
-                    .clickable { onNavigateToInvoices() }
-            ) {
-                Row(
-                    modifier = Modifier.padding(14.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Box(
-                        modifier = Modifier
-                            .size(38.dp)
-                            .clip(CircleShape)
-                            .background(MaterialTheme.colorScheme.secondary),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Text(text = "🧾", fontSize = 18.sp)
-                    }
-                    Spacer(modifier = Modifier.width(12.dp))
-                    Column(modifier = Modifier.weight(1f)) {
-                        Text(
-                            text = stringResource(R.string.dashboard_invoices_title),
-                            fontWeight = FontWeight.Bold,
-                            style = MaterialTheme.typography.titleSmall,
-                            color = MaterialTheme.colorScheme.onSecondaryContainer
-                        )
-                        Text(
-                            text = stringResource(R.string.dashboard_invoices_subtitle),
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.onSecondaryContainer.copy(alpha = 0.85f)
-                        )
-                    }
-                    Text(
-                        text = stringResource(R.string.dashboard_invoices_action),
-                        fontSize = 12.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.secondary
-                    )
-                }
-            }
+            FeatureShortcutsGrid(
+                onNavigateToChat = onNavigateToChat,
+                onNavigateToCalendar = onNavigateToCalendar,
+                onNavigateToReports = onNavigateToReports,
+                onNavigateToProducts = onNavigateToProducts,
+                onNavigateToInvoices = onNavigateToInvoices
+            )
         }
 
         // Monthly Income vs Expense strip
@@ -916,63 +698,131 @@ private fun HeroBalanceCard(
 }
 
 @Composable
-private fun QuickActionsRow(
+private fun QuickActionsGrid(
     onAddIncome: () -> Unit,
     onAddExpense: () -> Unit,
-    onAddParty: () -> Unit
+    onNavigateToKhata: () -> Unit,
+    onNavigateToReports: () -> Unit,
+    onNavigateToCalendar: () -> Unit,
+    onNavigateToProducts: () -> Unit,
+    onNavigateToChat: () -> Unit,
+    onNavigateToCashBox: () -> Unit
 ) {
-    Row(
+    val labels = listOf("+আয়", "-ব্যয়", "দেনা/পাওনা", "রিপোর্ট", "ক্যালেন্ডার", "স্টক হিসাব", "এআই সহকারী", "ক্যাশবাক্স")
+    val colors = listOf(
+        IncomeGreen, ExpenseRed, ReceivableBlue, Color(0xFF7C3AED),
+        Color(0xFF0D9488), Color(0xFFF97316), Color(0xFF4F46E5), Color(0xFF6B7280)
+    )
+    val actions = listOf(
+        onAddIncome, onAddExpense, onNavigateToKhata, onNavigateToReports,
+        onNavigateToCalendar, onNavigateToProducts, onNavigateToChat, onNavigateToCashBox
+    )
+    val icons = listOf(
+        Icons.Default.ArrowDownward, Icons.Default.ArrowUpward, Icons.Default.AccountBalanceWallet, Icons.Default.BarChart,
+        Icons.Default.DateRange, Icons.Default.Inventory2, Icons.Default.AutoAwesome, Icons.Default.Payments
+    )
+    Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp),
-        horizontalArrangement = Arrangement.spacedBy(10.dp)
+            .padding(horizontal = 16.dp, vertical = 8.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        // Income Button
-        Button(
-            onClick = onAddIncome,
-            colors = ButtonDefaults.buttonColors(containerColor = IncomeGreen),
-            shape = RoundedCornerShape(14.dp),
-            modifier = Modifier
-                .weight(1f)
-                .height(48.dp)
-                .testTag("quick_add_income")
-        ) {
-            Icon(Icons.Default.ArrowDownward, contentDescription = null, modifier = Modifier.size(18.dp))
-            Spacer(modifier = Modifier.width(4.dp))
-            Text("+ আয়", fontWeight = FontWeight.Bold)
-        }
-
-        // Expense Button
-        Button(
-            onClick = onAddExpense,
-            colors = ButtonDefaults.buttonColors(containerColor = ExpenseRed),
-            shape = RoundedCornerShape(14.dp),
-            modifier = Modifier
-                .weight(1f)
-                .height(48.dp)
-                .testTag("quick_add_expense")
-        ) {
-            Icon(Icons.Default.ArrowUpward, contentDescription = null, modifier = Modifier.size(18.dp))
-            Spacer(modifier = Modifier.width(4.dp))
-            Text("- ব্যয়", fontWeight = FontWeight.Bold)
-        }
-
-        // Party Button
-        OutlinedButton(
-            onClick = onAddParty,
-            shape = RoundedCornerShape(14.dp),
-            modifier = Modifier
-                .weight(1.1f)
-                .height(48.dp)
-                .testTag("quick_add_party")
-        ) {
-            Icon(Icons.Default.PersonAdd, contentDescription = null, modifier = Modifier.size(18.dp))
-            Spacer(modifier = Modifier.width(4.dp))
-            Text("+ দেনা/পাওনা", fontSize = 12.sp, fontWeight = FontWeight.SemiBold)
+        for (rowIndex in 0..1) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                for (colIndex in 0..3) {
+                    val itemIndex = rowIndex * 4 + colIndex
+                    ElevatedCard(
+                        modifier = Modifier
+                            .weight(1f)
+                            .height(56.dp)
+                            .clickable { actions[itemIndex]() }
+                    ) {
+                        Column(
+                            modifier = Modifier.fillMaxSize(),
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.Center
+                        ) {
+                            Icon(
+                                imageVector = icons[itemIndex],
+                                contentDescription = null,
+                                tint = colors[itemIndex],
+                                modifier = Modifier.size(18.dp)
+                            )
+                            Spacer(modifier = Modifier.height(2.dp))
+                            Text(
+                                text = labels[itemIndex],
+                                style = MaterialTheme.typography.labelSmall,
+                                fontWeight = FontWeight.SemiBold,
+                                color = colors[itemIndex],
+                                maxLines = 1
+                            )
+                        }
+                    }
+                }
+            }
         }
     }
 }
 
+@Composable
+private fun FeatureShortcutsGrid(
+    onNavigateToChat: () -> Unit,
+    onNavigateToCalendar: () -> Unit,
+    onNavigateToReports: () -> Unit,
+    onNavigateToProducts: () -> Unit,
+    onNavigateToInvoices: () -> Unit
+) {
+    val tileLabels = listOf("এআই সহকারী", "ক্যালেন্ডার", "রিপোর্ট", "স্টক", "চালান")
+    val tileIcons = listOf(
+        Icons.Default.AutoAwesome, Icons.Default.DateRange, Icons.Default.BarChart,
+        Icons.Default.Inventory2, Icons.Default.Receipt
+    )
+    val tileActions = listOf(onNavigateToChat, onNavigateToCalendar, onNavigateToReports, onNavigateToProducts, onNavigateToInvoices)
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp, vertical = 8.dp),
+        horizontalArrangement = Arrangement.spacedBy(8.dp)
+    ) {
+        for (i in 0..4) {
+            Column(
+                modifier = Modifier
+                    .weight(1f)
+                    .clip(RoundedCornerShape(12.dp))
+                    .background(MaterialTheme.colorScheme.secondaryContainer)
+                    .clickable { tileActions[i]() }
+                    .padding(vertical = 8.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Box(
+                    modifier = Modifier
+                        .size(48.dp)
+                        .clip(CircleShape)
+                        .background(MaterialTheme.colorScheme.secondaryContainer),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Icon(
+                        imageVector = tileIcons[i],
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.onSecondaryContainer,
+                        modifier = Modifier.size(24.dp)
+                    )
+                }
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(
+                    text = tileLabels[i],
+                    style = MaterialTheme.typography.labelSmall,
+                    fontSize = 12.sp,
+                    color = MaterialTheme.colorScheme.onSecondaryContainer,
+                    maxLines = 1
+                )
+            }
+        }
+    }
+}
 @Composable
 private fun MonthlySummaryCard(
     stats: AccountRepository.DashboardStats,

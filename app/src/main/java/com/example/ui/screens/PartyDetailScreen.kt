@@ -1,5 +1,7 @@
 package com.example.ui.screens
 
+import android.content.Intent
+import android.net.Uri
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -16,6 +18,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -23,6 +26,8 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Download
+import androidx.compose.material.icons.filled.Message
 import androidx.compose.material.icons.filled.Payments
 import androidx.compose.material.icons.filled.Phone
 import androidx.compose.material.icons.filled.RemoveCircle
@@ -35,6 +40,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -50,6 +56,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -74,13 +81,15 @@ fun PartyDetailScreen(
     useBengaliDigits: Boolean,
     onBack: () -> Unit,
     onOpenPayment: (type: String) -> Unit,
-    onDeleteParty: (PartyEntity) -> Unit
+    onDeleteParty: (PartyEntity) -> Unit,
+    onExportReport: () -> Unit = {}
 ) {
     BackHandler { onBack() }
 
     var showDeleteConfirm by remember { mutableStateOf(false) }
 
     val isPayable = party.partyType == "PAYABLE"
+    val context = LocalContext.current
 
     Scaffold(
         topBar = {
@@ -196,6 +205,40 @@ fun PartyDetailScreen(
 
             Spacer(modifier = Modifier.height(16.dp))
 
+            // Tagada SMS button for PAYABLE parties with phone
+            if (isPayable && party.phone.isNotBlank()) {
+                OutlinedButton(
+                    onClick = {
+                        val smsBody = "আপনার কাছে আমাদের পাওনা আছে ${Formatters.formatTaka(party.currentAmount, useBengali = false)} টাকা। অনুগ্রহ করে পরিশোধ করুন।"
+                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse("sms:${party.phone}"))
+                        intent.putExtra("sms_body", smsBody)
+                        context.startActivity(intent)
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp)
+                ) {
+                    Icon(Icons.Default.Message, contentDescription = null, modifier = Modifier.size(18.dp))
+                    Spacer(modifier = Modifier.width(6.dp))
+                    Text("তাগাদা পাঠাও")
+                }
+                Spacer(modifier = Modifier.height(8.dp))
+            }
+
+            // Report export button
+            OutlinedButton(
+                onClick = onExportReport,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp)
+            ) {
+                Icon(Icons.Default.Download, contentDescription = null, modifier = Modifier.size(18.dp))
+                Spacer(modifier = Modifier.width(6.dp))
+                Text("রিপোর্ট")
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
+
             // History Header
             Text(
                 text = "লেনদেনের ইতিহাস (${entries.size})",
@@ -205,6 +248,18 @@ fun PartyDetailScreen(
             )
 
             Spacer(modifier = Modifier.height(8.dp))
+
+            // Compute running balances: reverse to oldest-first, TAKE adds, GIVE subtracts
+            val runningBalances: Map<Long, Double> = run {
+                val sorted = entries.sortedBy { it.dateMillis }
+                var balance = 0.0
+                val map = mutableMapOf<Long, Double>()
+                for (e in sorted) {
+                    balance = if (e.entryType == "TAKE") balance + e.amount else balance - e.amount
+                    map[e.id] = balance
+                }
+                map
+            }
 
             if (entries.isEmpty()) {
                 Box(
@@ -226,11 +281,12 @@ fun PartyDetailScreen(
                     contentPadding = PaddingValues(horizontal = 16.dp, vertical = 6.dp),
                     verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    items(entries, key = { it.id }) { entry ->
+                    itemsIndexed(entries, key = { _, e -> e.id }) { _, entry ->
                         PartyEntryCard(
                             entry = entry,
                             isPayable = isPayable,
-                            useBengaliDigits = useBengaliDigits
+                            useBengaliDigits = useBengaliDigits,
+                            runningBalance = runningBalances[entry.id] ?: 0.0
                         )
                     }
                     item {
@@ -269,7 +325,8 @@ fun PartyDetailScreen(
 private fun PartyEntryCard(
     entry: PartyLedgerEntryEntity,
     isPayable: Boolean,
-    useBengaliDigits: Boolean
+    useBengaliDigits: Boolean,
+    runningBalance: Double = 0.0
 ) {
     val isGive = entry.entryType == "GIVE"
     val isSettlement = if (isPayable) isGive else isGive
@@ -324,12 +381,19 @@ private fun PartyEntryCard(
                 }
             }
 
-            Text(
-                text = Formatters.formatTaka(entry.amount, useBengali = useBengaliDigits),
-                style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.Bold,
-                color = if (isSettlement) IncomeGreen else ExpenseRed
-            )
+            Column(horizontalAlignment = Alignment.End) {
+                Text(
+                    text = Formatters.formatTaka(entry.amount, useBengali = useBengaliDigits),
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.Bold,
+                    color = if (isSettlement) IncomeGreen else ExpenseRed
+                )
+                Text(
+                    text = "স্থিতি: ${Formatters.formatTaka(runningBalance, useBengali = useBengaliDigits)}",
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+            }
         }
     }
 }
