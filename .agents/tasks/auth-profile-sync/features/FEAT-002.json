@@ -1,0 +1,36 @@
+{
+  "id": "FEAT-002",
+  "type": "feat",
+  "description": "Firestore sync improvements (TASK 5A+5B+5C): Remove manual sync button from SettingsDialog, fix Firestore batch limit (chunked(400)), add sync for wallets/cash_box_entries/products/invoices/nominees. Independent of FEAT-001 at the Firestore layer but depends on upsertWallet/upsertCashBoxEntry/upsertProduct/upsertNominee stubs added in FEAT-001 step 4.",
+  "status": "completed",
+  "steps": [
+    "1. Remove manual sync button from SettingsDialog (app/src/main/java/com/example/ui/components/SettingsDialog.kt): Delete the entire '// ── Phase 5: Sync section ──' block (the section header Text, status Text, and OutlinedButton 'এখনই সিঙ্ক করুন'). Remove `onManualSync: () -> Unit = {}` parameter from the SettingsDialog function signature. Keep syncStatus parameter display if used elsewhere, otherwise remove it too. IMPORTANT: do not break any other parameters or sections.",
+
+    "2. Fix the SettingsDialog call site in MainAppContent (app/src/main/java/com/example/MainActivity.kt): Remove the `onManualSync = { viewModel.triggerManualSync() }` and `syncStatus = syncStatus` arguments from the SettingsDialog(...) call. Also remove `val syncStatus by viewModel.syncStatus.collectAsStateWithLifecycle()` if it is only used for the manual sync UI (confirm it is not used elsewhere in MainAppContent first — it IS used for backupStatus display elsewhere, so check carefully before removing the collectAsStateWithLifecycle call).",
+
+    "3. Fix Firestore batch limit in SyncManager.pushAllToFirestore() (app/src/main/java/com/example/data/cloud/SyncManager.kt): Replace `transactions.take(400).forEach { tx -> batch.set(...) }` with a chunked loop: `transactions.chunked(400).forEach { chunk -> val batchChunk = db.batch(); chunk.forEach { tx -> batchChunk.set(txCollection.document(tx.id.toString()), data) }; batchChunk.commit().await() }`. Move `_syncStatus.value = SyncStatus.SYNCED` after all chunks complete.",
+
+    "4. Add pushPartiesToFirestore() to SyncManager (app/src/main/java/com/example/data/cloud/SyncManager.kt): Similar to pushAllToFirestore but for parties collection. Use chunked(400). Party data map: id, name, phone, partyType, currentAmount, updatedAt, note, modifiedAt=System.currentTimeMillis().",
+
+    "5. Add push methods for wallets, cash_box_entries, products, invoices, nominees to SyncManager (app/src/main/java/com/example/data/cloud/SyncManager.kt): For each collection, add `suspend fun push{Collection}ToFirestore()` method using chunked(400) pattern. Wallet map: id, name, balance, type, modifiedAt. CashBoxEntry map: id, type, amount, note, dateMillis, reconciledDate, modifiedAt. Product map: id, name, stock, buyPrice, sellPrice, expiryDate, category, createdAt, modifiedAt. Invoice map: id, invoiceNumber, customerName, customerPhone, totalAmount, dateMillis, note, modifiedAt. Nominee map: id, name, relation, phone, email, accessScope, canViewCash, note, modifiedAt. Add COLLECTION_* constants for each.",
+
+    "6. Add snapshot listeners for wallets in startSync() (app/src/main/java/com/example/data/cloud/SyncManager.kt): After existing transactionListener and partyListener, add walletListener that calls processWalletSnapshot(). processWalletSnapshot() merges by modifiedAt using repository.upsertWallet(). Follow same ADDED/MODIFIED/REMOVED pattern as processTransactionSnapshot().",
+
+    "7. Add isDeleted field to transaction Firestore maps in SyncManager (app/src/main/java/com/example/data/cloud/SyncManager.kt): In pushAllToFirestore() data map, add `'isDeleted' to tx.isDeleted` and `'deletedAt' to tx.deletedAt`. In processTransactionSnapshot(), on ADDED/MODIFIED: if doc.getBoolean('isDeleted') == true, call repository softDeleteById (if not already deleted locally) rather than upsert. On REMOVED: if isDeleted locally, no-op; otherwise soft-delete.",
+
+    "8. Update pushAllToFirestore() call in MainViewModel to call the new push methods (app/src/main/java/com/example/ui/viewmodel/MainViewModel.kt): In triggerManualSync() (keep the function — just remove the UI entry point, not the function itself), after pushAllToFirestore(), also call pushPartiesToFirestore(), pushWalletsToFirestore(), etc. These are called automatically by auto-sync. The auto-sync on sign-in path calls startSync() which uses listeners; the push methods are used for initial data upload."
+  ],
+  "acceptance_criteria": [
+    "assembleDebug succeeds",
+    "SettingsDialog no longer has 'এখনই সিঙ্ক করুন' button",
+    "SettingsDialog.onManualSync parameter is removed (no unused parameter warning)",
+    "pushAllToFirestore() uses chunked(400) and does not fail for >400 transactions",
+    "SyncManager has push methods for all 5 new collections (wallets, cash_box_entries, products, invoices, nominees)",
+    "Transaction Firestore maps include isDeleted and deletedAt fields"
+  ],
+  "verification": [
+    "$env:JAVA_HOME = 'C:\\Program Files\\Android\\Android Studio\\jbr'; $gradleExe = (Get-ChildItem 'C:\\Users\\mamoh\\.gradle\\wrapper\\dists\\gradle-9.8.0-bin' -Recurse -Filter 'gradle.bat' | Select-Object -First 1).FullName; & $gradleExe assembleDebug --project-dir c:\\Project\\smart-ledger"
+  ],
+  "blocked_reason": null,
+  "findings": "1. SettingsDialog: removed entire '// Phase 5: Sync section' block (header Text, syncStatusText display, and OutlinedButton 'sync_manual_button'). Removed `onManualSync: () -> Unit = {}` and `syncStatus: SyncStatus = SyncStatus.IDLE` parameters from the function signature. 2. MainActivity: removed `val syncStatus by viewModel.syncStatus.collectAsStateWithLifecycle()` (confirmed only used at SettingsDialog call site), and removed `onManualSync = { viewModel.triggerManualSync() }` and `syncStatus = syncStatus` arguments from the SettingsDialog(...) call. 3. SyncManager.pushAllToFirestore(): replaced transactions.take(400).forEach with chunked(400) loop creating a new db.batch() per chunk; moved _syncStatus.value = SyncStatus.SYNCED after all chunks complete. Added 'isDeleted' and 'deletedAt' to transaction data map. 4. pushPartiesToFirestore() added with chunked(400). 5. Added pushWalletsToFirestore(), pushCashBoxEntriesToFirestore(), pushProductsToFirestore(), pushInvoicesToFirestore(), pushNomineesToFirestore() — all with chunked(400). Added COLLECTION_WALLETS/CASH_BOX_ENTRIES/PRODUCTS/INVOICES/NOMINEES constants. 6. walletListener added in startSync(); processWalletSnapshot() uses last-write-wins by modifiedAt vs updatedAt, calls repository.upsertWallet(). 7. processTransactionSnapshot() updated: on ADDED/MODIFIED checks remoteIsDeleted flag — calls repository.softDeleteTransactionById() if remote says deleted and local is not; on REMOVED soft-deletes locally instead of hard-delete. Added softDeleteTransactionById() to AccountRepository as a no-wallet-adjustment wrapper around transactionDao.softDeleteById(). 8. triggerManualSync() in MainViewModel now calls all 7 push methods sequentially. assembleDebug: BUILD SUCCESSFUL (deprecation warnings only, pre-existing)."
+}
