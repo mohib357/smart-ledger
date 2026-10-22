@@ -147,7 +147,7 @@ fun MenuScreen(viewModel: MainViewModel) {
         item {
             MenuListItem(
                 icon = Icons.Default.Settings,
-                title = "ভাষা",
+                title = stringResource(R.string.settings_language_section),
                 subtitle = localeLabel(appLocale),
                 trailing = {
                     Text(
@@ -161,8 +161,8 @@ fun MenuScreen(viewModel: MainViewModel) {
         }
         item {
             ListItem(
-                headlineContent = { Text("বাংলা সংখ্যা") },
-                supportingContent = { Text("বাংলা অঙ্ক পদ্ধতি ব্যবহার করুন") },
+                headlineContent = { Text(stringResource(R.string.menu_bengali_digits)) },
+                supportingContent = null,
                 leadingContent = {
                     Icon(
                         imageVector = Icons.Default.Settings,
@@ -181,7 +181,7 @@ fun MenuScreen(viewModel: MainViewModel) {
         item {
             MenuListItem(
                 icon = Icons.Default.Settings,
-                title = "থিম",
+                title = stringResource(R.string.settings_theme_section),
                 subtitle = themeModeLabel(themeMode),
                 trailing = {
                     Text(
@@ -199,35 +199,35 @@ fun MenuScreen(viewModel: MainViewModel) {
         item {
             MenuListItem(
                 icon = Icons.Default.DateRange,
-                title = "ক্যালেন্ডার",
+                title = stringResource(R.string.menu_calendar),
                 onClick = { viewModel.setTab(6) }
             )
         }
         item {
             MenuListItem(
                 icon = Icons.Default.BarChart,
-                title = "রিপোর্ট",
+                title = stringResource(R.string.menu_reports),
                 onClick = { viewModel.setTab(7) }
             )
         }
         item {
             MenuListItem(
                 icon = Icons.Default.Inventory,
-                title = "স্টক হিসাব",
+                title = stringResource(R.string.menu_products),
                 onClick = { viewModel.setTab(8) }
             )
         }
         item {
             MenuListItem(
                 icon = Icons.Default.Receipt,
-                title = "চালান",
+                title = stringResource(R.string.menu_invoices),
                 onClick = { viewModel.setTab(9) }
             )
         }
         item {
             MenuListItem(
                 icon = Icons.Default.AccountBalanceWallet,
-                title = "ক্যাশবাক্স",
+                title = stringResource(R.string.menu_cashbox),
                 onClick = { viewModel.setTab(10) }
             )
         }
@@ -237,14 +237,14 @@ fun MenuScreen(viewModel: MainViewModel) {
         item {
             MenuListItem(
                 icon = Icons.Default.Security,
-                title = "উত্তরাধিকার",
+                title = stringResource(R.string.menu_nominees),
                 onClick = { viewModel.setTab(14) }
             )
         }
         item {
             MenuListItem(
                 icon = Icons.Default.Lock,
-                title = "অ্যাপ লক",
+                title = stringResource(R.string.menu_app_lock),
                 onClick = { viewModel.showSettings.value = true }
             )
         }
@@ -254,21 +254,21 @@ fun MenuScreen(viewModel: MainViewModel) {
         item {
             MenuListItem(
                 icon = Icons.Default.CloudSync,
-                title = "ব্যাকআপ/রিস্টোর",
+                title = stringResource(R.string.menu_backup_restore),
                 onClick = { viewModel.showBackupRestore.value = true }
             )
         }
         item {
             MenuListItem(
                 icon = Icons.Default.Sms,
-                title = "SMS মার্কেটিং",
+                title = stringResource(R.string.menu_sms_marketing),
                 onClick = { viewModel.showSmsMarketing.value = true }
             )
         }
         item {
             MenuListItem(
                 icon = Icons.Default.CameraAlt,
-                title = "স্ন্যাপশট",
+                title = stringResource(R.string.menu_snapshot),
                 onClick = {
                     coroutineScope.launch {
                         viewModel.saveTodaySnapshot()
@@ -282,28 +282,28 @@ fun MenuScreen(viewModel: MainViewModel) {
         item {
             MenuListItem(
                 icon = Icons.Default.Star,
-                title = "প্রিমিয়াম",
+                title = stringResource(R.string.menu_premium),
                 onClick = { viewModel.showPremiumScreen.value = true }
             )
         }
         item {
             MenuListItem(
                 icon = Icons.Default.Settings,
-                title = "সেটিংস",
+                title = stringResource(R.string.menu_settings),
                 onClick = { viewModel.showSettings.value = true }
             )
         }
         item {
             MenuListItem(
                 icon = Icons.Default.Person,
-                title = "লগইন/প্রোফাইল",
+                title = stringResource(R.string.menu_login),
                 onClick = { viewModel.showLoginScreen.value = true }
             )
         }
         item {
             MenuListItem(
                 icon = Icons.Default.Delete,
-                title = "ডেটা রিসেট",
+                title = stringResource(R.string.menu_data_reset),
                 titleColor = MaterialTheme.colorScheme.error,
                 iconTint = MaterialTheme.colorScheme.error,
                 onClick = { showResetDialog = true }
@@ -315,7 +315,7 @@ fun MenuScreen(viewModel: MainViewModel) {
         item {
             MenuListItem(
                 icon = Icons.Default.HeadsetMic,
-                title = "সাপোর্ট সেন্টার",
+                title = stringResource(R.string.menu_support_center),
                 onClick = { viewModel.setTab(11) }
             )
         }

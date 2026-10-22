@@ -627,4 +627,12 @@
     <string name="menu_data_reset">ڈیٹا ری سیٹ</string>
     <string name="menu_support_center">سپورٹ سینٹر</string>
     <string name="menu_version">ورژن</string>
+
+    <!-- SupportScreen contact card subtitles and buttons -->
+    <string name="support_whatsapp_subtitle">براہ راست بات کریں</string>
+    <string name="support_open_whatsapp">واٹس ایپ کھولیں</string>
+    <string name="support_ticket_subtitle">مسئلہ بتائیں، ہم حل کریں گے</string>
+    <string name="support_admin_chat_subtitle">سپورٹ ٹیم سے براہ راست بات کریں</string>
+    <string name="support_start_chat">چیٹ شروع کریں</string>
+    <string name="support_contact_heading">ہم سے رابطہ کریں</string>
 </resources>

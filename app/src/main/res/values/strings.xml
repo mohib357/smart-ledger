@@ -587,6 +587,14 @@
     <string name="menu_support_center">সাপোর্ট সেন্টার</string>
     <string name="menu_version">সংস্করণ</string>
 
+    <!-- SupportScreen contact card subtitles and buttons -->
+    <string name="support_whatsapp_subtitle">সরাসরি কথা বলুন</string>
+    <string name="support_open_whatsapp">হোয়াটসঅ্যাপ খুলুন</string>
+    <string name="support_ticket_subtitle">সমস্যা জানান, আমরা সমাধান করবো</string>
+    <string name="support_admin_chat_subtitle">সরাসরি সাপোর্ট টিমের সাথে কথা বলুন</string>
+    <string name="support_start_chat">চ্যাট শুরু করুন</string>
+    <string name="support_contact_heading">যোগাযোগ করুন</string>
+
     <!-- Khata additions -->
     <string name="khata_search_placeholder">ব্যক্তি বা প্রতিষ্ঠানের নাম খুঁজুন...</string>
     <string name="khata_pdf_report">PDF রিপোর্ট</string>

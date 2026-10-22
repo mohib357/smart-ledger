@@ -188,7 +188,7 @@ fun SupportScreen(viewModel: MainViewModel) {
                         ) {
                             Icon(
                                 imageVector = Icons.Default.Send,
-                                contentDescription = "পাঠান",
+                                contentDescription = stringResource(R.string.chat_send),
                                 tint = MaterialTheme.colorScheme.primary
                             )
                         }
@@ -200,7 +200,7 @@ fun SupportScreen(viewModel: MainViewModel) {
         // Contact section heading
         item {
             Text(
-                text = "যোগাযোগ করুন",
+                text = stringResource(R.string.support_contact_heading),
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp)
@@ -218,9 +218,9 @@ fun SupportScreen(viewModel: MainViewModel) {
                         modifier = Modifier.size(32.dp)
                     )
                 },
-                title = "হোয়াটসঅ্যাপে যোগাযোগ",
-                subtitle = "সরাসরি কথা বলুন",
-                buttonText = "হোয়াটসঅ্যাপ খুলুন",
+                title = stringResource(R.string.support_whatsapp),
+                subtitle = stringResource(R.string.support_whatsapp_subtitle),
+                buttonText = stringResource(R.string.support_open_whatsapp),
                 onButtonClick = {
                     try {
                         val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://wa.me/8801700000000"))
@@ -243,9 +243,9 @@ fun SupportScreen(viewModel: MainViewModel) {
                         modifier = Modifier.size(32.dp)
                     )
                 },
-                title = "সাপোর্ট টিকেট",
-                subtitle = "সমস্যা জানান, আমরা সমাধান করবো",
-                buttonText = "টিকেট পাঠান",
+                title = stringResource(R.string.support_ticket),
+                subtitle = stringResource(R.string.support_ticket_subtitle),
+                buttonText = stringResource(R.string.support_ticket_submit),
                 onButtonClick = { showTicketDialog = true }
             )
         }
@@ -261,9 +261,9 @@ fun SupportScreen(viewModel: MainViewModel) {
                         modifier = Modifier.size(32.dp)
                     )
                 },
-                title = "অ্যাডমিন চ্যাট",
-                subtitle = "সরাসরি সাপোর্ট টিমের সাথে কথা বলুন",
-                buttonText = "চ্যাট শুরু করুন",
+                title = stringResource(R.string.support_admin_chat),
+                subtitle = stringResource(R.string.support_admin_chat_subtitle),
+                buttonText = stringResource(R.string.support_start_chat),
                 onButtonClick = {
                     showAdminChat = true
                     // Start listening to admin chat messages
@@ -379,7 +379,7 @@ fun SupportScreen(viewModel: MainViewModel) {
                                 ) {
                                     Icon(
                                         imageVector = Icons.Default.Send,
-                                        contentDescription = "পাঠান",
+                                        contentDescription = stringResource(R.string.chat_send),
                                         tint = MaterialTheme.colorScheme.primary
                                     )
                                 }

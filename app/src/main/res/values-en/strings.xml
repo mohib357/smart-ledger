@@ -637,4 +637,12 @@
     <string name="menu_data_reset">Reset Data</string>
     <string name="menu_support_center">Support Center</string>
     <string name="menu_version">Version</string>
+
+    <!-- SupportScreen contact card subtitles and buttons -->
+    <string name="support_whatsapp_subtitle">Talk to us directly</string>
+    <string name="support_open_whatsapp">Open WhatsApp</string>
+    <string name="support_ticket_subtitle">Report an issue, we\'ll resolve it</string>
+    <string name="support_admin_chat_subtitle">Chat directly with the support team</string>
+    <string name="support_start_chat">Start Chat</string>
+    <string name="support_contact_heading">Contact Us</string>
 </resources>

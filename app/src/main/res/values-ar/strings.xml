@@ -627,4 +627,12 @@
     <string name="menu_data_reset">إعادة تعيين البيانات</string>
     <string name="menu_support_center">مركز الدعم</string>
     <string name="menu_version">الإصدار</string>
+
+    <!-- SupportScreen contact card subtitles and buttons -->
+    <string name="support_whatsapp_subtitle">تحدث معنا مباشرة</string>
+    <string name="support_open_whatsapp">فتح واتساب</string>
+    <string name="support_ticket_subtitle">أبلغ عن مشكلة وسنحلها</string>
+    <string name="support_admin_chat_subtitle">تحدث مباشرة مع فريق الدعم</string>
+    <string name="support_start_chat">بدء المحادثة</string>
+    <string name="support_contact_heading">اتصل بنا</string>
 </resources>

@@ -627,4 +627,12 @@
     <string name="menu_data_reset">डेटा रीसेट</string>
     <string name="menu_support_center">सहायता केंद्र</string>
     <string name="menu_version">संस्करण</string>
+
+    <!-- SupportScreen contact card subtitles and buttons -->
+    <string name="support_whatsapp_subtitle">सीधे बात करें</string>
+    <string name="support_open_whatsapp">व्हाट्सएप खोलें</string>
+    <string name="support_ticket_subtitle">समस्या बताएं, हम हल करेंगे</string>
+    <string name="support_admin_chat_subtitle">सहायता टीम से सीधे बात करें</string>
+    <string name="support_start_chat">चैट शुरू करें</string>
+    <string name="support_contact_heading">संपर्क करें</string>
 </resources>
