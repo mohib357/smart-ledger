@@ -540,9 +540,20 @@
 
     <!-- SupportScreen -->
     <string name="support_center">সাপোর্ট সেন্টার</string>
+    <string name="support_center_subtitle">আমরা সাহায্য করতে প্রস্তুত</string>
+    <string name="support_ai_title">এআই সহকারী</string>
+    <string name="support_ai_subtitle">অ্যাপ বিষয়ক যেকোনো প্রশ্ন করুন</string>
     <string name="support_whatsapp">হোয়াটসঅ্যাপে যোগাযোগ</string>
     <string name="support_ticket">সাপোর্ট টিকেট</string>
     <string name="support_admin_chat">অ্যাডমিন চ্যাট</string>
+    <string name="support_ticket_category">ক্যাটাগরি</string>
+    <string name="support_ticket_subject">বিষয়</string>
+    <string name="support_ticket_description">বিবরণ</string>
+    <string name="support_ticket_submit">টিকেট পাঠান</string>
+    <string name="support_ticket_success">টিকেট সফলভাবে পাঠানো হয়েছে</string>
+    <string name="support_ticket_error">টিকেট পাঠাতে ব্যর্থ হয়েছে</string>
+    <string name="support_chat_hint">বার্তা লিখুন...</string>
+    <string name="support_app_info">হিসাব - Smart Ledger © 2026</string>
 
     <!-- NotificationsScreen -->
     <string name="notifications_title">নোটিফিকেশন</string>
@@ -550,11 +561,31 @@
     <string name="notifications_mark_all_read">সব পড়া হয়েছে</string>
 
     <!-- MenuScreen sections -->
+    <string name="menu_title">মেনু</string>
     <string name="menu_language">ভাষা ও প্রদর্শন</string>
+    <string name="menu_bengali_digits">বাংলা সংখ্যা ব্যবহার করুন</string>
     <string name="menu_tools">হিসাব সরঞ্জাম</string>
+    <string name="menu_heritage">উত্তরাধিকার ও নিরাপত্তা</string>
     <string name="menu_data_sync">ডেটা ও সিঙ্ক</string>
     <string name="menu_account">অ্যাকাউন্ট ও অ্যাপ</string>
     <string name="menu_help">সাহায্য</string>
+    <string name="menu_calendar">ক্যালেন্ডার</string>
+    <string name="menu_reports">রিপোর্ট</string>
+    <string name="menu_products">স্টক হিসাব</string>
+    <string name="menu_invoices">চালান</string>
+    <string name="menu_cashbox">ক্যাশবাক্স</string>
+    <string name="menu_nominees">উত্তরাধিকার</string>
+    <string name="menu_app_lock">অ্যাপ লক</string>
+    <string name="menu_backup_restore">ব্যাকআপ ও রিস্টোর</string>
+    <string name="menu_sms_marketing">SMS মার্কেটিং</string>
+    <string name="menu_snapshot">স্থিতি সংরক্ষণ</string>
+    <string name="menu_premium">প্রিমিয়াম</string>
+    <string name="menu_settings">সেটিংস</string>
+    <string name="menu_profile">প্রোফাইল</string>
+    <string name="menu_login">লগইন</string>
+    <string name="menu_data_reset">ডেটা রিসেট</string>
+    <string name="menu_support_center">সাপোর্ট সেন্টার</string>
+    <string name="menu_version">সংস্করণ</string>
 
     <!-- Khata additions -->
     <string name="khata_search_placeholder">ব্যক্তি বা প্রতিষ্ঠানের নাম খুঁজুন...</string>

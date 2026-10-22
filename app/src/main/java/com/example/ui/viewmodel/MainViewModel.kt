@@ -346,8 +346,14 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         )
         // Sync notifications when user is authenticated
         viewModelScope.launch {
-            val uid = firebaseAuthManager.getCurrentUid()
-            repository.syncNotificationsFromFirestore(uid)
+            authState.collect { state ->
+                if (state == AuthState.SIGNED_IN) {
+                    val uid = firebaseAuthManager.getCurrentUid()
+                    if (uid.isNotEmpty()) {
+                        repository.syncNotificationsFromFirestore(uid, viewModelScope)
+                    }
+                }
+            }
         }
     }
 

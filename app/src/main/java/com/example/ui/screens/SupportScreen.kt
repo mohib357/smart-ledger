@@ -56,10 +56,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.BuildConfig
+import com.example.R
 import com.example.ui.viewmodel.MainViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -110,12 +112,12 @@ fun SupportScreen(viewModel: MainViewModel) {
                 Spacer(modifier = Modifier.width(8.dp))
                 Column {
                     Text(
-                        text = "সাপোর্ট সেন্টার",
+                        text = stringResource(R.string.support_center),
                         style = MaterialTheme.typography.titleLarge,
                         fontWeight = FontWeight.Bold
                     )
                     Text(
-                        text = "আমরা সাহায্য করতে প্রস্তুত",
+                        text = stringResource(R.string.support_center_subtitle),
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -132,12 +134,12 @@ fun SupportScreen(viewModel: MainViewModel) {
             ) {
                 Column(modifier = Modifier.padding(16.dp)) {
                     Text(
-                        text = "এআই সহকারী",
+                        text = stringResource(R.string.support_ai_title),
                         style = MaterialTheme.typography.titleMedium,
                         fontWeight = FontWeight.Bold
                     )
                     Text(
-                        text = "অ্যাপ বিষয়ক যেকোনো প্রশ্ন করুন",
+                        text = stringResource(R.string.support_ai_subtitle),
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
@@ -169,7 +171,7 @@ fun SupportScreen(viewModel: MainViewModel) {
                         OutlinedTextField(
                             value = chatInputText,
                             onValueChange = { chatInputText = it },
-                            placeholder = { Text("প্রশ্ন লিখুন...") },
+                            placeholder = { Text(stringResource(R.string.support_chat_hint)) },
                             modifier = Modifier.weight(1f),
                             singleLine = true
                         )
@@ -344,7 +346,7 @@ fun SupportScreen(viewModel: MainViewModel) {
                                 OutlinedTextField(
                                     value = adminChatInput,
                                     onValueChange = { adminChatInput = it },
-                                    placeholder = { Text("বার্তা লিখুন...") },
+                                    placeholder = { Text(stringResource(R.string.support_chat_hint)) },
                                     modifier = Modifier.weight(1f),
                                     singleLine = true
                                 )
@@ -469,9 +471,12 @@ private fun SupportTicketDialog(onDismiss: () -> Unit) {
     var subject by remember { mutableStateOf("") }
     var description by remember { mutableStateOf("") }
 
+    val ticketSuccessMsg = stringResource(R.string.support_ticket_success)
+    val ticketErrorMsg = stringResource(R.string.support_ticket_error)
+
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text("সাপোর্ট টিকেট") },
+        title = { Text(stringResource(R.string.support_ticket)) },
         text = {
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 // Category dropdown
@@ -483,7 +488,7 @@ private fun SupportTicketDialog(onDismiss: () -> Unit) {
                         value = selectedCategory,
                         onValueChange = {},
                         readOnly = true,
-                        label = { Text("ক্যাটাগরি") },
+                        label = { Text(stringResource(R.string.support_ticket_category)) },
                         trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = categoryExpanded) },
                         modifier = Modifier
                             .menuAnchor()
@@ -508,7 +513,7 @@ private fun SupportTicketDialog(onDismiss: () -> Unit) {
                 OutlinedTextField(
                     value = subject,
                     onValueChange = { subject = it },
-                    label = { Text("বিষয়") },
+                    label = { Text(stringResource(R.string.support_ticket_subject)) },
                     modifier = Modifier.fillMaxWidth(),
                     singleLine = true
                 )
@@ -516,7 +521,7 @@ private fun SupportTicketDialog(onDismiss: () -> Unit) {
                 OutlinedTextField(
                     value = description,
                     onValueChange = { description = it },
-                    label = { Text("বিবরণ") },
+                    label = { Text(stringResource(R.string.support_ticket_description)) },
                     modifier = Modifier.fillMaxWidth(),
                     minLines = 4
                 )
@@ -541,19 +546,19 @@ private fun SupportTicketDialog(onDismiss: () -> Unit) {
                                     "deviceInfo" to deviceInfo
                                 )
                             )
-                        Toast.makeText(context, "টিকেট পাঠানো হয়েছে ✓", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, ticketSuccessMsg, Toast.LENGTH_SHORT).show()
                     } catch (_: Exception) {
-                        Toast.makeText(context, "টিকেট পাঠাতে ব্যর্থ হয়েছে", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, ticketErrorMsg, Toast.LENGTH_SHORT).show()
                     }
                     onDismiss()
                 }
             ) {
-                Text("টিকেট পাঠান")
+                Text(stringResource(R.string.support_ticket_submit))
             }
         },
         dismissButton = {
             TextButton(onClick = onDismiss) {
-                Text("বাতিল")
+                Text(stringResource(R.string.action_cancel))
             }
         }
     )

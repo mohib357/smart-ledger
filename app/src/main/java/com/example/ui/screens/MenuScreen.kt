@@ -56,11 +56,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.BuildConfig
+import com.example.R
 import com.example.ui.viewmodel.MainViewModel
 import com.example.ui.viewmodel.ThemeMode
 import kotlinx.coroutines.launch
@@ -140,7 +142,7 @@ fun MenuScreen(viewModel: MainViewModel) {
 
         // Section 2 — ভাষা ও প্রদর্শন
         item {
-            SectionHeader("ভাষা ও প্রদর্শন")
+            SectionHeader(stringResource(R.string.menu_language))
         }
         item {
             MenuListItem(
@@ -193,7 +195,7 @@ fun MenuScreen(viewModel: MainViewModel) {
         }
 
         // Section 3 — হিসাব সরঞ্জাম
-        item { SectionHeader("হিসাব সরঞ্জাম") }
+        item { SectionHeader(stringResource(R.string.menu_tools)) }
         item {
             MenuListItem(
                 icon = Icons.Default.DateRange,
@@ -231,7 +233,7 @@ fun MenuScreen(viewModel: MainViewModel) {
         }
 
         // Section 4 — উত্তরাধিকার ও নিরাপত্তা
-        item { SectionHeader("উত্তরাধিকার ও নিরাপত্তা") }
+        item { SectionHeader(stringResource(R.string.menu_heritage)) }
         item {
             MenuListItem(
                 icon = Icons.Default.Security,
@@ -248,7 +250,7 @@ fun MenuScreen(viewModel: MainViewModel) {
         }
 
         // Section 5 — ডেটা ও সিঙ্ক
-        item { SectionHeader("ডেটা ও সিঙ্ক") }
+        item { SectionHeader(stringResource(R.string.menu_data_sync)) }
         item {
             MenuListItem(
                 icon = Icons.Default.CloudSync,
@@ -276,7 +278,7 @@ fun MenuScreen(viewModel: MainViewModel) {
         }
 
         // Section 6 — অ্যাকাউন্ট ও অ্যাপ
-        item { SectionHeader("অ্যাকাউন্ট ও অ্যাপ") }
+        item { SectionHeader(stringResource(R.string.menu_account)) }
         item {
             MenuListItem(
                 icon = Icons.Default.Star,
@@ -309,7 +311,7 @@ fun MenuScreen(viewModel: MainViewModel) {
         }
 
         // Section 7 — সাহায্য
-        item { SectionHeader("সাহায্য") }
+        item { SectionHeader(stringResource(R.string.menu_help)) }
         item {
             MenuListItem(
                 icon = Icons.Default.HeadsetMic,

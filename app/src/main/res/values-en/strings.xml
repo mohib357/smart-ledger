@@ -588,16 +588,53 @@
     <string name="topbar_notifications">Notifications</string>
     <string name="topbar_support">Support</string>
     <string name="nav_menu">Menu</string>
+
+    <!-- SupportScreen strings -->
     <string name="support_center">Support Center</string>
+    <string name="support_center_subtitle">We are ready to help</string>
+    <string name="support_ai_title">AI Assistant</string>
+    <string name="support_ai_subtitle">Ask any question about the app</string>
     <string name="support_whatsapp">WhatsApp Support</string>
     <string name="support_ticket">Support Ticket</string>
     <string name="support_admin_chat">Admin Chat</string>
+    <string name="support_ticket_category">Category</string>
+    <string name="support_ticket_subject">Subject</string>
+    <string name="support_ticket_description">Description</string>
+    <string name="support_ticket_submit">Submit Ticket</string>
+    <string name="support_ticket_success">Ticket submitted successfully</string>
+    <string name="support_ticket_error">Failed to submit ticket</string>
+    <string name="support_chat_hint">Type a message...</string>
+    <string name="support_app_info">Hisab - Smart Ledger © 2026</string>
+
+    <!-- NotificationsScreen strings -->
     <string name="notifications_title">Notifications</string>
     <string name="notifications_empty">No notifications</string>
     <string name="notifications_mark_all_read">Mark all read</string>
+
+    <!-- MenuScreen strings -->
+    <string name="menu_title">Menu</string>
     <string name="menu_language">Language &amp; Display</string>
+    <string name="menu_bengali_digits">Use Bengali numerals</string>
     <string name="menu_tools">Ledger Tools</string>
+    <string name="menu_heritage">Nominees &amp; Security</string>
     <string name="menu_data_sync">Data &amp; Sync</string>
     <string name="menu_account">Account &amp; App</string>
     <string name="menu_help">Help</string>
+    <string name="menu_calendar">Calendar</string>
+    <string name="menu_reports">Reports</string>
+    <string name="menu_products">Products</string>
+    <string name="menu_invoices">Invoices</string>
+    <string name="menu_cashbox">Cash Box</string>
+    <string name="menu_nominees">Nominees</string>
+    <string name="menu_app_lock">App Lock</string>
+    <string name="menu_backup_restore">Backup &amp; Restore</string>
+    <string name="menu_sms_marketing">SMS Marketing</string>
+    <string name="menu_snapshot">Save Snapshot</string>
+    <string name="menu_premium">Premium</string>
+    <string name="menu_settings">Settings</string>
+    <string name="menu_profile">Profile</string>
+    <string name="menu_login">Login</string>
+    <string name="menu_data_reset">Reset Data</string>
+    <string name="menu_support_center">Support Center</string>
+    <string name="menu_version">Version</string>
 </resources>

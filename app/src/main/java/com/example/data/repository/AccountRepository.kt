@@ -64,10 +64,12 @@ class AccountRepository(private val database: AppDatabase) {
     suspend fun markAllNotificationsRead() = notificationDao.markAllAsRead()
     suspend fun deleteNotification(notification: NotificationEntity) = notificationDao.delete(notification)
 
-    fun syncNotificationsFromFirestore(userId: String) {
+    fun syncNotificationsFromFirestore(
+        userId: String,
+        scope: kotlinx.coroutines.CoroutineScope
+    ) {
         try {
             val db = com.google.firebase.firestore.FirebaseFirestore.getInstance()
-            val scope = kotlinx.coroutines.CoroutineScope(kotlinx.coroutines.Dispatchers.IO)
             // Listen to admin-broadcast notifications
             db.collection("admin_notifications")
                 .addSnapshotListener { snapshot, error ->
