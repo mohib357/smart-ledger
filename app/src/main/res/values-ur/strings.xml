@@ -681,4 +681,11 @@
 
     <!-- FEAT-001: Offline banner (TASK 5D) -->
     <string name="offline_warning_banner">⚠️ انٹرنیٹ کنیکشن نہیں ہے۔ ڈیٹا محفوظ ہوگا لیکن سنک نہیں ہوگا۔</string>
+
+    <!-- FEAT-003: Expanded profile fields -->
+    <string name="profile_father_name_label">والد کا نام</string>
+    <string name="profile_address_label">پتہ</string>
+    <string name="profile_business_name_label">کاروبار کا نام</string>
+    <string name="profile_photo_todo_note">تصویر مقامی طور پر محفوظ ہوگی (کلاؤڈ اپلوڈ جلد آئے گا)</string>
+
 </resources>

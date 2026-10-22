@@ -681,4 +681,11 @@
 
     <!-- FEAT-001: Offline banner (TASK 5D) -->
     <string name="offline_warning_banner">⚠️ इंटरनेट कनेक्शन नहीं है। डेटा सहेजा जाएगा लेकिन सिंक नहीं होगा।</string>
+
+    <!-- FEAT-003: Expanded profile fields -->
+    <string name="profile_father_name_label">पिता का नाम</string>
+    <string name="profile_address_label">पता</string>
+    <string name="profile_business_name_label">व्यवसाय का नाम</string>
+    <string name="profile_photo_todo_note">फोटो स्थानीय रूप से सहेजी जाएगी (क्लाउड अपलोड जल्द आएगा)</string>
+
 </resources>

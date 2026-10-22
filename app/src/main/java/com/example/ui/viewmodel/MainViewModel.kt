@@ -41,6 +41,8 @@ import kotlinx.coroutines.launch
 
 enum class ThemeMode { SYSTEM, LIGHT, DARK }
 
+enum class AuthStep { NONE, EMAIL, PHONE_NUMBER, OTP_SENT, GOOGLE }
+
 sealed class ExcelExportResult {
     data class Success(val uri: android.net.Uri) : ExcelExportResult()
     data class Error(val message: String) : ExcelExportResult()
@@ -153,6 +155,12 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     private val _authError = MutableStateFlow<String?>(null)
     val authError: StateFlow<String?> = _authError.asStateFlow()
+
+    // FEAT-003: Auth expansion state
+    val authStep = MutableStateFlow(AuthStep.NONE)
+    val otpVerificationId = MutableStateFlow<String?>(null)
+    val otpCountdownSeconds = MutableStateFlow(0)
+    val showRestorePrompt = MutableStateFlow(false)
     val isPremium: StateFlow<Boolean> by lazy {
         billingManager.isPremiumFlow.stateIn(
             scope = viewModelScope,
@@ -661,7 +669,14 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             val result = firebaseAuthManager.signIn(email, password)
             result.onFailure { _authError.value = it.message }
             _authLoading.value = false
-            if (result.isSuccess) showLoginScreen.value = false
+            if (result.isSuccess) {
+                showLoginScreen.value = false
+                startSync()
+                viewModelScope.launch {
+                    firebaseAuthManager.fetchAndMergeFirestoreProfile()
+                    showRestorePrompt.value = true
+                }
+            }
         }
     }
 
@@ -672,7 +687,14 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             val result = firebaseAuthManager.signUp(name, email, password)
             result.onFailure { _authError.value = it.message }
             _authLoading.value = false
-            if (result.isSuccess) showLoginScreen.value = false
+            if (result.isSuccess) {
+                showLoginScreen.value = false
+                startSync()
+                viewModelScope.launch {
+                    firebaseAuthManager.fetchAndMergeFirestoreProfile()
+                    showRestorePrompt.value = true
+                }
+            }
         }
     }
 
@@ -689,6 +711,89 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     fun updateUserProfile(name: String, phone: String) {
         viewModelScope.launch {
             firebaseAuthManager.updateProfile(name, phone)
+        }
+    }
+
+    // FEAT-003: Google Sign-In, OTP, full profile update
+    fun signInWithGoogle(context: android.content.Context) {
+        viewModelScope.launch {
+            _authLoading.value = true
+            _authError.value = null
+            val r = firebaseAuthManager.signInWithGoogle(context)
+            r.onSuccess {
+                showLoginScreen.value = false
+                startSync()
+                viewModelScope.launch {
+                    firebaseAuthManager.fetchAndMergeFirestoreProfile()
+                    showRestorePrompt.value = true
+                }
+            }
+            r.onFailure { _authError.value = it.message }
+            _authLoading.value = false
+        }
+    }
+
+    fun sendOtp(phone: String, activity: android.app.Activity) {
+        viewModelScope.launch {
+            _authLoading.value = true
+            _authError.value = null
+            val r = firebaseAuthManager.sendOtp(phone, activity)
+            r.onSuccess { verificationId ->
+                otpVerificationId.value = verificationId
+                authStep.value = AuthStep.OTP_SENT
+                startOtpCountdown()
+            }
+            r.onFailure { _authError.value = it.message }
+            _authLoading.value = false
+        }
+    }
+
+    fun verifyOtp(code: String) {
+        viewModelScope.launch {
+            val vId = otpVerificationId.value ?: return@launch
+            _authLoading.value = true
+            _authError.value = null
+            val r = firebaseAuthManager.verifyOtp(vId, code)
+            r.onSuccess {
+                showLoginScreen.value = false
+                authStep.value = AuthStep.NONE
+                startSync()
+            }
+            r.onFailure { _authError.value = it.message }
+            _authLoading.value = false
+        }
+    }
+
+    private fun startOtpCountdown() {
+        viewModelScope.launch {
+            otpCountdownSeconds.value = 60
+            repeat(60) {
+                kotlinx.coroutines.delay(1000)
+                otpCountdownSeconds.value--
+            }
+        }
+    }
+
+    fun updateUserProfileFull(
+        name: String,
+        phone: String,
+        photoUrl: String,
+        fatherName: String,
+        address: String,
+        businessName: String
+    ) {
+        viewModelScope.launch {
+            val updated = userProfile.value.copy(
+                name = name,
+                phone = phone,
+                photoUrl = photoUrl,
+                fatherName = fatherName,
+                address = address,
+                businessName = businessName,
+                profileUpdatedAt = System.currentTimeMillis()
+            )
+            firebaseAuthManager.saveProfileLocally(updated)
+            firebaseAuthManager.syncProfileToFirestore(updated)
         }
     }
 

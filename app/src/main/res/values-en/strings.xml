@@ -691,4 +691,11 @@
 
     <!-- FEAT-001: Offline banner (TASK 5D) -->
     <string name="offline_warning_banner">⚠️ No internet connection. Data will be saved but not synced.</string>
+
+    <!-- FEAT-003: Expanded profile fields -->
+    <string name="profile_father_name_label">Father\'s Name</string>
+    <string name="profile_address_label">Address</string>
+    <string name="profile_business_name_label">Business Name</string>
+    <string name="profile_photo_todo_note">Photo saved locally (cloud upload coming soon)</string>
+
 </resources>

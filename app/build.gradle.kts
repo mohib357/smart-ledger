@@ -110,6 +110,7 @@ dependencies {
   // implementation(libs.coil.compose)
   implementation(libs.billing.ktx)
   implementation(libs.play.services.ads)
+  implementation(libs.coil.compose)
   implementation(libs.converter.moshi)
   implementation(libs.firebase.ai)
   // Uncomment to use Firestore:

@@ -699,5 +699,11 @@
     <!-- FEAT-001: Offline banner (TASK 5D) -->
     <string name="offline_warning_banner">⚠️ ইন্টারনেট সংযোগ নেই। এন্ট্রি সংরক্ষিত হবে, কিন্তু সিঙ্ক হবে না।</string>
 
+    <!-- FEAT-003: Expanded profile fields -->
+    <string name="profile_father_name_label">পিতার নাম</string>
+    <string name="profile_address_label">ঠিকানা</string>
+    <string name="profile_business_name_label">ব্যবসার নাম</string>
+    <string name="profile_photo_todo_note">ছবি স্থানীয়ভাবে সংরক্ষিত হবে (ক্লাউড আপলোড শীঘ্রই আসছে)</string>
+
 </resources>
 

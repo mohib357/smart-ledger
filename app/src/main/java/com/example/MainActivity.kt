@@ -114,6 +114,7 @@ import com.example.util.Formatters
 import com.example.util.NotificationHelper
 import com.example.util.PdfExportResult
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.Locale
@@ -1012,13 +1013,21 @@ fun MainAppContent(viewModel: MainViewModel) {
 
         // Phase 5: LoginScreen overlay — show if user explicitly opens it
         if (showLoginScreen) {
+            val otpCountdownSeconds by viewModel.otpCountdownSeconds.collectAsStateWithLifecycle()
+            val isOtpSent by viewModel.authStep.map { it == com.example.ui.viewmodel.AuthStep.OTP_SENT }
+                .collectAsStateWithLifecycle(initialValue = false)
             LoginScreen(
                 isLoading = authLoading,
                 errorMessage = authError,
                 onSignIn = { email, pass -> viewModel.signIn(email, pass) },
                 onSignUp = { name, email, pass -> viewModel.signUp(name, email, pass) },
                 onForgotPassword = { email -> viewModel.forgotPassword(email) },
-                onSkip = { viewModel.showLoginScreen.value = false }
+                onSkip = { viewModel.showLoginScreen.value = false },
+                onSignInWithGoogle = { viewModel.signInWithGoogle(context) },
+                onSendOtp = { phone -> viewModel.sendOtp(phone, context as android.app.Activity) },
+                onVerifyOtp = { code -> viewModel.verifyOtp(code) },
+                otpCountdownSeconds = otpCountdownSeconds,
+                isOtpSent = isOtpSent
             )
         }
 
@@ -1027,7 +1036,9 @@ fun MainAppContent(viewModel: MainViewModel) {
             ProfileScreen(
                 userProfile = userProfile,
                 isLoading = authLoading,
-                onUpdateProfile = { name, phone -> viewModel.updateUserProfile(name, phone) },
+                onUpdateProfile = { name, phone, photoUrl, fatherName, address, businessName ->
+                    viewModel.updateUserProfileFull(name, phone, photoUrl, fatherName, address, businessName)
+                },
                 onLogout = {
                     viewModel.signOut()
                     viewModel.showProfileScreen.value = false

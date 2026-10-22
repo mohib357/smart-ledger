@@ -681,4 +681,11 @@
 
     <!-- FEAT-001: Offline banner (TASK 5D) -->
     <string name="offline_warning_banner">⚠️ لا يوجد اتصال بالإنترنت. سيتم حفظ البيانات لكن لن تتزامن.</string>
+
+    <!-- FEAT-003: Expanded profile fields -->
+    <string name="profile_father_name_label">اسم الأب</string>
+    <string name="profile_address_label">العنوان</string>
+    <string name="profile_business_name_label">اسم العمل</string>
+    <string name="profile_photo_todo_note">سيتم حفظ الصورة محليًا (التحميل إلى السحابة قريبًا)</string>
+
 </resources>
