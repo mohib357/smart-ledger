@@ -362,6 +362,17 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 }
             }
         }
+
+        // FEAT-001: Schedule RecycleBinPurgeWorker daily
+        val purgePurgeRequest = androidx.work.PeriodicWorkRequestBuilder<com.example.worker.RecycleBinPurgeWorker>(
+            1, java.util.concurrent.TimeUnit.DAYS
+        ).addTag(com.example.worker.RecycleBinPurgeWorker.TAG).build()
+        androidx.work.WorkManager.getInstance(application)
+            .enqueueUniquePeriodicWork(
+                com.example.worker.RecycleBinPurgeWorker.TAG,
+                androidx.work.ExistingPeriodicWorkPolicy.KEEP,
+                purgePurgeRequest
+            )
     }
 
     // ── Phase 6: AI Insights ───────────────────────────────────────────────
@@ -742,6 +753,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     override fun onCleared() {
+        networkObserver.close()
         billingManager.disconnect()
         super.onCleared()
     }
@@ -1040,6 +1052,31 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         val uid = firebaseAuthManager.getCurrentUid()
         if (uid.isEmpty()) return
         viewModelScope.launch { syncManager.pushAllToFirestore() }
+    }
+
+    // ── FEAT-001: Network Connectivity + Recycle Bin ───────────────────────
+
+    val networkObserver by lazy { com.example.util.NetworkConnectivityObserver(getApplication()) }
+    val isOnline: StateFlow<Boolean> by lazy { networkObserver.isOnline }
+
+    val deletedTransactions: StateFlow<List<com.example.data.model.TransactionEntity>> by lazy {
+        repository.deletedTransactions.stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = emptyList()
+        )
+    }
+
+    fun restoreTransaction(tx: com.example.data.model.TransactionEntity) {
+        viewModelScope.launch {
+            repository.restoreTransaction(tx)
+        }
+    }
+
+    fun permanentlyDeleteTransaction(tx: com.example.data.model.TransactionEntity) {
+        viewModelScope.launch {
+            repository.permanentlyDeleteTransaction(tx)
+        }
     }
 
     // ── FEAT-003: Cash Box helpers ─────────────────────────────────────────

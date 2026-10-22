@@ -669,4 +669,16 @@
     <string name="help_products">مصنوعات کا انتظام</string>
     <string name="help_security">سیکیورٹی</string>
     <string name="help_menu_settings">مینو اور ترتیبات</string>
+    <!-- FEAT-001: Recycle Bin -->
+    <string name="recycle_bin_title">ری سائیکل بن</string>
+    <string name="recycle_bin_empty">ری سائیکل بن خالی ہے۔\nحذف شدہ لین دین 30 دنوں تک یہاں رہیں گے۔</string>
+    <string name="recycle_bin_auto_delete_hint">⏱ حذف شدہ لین دین 30 دنوں بعد خود بخود ہٹا دیے جائیں گے۔</string>
+    <string name="recycle_bin_restore">بحال کریں</string>
+    <string name="recycle_bin_permanent_delete">مستقل حذف کریں</string>
+    <string name="recycle_bin_delete_confirm_title">مستقل حذف کریں؟</string>
+    <string name="recycle_bin_delete_confirm_message">یہ لین دین مستقل طور پر حذف ہو جائے گا۔</string>
+    <string name="menu_recycle_bin">ری سائیکل بن</string>
+
+    <!-- FEAT-001: Offline banner (TASK 5D) -->
+    <string name="offline_warning_banner">⚠️ انٹرنیٹ کنیکشن نہیں ہے۔ ڈیٹا محفوظ ہوگا لیکن سنک نہیں ہوگا۔</string>
 </resources>

@@ -669,4 +669,16 @@
     <string name="help_products">उत्पाद प्रबंधन</string>
     <string name="help_security">सुरक्षा</string>
     <string name="help_menu_settings">मेनू और सेटिंग्स</string>
+    <!-- FEAT-001: Recycle Bin -->
+    <string name="recycle_bin_title">रीसायकल बिन</string>
+    <string name="recycle_bin_empty">रीसायकल बिन खाली है।\nहटाए गए लेन-देन 30 दिनों तक यहाँ रहेंगे।</string>
+    <string name="recycle_bin_auto_delete_hint">⏱ हटाए गए लेन-देन 30 दिनों के बाद स्वतः हटा दिए जाएंगे।</string>
+    <string name="recycle_bin_restore">पुनर्स्थापित करें</string>
+    <string name="recycle_bin_permanent_delete">स्थायी रूप से हटाएं</string>
+    <string name="recycle_bin_delete_confirm_title">स्थायी रूप से हटाएं?</string>
+    <string name="recycle_bin_delete_confirm_message">यह लेन-देन स्थायी रूप से हटा दिया जाएगा।</string>
+    <string name="menu_recycle_bin">रीसायकल बिन</string>
+
+    <!-- FEAT-001: Offline banner (TASK 5D) -->
+    <string name="offline_warning_banner">⚠️ इंटरनेट कनेक्शन नहीं है। डेटा सहेजा जाएगा लेकिन सिंक नहीं होगा।</string>
 </resources>

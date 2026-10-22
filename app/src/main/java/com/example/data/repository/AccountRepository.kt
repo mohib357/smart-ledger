@@ -235,7 +235,43 @@ class AccountRepository(private val database: AppDatabase) {
     suspend fun deleteTransaction(transaction: TransactionEntity) {
         val reverseDelta = if (transaction.type == "INCOME") -transaction.amount else transaction.amount
         walletDao.adjustBalance(transaction.walletId, reverseDelta, System.currentTimeMillis())
-        transactionDao.delete(transaction)
+        transactionDao.softDeleteById(transaction.id, System.currentTimeMillis())
+    }
+
+    // FEAT-001: Deleted transactions flow (30-day recycle bin)
+    val deletedTransactions: Flow<List<TransactionEntity>> = transactionDao.getDeletedTransactions()
+
+    suspend fun restoreTransaction(tx: TransactionEntity) {
+        // Reverse the wallet delta that was applied on delete
+        val restoreDelta = if (tx.type == "INCOME") tx.amount else -tx.amount
+        walletDao.adjustBalance(tx.walletId, restoreDelta, System.currentTimeMillis())
+        transactionDao.restoreTransaction(tx.id)
+    }
+
+    suspend fun permanentlyDeleteTransaction(tx: TransactionEntity) {
+        transactionDao.delete(tx)
+    }
+
+    suspend fun purgeOldDeletedTransactions() {
+        val thirtyDaysAgo = System.currentTimeMillis() - 30L * 24 * 60 * 60 * 1000
+        transactionDao.purgeOldDeleted(thirtyDaysAgo)
+    }
+
+    // FEAT-001: upsert stubs needed by FEAT-002 SyncManager expansion
+    suspend fun upsertWallet(w: WalletEntity) {
+        walletDao.insert(w) // OnConflictStrategy.REPLACE
+    }
+
+    suspend fun upsertCashBoxEntry(c: CashBoxEntryEntity) {
+        cashBoxDao.insert(c) // OnConflictStrategy.REPLACE
+    }
+
+    suspend fun upsertProduct(p: ProductEntity) {
+        productDao.insert(p) // OnConflictStrategy.REPLACE
+    }
+
+    suspend fun upsertNominee(n: NomineeEntity) {
+        nomineeDao.insert(n) // OnConflictStrategy.REPLACE
     }
 
     // Phase 5 — Sync: upsert without wallet balance side-effects (remote data already applied)

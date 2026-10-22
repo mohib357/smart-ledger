@@ -24,6 +24,7 @@ import androidx.compose.material.icons.filled.CameraAlt
 import androidx.compose.material.icons.filled.CloudSync
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.DeleteSweep
 import androidx.compose.material.icons.filled.HeadsetMic
 import androidx.compose.material.icons.filled.Inventory
 import androidx.compose.material.icons.filled.Lock
@@ -273,6 +274,13 @@ fun MenuScreen(viewModel: MainViewModel, onNavigateToHelp: () -> Unit) {
                 icon = Icons.Default.AccountBalanceWallet,
                 title = stringResource(R.string.menu_cashbox),
                 onClick = { viewModel.setTab(10) }
+            )
+        }
+        item {
+            MenuListItem(
+                icon = Icons.Default.DeleteSweep,
+                title = stringResource(R.string.menu_recycle_bin),
+                onClick = { viewModel.setTab(16) }
             )
         }
 

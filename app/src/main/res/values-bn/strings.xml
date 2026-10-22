@@ -672,4 +672,18 @@
     <string name="help_products">পণ্য ব্যবস্থাপনা</string>
     <string name="help_security">নিরাপত্তা</string>
     <string name="help_menu_settings">মেনু ও সেটিংস</string>
+
+    <!-- FEAT-001: Recycle Bin -->
+    <string name="recycle_bin_title">রিসাইকেল বিন</string>
+    <string name="recycle_bin_empty">রিসাইকেল বিন খালি।\nমুছে দেওয়া লেনদেন এখানে ৩০ দিন থাকবে।</string>
+    <string name="recycle_bin_auto_delete_hint">⏱ মুছে দেওয়া লেনদেন ৩০ দিন পর স্বয়ংক্রিয়ভাবে মুছে যাবে।</string>
+    <string name="recycle_bin_restore">পুনরুদ্ধার করুন</string>
+    <string name="recycle_bin_permanent_delete">স্থায়ীভাবে মুছুন</string>
+    <string name="recycle_bin_delete_confirm_title">স্থায়ীভাবে মুছে ফেলবেন?</string>
+    <string name="recycle_bin_delete_confirm_message">এই লেনদেন স্থায়ীভাবে মুছে যাবে এবং ফিরিয়ে আনা যাবে না।</string>
+    <string name="menu_recycle_bin">রিসাইকেল বিন</string>
+
+    <!-- FEAT-001: Offline banner (TASK 5D) -->
+    <string name="offline_warning_banner">⚠️ ইন্টারনেট সংযোগ নেই। এন্ট্রি সংরক্ষিত হবে, কিন্তু সিঙ্ক হবে না।</string>
+
 </resources>

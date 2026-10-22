@@ -20,7 +20,9 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -45,6 +47,7 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -96,6 +99,7 @@ import com.example.ui.screens.PartyDetailScreen
 import com.example.ui.screens.ProductsScreen
 import com.example.ui.screens.InvoicesScreen
 import com.example.ui.screens.PremiumScreen
+import com.example.ui.screens.RecycleBinScreen
 import com.example.ui.screens.ReportsScreen
 import com.example.ui.screens.SupportScreen
 import com.example.ui.screens.TransactionsScreen
@@ -281,6 +285,10 @@ fun MainAppContent(viewModel: MainViewModel) {
     // Notifications
     val unreadNotificationCount by viewModel.unreadNotificationCount.collectAsStateWithLifecycle()
 
+    // FEAT-001: Offline banner + RecycleBin
+    val isOnline by viewModel.isOnline.collectAsStateWithLifecycle()
+    val deletedTransactions by viewModel.deletedTransactions.collectAsStateWithLifecycle()
+
     androidx.compose.runtime.LaunchedEffect(Unit) {
         viewModel.startSync()
     }
@@ -346,7 +354,26 @@ fun MainAppContent(viewModel: MainViewModel) {
     }
 
     Box(modifier = Modifier.fillMaxSize()) {
-        Scaffold(
+        Column {
+            // FEAT-001: Offline warning banner (TASK 5D)
+            AnimatedVisibility(
+                visible = !isOnline,
+                enter = fadeIn(),
+                exit = fadeOut()
+            ) {
+                androidx.compose.material3.Surface(
+                    modifier = Modifier.fillMaxWidth(),
+                    color = MaterialTheme.colorScheme.errorContainer
+                ) {
+                    Text(
+                        text = stringResource(R.string.offline_warning_banner),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onErrorContainer,
+                        modifier = Modifier.padding(horizontal = 16.dp, vertical = 6.dp)
+                    )
+                }
+            }
+            Scaffold(
             modifier = Modifier.fillMaxSize(),
             snackbarHost = { SnackbarHost(snackbarHostState) },
             topBar = {
@@ -666,10 +693,17 @@ fun MainAppContent(viewModel: MainViewModel) {
                             }
                         )
                         15 -> HelpGuideScreen(onBack = { viewModel.setTab(4) })
+                        16 -> RecycleBinScreen(
+                            deletedTransactions = deletedTransactions,
+                            useBengaliDigits = useBengaliDigits,
+                            onRestore = { viewModel.restoreTransaction(it) },
+                            onPermanentDelete = { viewModel.permanentlyDeleteTransaction(it) }
+                        )
                     }
                 }
             }
         }
+        } // end Column
 
         // Modal Dialogs
         if (showAddTransaction) {

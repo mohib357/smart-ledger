@@ -679,4 +679,16 @@
     <string name="help_products">Product Management</string>
     <string name="help_security">Security</string>
     <string name="help_menu_settings">Menu &amp; Settings</string>
+    <!-- FEAT-001: Recycle Bin -->
+    <string name="recycle_bin_title">Recycle Bin</string>
+    <string name="recycle_bin_empty">Recycle Bin is empty.\nDeleted transactions stay here for 30 days.</string>
+    <string name="recycle_bin_auto_delete_hint">⏱ Deleted transactions will be permanently removed after 30 days.</string>
+    <string name="recycle_bin_restore">Restore</string>
+    <string name="recycle_bin_permanent_delete">Delete Permanently</string>
+    <string name="recycle_bin_delete_confirm_title">Delete Permanently?</string>
+    <string name="recycle_bin_delete_confirm_message">This transaction will be permanently deleted and cannot be recovered.</string>
+    <string name="menu_recycle_bin">Recycle Bin</string>
+
+    <!-- FEAT-001: Offline banner (TASK 5D) -->
+    <string name="offline_warning_banner">⚠️ No internet connection. Data will be saved but not synced.</string>
 </resources>
