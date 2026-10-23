@@ -50,6 +50,7 @@ interface TransactionDao {
         message = "Bypasses the recycle bin. Use softDeleteById() for user-initiated deletes.",
         replaceWith = ReplaceWith("softDeleteById(id, System.currentTimeMillis())")
     )
+    @Suppress("OVERRIDE_DEPRECATION")
     @Query("DELETE FROM transactions WHERE id = :id")
     suspend fun deleteById(id: Long)
 
