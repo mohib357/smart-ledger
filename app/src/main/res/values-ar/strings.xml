@@ -688,4 +688,22 @@
     <string name="profile_business_name_label">اسم العمل</string>
     <string name="profile_photo_todo_note">سيتم حفظ الصورة محليًا (التحميل إلى السحابة قريبًا)</string>
 
+    <!-- FEAT-004: New string keys -->
+    <string name="recycle_bin_delete_permanent">حذف نهائي</string>
+    <string name="profile_photo_change">تغيير الصورة</string>
+    <string name="login_tab_email">البريد الإلكتروني</string>
+    <string name="login_tab_phone">الهاتف</string>
+    <string name="login_tab_google">جوجل</string>
+    <string name="login_google_button">تسجيل الدخول بـ Google</string>
+    <string name="login_phone_hint">رقم الهاتف (مثل: +8801XXXXXXXXX)</string>
+    <string name="login_send_otp">إرسال OTP</string>
+    <string name="login_otp_hint">رمز OTP المكون من 6 أرقام</string>
+    <string name="login_verify_otp">تحقق</string>
+    <string name="login_otp_countdown">إعادة الإرسال خلال %1$d ثانية</string>
+    <string name="login_resend_otp">إعادة إرسال OTP</string>
+    <string name="restore_prompt_title">تم العثور على نسخة احتياطية</string>
+    <string name="restore_prompt_message">تم العثور على بياناتك السابقة في السحابة. هل تريد الاستعادة الآن؟</string>
+    <string name="restore_prompt_yes">نعم، استعد</string>
+    <string name="restore_prompt_no">لا، لاحقاً</string>
+
 </resources>

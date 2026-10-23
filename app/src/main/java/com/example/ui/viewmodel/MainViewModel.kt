@@ -202,6 +202,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     private val _appLockEnabled = MutableStateFlow(false)
     val appLockEnabled: StateFlow<Boolean> = _appLockEnabled.asStateFlow()
 
+    // FEAT-004: isUnlocked as ViewModel StateFlow
+    val isUnlocked = MutableStateFlow(false)
+
     // Phase 3: F2 — Expiry Notification
     private val _expiryNotifEnabled = MutableStateFlow(true)
     val expiryNotifEnabled: StateFlow<Boolean> = _expiryNotifEnabled.asStateFlow()
@@ -261,6 +264,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         _monthlySummaryEnabled.value = prefs.getBoolean("monthly_summary_enabled", true)
         _txnPinEnabled.value = prefs.getBoolean("txn_pin_enabled", false)
         _appLockEnabled.value = prefs.getBoolean("app_lock_enabled", false)
+        isUnlocked.value = !prefs.getBoolean("app_lock_enabled", false)
         _expiryNotifEnabled.value = prefs.getBoolean("expiry_notif_enabled", true)
 
         val database = AppDatabase.getDatabase(application)
@@ -1114,6 +1118,15 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         val hash = com.example.util.PinHelper.hash(rawPin)
         context.getSharedPreferences("app_settings", Context.MODE_PRIVATE)
             .edit().putString("app_pin", hash).apply()
+    }
+
+    // FEAT-004: App re-lock / unlock
+    fun lockApp() {
+        if (_appLockEnabled.value) isUnlocked.value = false
+    }
+
+    fun unlockApp() {
+        isUnlocked.value = true
     }
 
     // ── Phase 3: F2 — Expiry Notification ─────────────────────────────────

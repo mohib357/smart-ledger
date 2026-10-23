@@ -688,4 +688,23 @@
     <string name="profile_business_name_label">व्यवसाय का नाम</string>
     <string name="profile_photo_todo_note">फोटो स्थानीय रूप से सहेजी जाएगी (क्लाउड अपलोड जल्द आएगा)</string>
 
+
+    <!-- FEAT-004: New string keys -->
+    <string name="recycle_bin_delete_permanent">स्थायी रूप से हटाएं</string>
+    <string name="profile_photo_change">फ़ोटो बदलें</string>
+    <string name="login_tab_email">ईमेल</string>
+    <string name="login_tab_phone">फोन</string>
+    <string name="login_tab_google">Google</string>
+    <string name="login_google_button">Google से साइन इन करें</string>
+    <string name="login_phone_hint">मोबाइल नंबर (जैसे: +8801XXXXXXXXX)</string>
+    <string name="login_send_otp">OTP भेजें</string>
+    <string name="login_otp_hint">6 अंकों का OTP कोड</string>
+    <string name="login_verify_otp">सत्यापित करें</string>
+    <string name="login_otp_countdown">%1$d सेकंड में पुनः भेजें</string>
+    <string name="login_resend_otp">OTP फिर से भेजें</string>
+    <string name="restore_prompt_title">क्लाउड बैकअप मिला</string>
+    <string name="restore_prompt_message">आपका पिछला डेटा क्लाउड में मिला। अभी पुनर्स्थापित करें?</string>
+    <string name="restore_prompt_yes">हाँ, पुनर्स्थापित करें</string>
+    <string name="restore_prompt_no">नहीं, बाद में</string>
+
 </resources>

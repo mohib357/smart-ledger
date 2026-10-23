@@ -54,7 +54,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -170,6 +169,7 @@ class MainActivity : ComponentActivity() {
             }
         }
 
+
         // Schedule monthly summary on first launch (if enabled)
         val prefs = getSharedPreferences("app_settings", Context.MODE_PRIVATE)
         if (prefs.getBoolean("monthly_summary_enabled", true)) {
@@ -179,6 +179,12 @@ class MainActivity : ComponentActivity() {
         if (prefs.getBoolean("expiry_notif_enabled", true)) {
             viewModel.scheduleOrCancelExpiryCheck(this, true)
         }
+    }
+
+    // FEAT-004: Re-lock app when activity stops (goes to background)
+    override fun onStop() {
+        super.onStop()
+        viewModel.lockApp()
     }
 }
 
@@ -328,17 +334,16 @@ fun MainAppContent(viewModel: MainViewModel) {
         ActivityResultContracts.RequestPermission()
     ) { granted -> hasSmsPermission = granted }
 
-    // App lock state — starts unlocked if lock is disabled, locked if enabled
-    var isUnlocked by rememberSaveable {
-        mutableStateOf(
-            !context.getSharedPreferences("app_settings", Context.MODE_PRIVATE)
-                .getBoolean("app_lock_enabled", false)
-        )
-    }
+    // App lock state — driven by ViewModel StateFlow
+    val isUnlocked by viewModel.isUnlocked.collectAsStateWithLifecycle()
 
     // PIN gate states for TransferDialog and PartyPaymentDialog
     var pendingTransfer by remember { mutableStateOf(false) }
     var pendingPartyPayment by remember { mutableStateOf(false) }
+
+    // FEAT-004: PIN gate states for delete operations
+    var pendingDeleteTransaction by remember { mutableStateOf<com.example.data.model.TransactionEntity?>(null) }
+    var pendingDeleteParty by remember { mutableStateOf<com.example.data.model.PartyEntity?>(null) }
 
     // Handle back button on secondary views
     if (selectedParty != null) {
@@ -443,9 +448,13 @@ fun MainAppContent(viewModel: MainViewModel) {
                             viewModel.showPartyPayment.value = true
                         },
                         onDeleteParty = { party ->
-                            viewModel.deleteParty(party)
-                            coroutineScope.launch {
-                                snackbarHostState.showSnackbar("'${party.name}' ${context.getString(R.string.snackbar_party_deleted)}")
+                            if (viewModel.isTxnPinEnabled(context)) {
+                                pendingDeleteParty = party
+                            } else {
+                                viewModel.deleteParty(party)
+                                coroutineScope.launch {
+                                    snackbarHostState.showSnackbar("'${party.name}' ${context.getString(R.string.snackbar_party_deleted)}")
+                                }
                             }
                         },
                         onExportReport = { android.widget.Toast.makeText(context, "শীঘ্রই আসছে", android.widget.Toast.LENGTH_SHORT).show() }
@@ -554,9 +563,13 @@ fun MainAppContent(viewModel: MainViewModel) {
                                 }
                             },
                             onDeleteTransaction = { tx ->
-                                viewModel.deleteTransaction(tx)
-                                coroutineScope.launch {
-                                    snackbarHostState.showSnackbar(context.getString(R.string.snackbar_transaction_deleted))
+                                if (viewModel.isTxnPinEnabled(context)) {
+                                    pendingDeleteTransaction = tx
+                                } else {
+                                    viewModel.deleteTransaction(tx)
+                                    coroutineScope.launch {
+                                        snackbarHostState.showSnackbar(context.getString(R.string.snackbar_transaction_deleted))
+                                    }
                                 }
                             }
                         )
@@ -1008,7 +1021,56 @@ fun MainAppContent(viewModel: MainViewModel) {
             enter = fadeIn(),
             exit = fadeOut()
         ) {
-            AppLockScreen(onUnlocked = { isUnlocked = true })
+            AppLockScreen(onUnlocked = { viewModel.unlockApp() })
+        }
+
+        // FEAT-004: PIN gate for deleteTransaction
+        pendingDeleteTransaction?.let { tx ->
+            PinConfirmDialog(
+                onPinCorrect = {
+                    viewModel.deleteTransaction(tx)
+                    pendingDeleteTransaction = null
+                    coroutineScope.launch {
+                        snackbarHostState.showSnackbar(context.getString(R.string.snackbar_transaction_deleted))
+                    }
+                },
+                onDismiss = { pendingDeleteTransaction = null }
+            )
+        }
+
+        // FEAT-004: PIN gate for deleteParty
+        pendingDeleteParty?.let { party ->
+            PinConfirmDialog(
+                onPinCorrect = {
+                    viewModel.deleteParty(party)
+                    pendingDeleteParty = null
+                    coroutineScope.launch {
+                        snackbarHostState.showSnackbar("'${party.name}' ${context.getString(R.string.snackbar_party_deleted)}")
+                    }
+                },
+                onDismiss = { pendingDeleteParty = null }
+            )
+        }
+
+        // FEAT-004: RestorePromptDialog — shown after sign-in when cloud backup found
+        val showRestorePrompt by viewModel.showRestorePrompt.collectAsStateWithLifecycle()
+        if (showRestorePrompt) {
+            androidx.compose.material3.AlertDialog(
+                onDismissRequest = { viewModel.showRestorePrompt.value = false },
+                title = { androidx.compose.material3.Text(stringResource(R.string.restore_prompt_title)) },
+                text = { androidx.compose.material3.Text(stringResource(R.string.restore_prompt_message)) },
+                confirmButton = {
+                    androidx.compose.material3.Button(onClick = {
+                        viewModel.performCloudRestore()
+                        viewModel.showRestorePrompt.value = false
+                    }) { androidx.compose.material3.Text(stringResource(R.string.restore_prompt_yes)) }
+                },
+                dismissButton = {
+                    androidx.compose.material3.TextButton(onClick = { viewModel.showRestorePrompt.value = false }) {
+                        androidx.compose.material3.Text(stringResource(R.string.restore_prompt_no))
+                    }
+                }
+            )
         }
 
         // Phase 5: LoginScreen overlay — show if user explicitly opens it

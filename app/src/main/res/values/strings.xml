@@ -705,5 +705,23 @@
     <string name="profile_business_name_label">ব্যবসার নাম</string>
     <string name="profile_photo_todo_note">ছবি স্থানীয়ভাবে সংরক্ষিত হবে (ক্লাউড আপলোড শীঘ্রই আসছে)</string>
 
+    <!-- FEAT-004: New string keys -->
+    <string name="recycle_bin_delete_permanent">স্থায়ীভাবে মুছুন</string>
+    <string name="profile_photo_change">ছবি পরিবর্তন করুন</string>
+    <string name="login_tab_email">ইমেইল</string>
+    <string name="login_tab_phone">ফোন</string>
+    <string name="login_tab_google">Google</string>
+    <string name="login_google_button">Google দিয়ে সাইন ইন করুন</string>
+    <string name="login_phone_hint">মোবাইল নম্বর (যেমন: +8801XXXXXXXXX)</string>
+    <string name="login_send_otp">OTP পাঠান</string>
+    <string name="login_otp_hint">৬ সংখ্যার OTP কোড</string>
+    <string name="login_verify_otp">যাচাই করুন</string>
+    <string name="login_otp_countdown">%1$d সেকেন্ড পরে পুনরায় পাঠান</string>
+    <string name="login_resend_otp">OTP পুনরায় পাঠান</string>
+    <string name="restore_prompt_title">ক্লাউড ব্যাকআপ পাওয়া গেছে</string>
+    <string name="restore_prompt_message">ক্লাউডে আপনার আগের ডেটা পাওয়া গেছে। এখনই রিস্টোর করবেন?</string>
+    <string name="restore_prompt_yes">হ্যাঁ, রিস্টোর করুন</string>
+    <string name="restore_prompt_no">এখন নয়</string>
+
 </resources>
 

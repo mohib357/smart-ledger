@@ -688,4 +688,23 @@
     <string name="profile_business_name_label">کاروبار کا نام</string>
     <string name="profile_photo_todo_note">تصویر مقامی طور پر محفوظ ہوگی (کلاؤڈ اپلوڈ جلد آئے گا)</string>
 
+
+    <!-- FEAT-004: New string keys -->
+    <string name="recycle_bin_delete_permanent">مستقل طور پر حذف کریں</string>
+    <string name="profile_photo_change">تصویر تبدیل کریں</string>
+    <string name="login_tab_email">ای میل</string>
+    <string name="login_tab_phone">فون</string>
+    <string name="login_tab_google">گوگل</string>
+    <string name="login_google_button">Google سے سائن ان کریں</string>
+    <string name="login_phone_hint">موبائل نمبر (مثلاً: +8801XXXXXXXXX)</string>
+    <string name="login_send_otp">OTP بھیجیں</string>
+    <string name="login_otp_hint">6 ہندسوں کا OTP کوڈ</string>
+    <string name="login_verify_otp">تصدیق کریں</string>
+    <string name="login_otp_countdown">%1$d سیکنڈ میں دوبارہ بھیجیں</string>
+    <string name="login_resend_otp">OTP دوبارہ بھیجیں</string>
+    <string name="restore_prompt_title">کلاؤڈ بیک اپ ملا</string>
+    <string name="restore_prompt_message">آپ کا پچھلا ڈیٹا کلاؤڈ میں ملا۔ ابھی بحال کریں؟</string>
+    <string name="restore_prompt_yes">ہاں، بحال کریں</string>
+    <string name="restore_prompt_no">نہیں، بعد میں</string>
+
 </resources>
