@@ -157,10 +157,14 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     val authError: StateFlow<String?> = _authError.asStateFlow()
 
     // FEAT-003: Auth expansion state
-    val authStep = MutableStateFlow(AuthStep.NONE)
-    val otpVerificationId = MutableStateFlow<String?>(null)
-    val otpCountdownSeconds = MutableStateFlow(0)
-    val showRestorePrompt = MutableStateFlow(false)
+    private val _authStep = MutableStateFlow(AuthStep.NONE)
+    val authStep: StateFlow<AuthStep> = _authStep.asStateFlow()
+    private val _otpVerificationId = MutableStateFlow<String?>(null)
+    val otpVerificationId: StateFlow<String?> = _otpVerificationId.asStateFlow()
+    private val _otpCountdownSeconds = MutableStateFlow(0)
+    val otpCountdownSeconds: StateFlow<Int> = _otpCountdownSeconds.asStateFlow()
+    private val _showRestorePrompt = MutableStateFlow(false)
+    val showRestorePrompt: StateFlow<Boolean> = _showRestorePrompt.asStateFlow()
     val isPremium: StateFlow<Boolean> by lazy {
         billingManager.isPremiumFlow.stateIn(
             scope = viewModelScope,
@@ -203,7 +207,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     val appLockEnabled: StateFlow<Boolean> = _appLockEnabled.asStateFlow()
 
     // FEAT-004: isUnlocked as ViewModel StateFlow
-    val isUnlocked = MutableStateFlow(false)
+    private val _isUnlocked = MutableStateFlow(false)
+    val isUnlocked: StateFlow<Boolean> = _isUnlocked.asStateFlow()
 
     // Phase 3: F2 — Expiry Notification
     private val _expiryNotifEnabled = MutableStateFlow(true)
@@ -264,7 +269,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         _monthlySummaryEnabled.value = prefs.getBoolean("monthly_summary_enabled", true)
         _txnPinEnabled.value = prefs.getBoolean("txn_pin_enabled", false)
         _appLockEnabled.value = prefs.getBoolean("app_lock_enabled", false)
-        isUnlocked.value = !prefs.getBoolean("app_lock_enabled", false)
+        _isUnlocked.value = !prefs.getBoolean("app_lock_enabled", false)
         _expiryNotifEnabled.value = prefs.getBoolean("expiry_notif_enabled", true)
 
         val database = AppDatabase.getDatabase(application)
@@ -678,7 +683,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 startSync()
                 viewModelScope.launch {
                     firebaseAuthManager.fetchAndMergeFirestoreProfile()
-                    showRestorePrompt.value = true
+                    _showRestorePrompt.value = true
                 }
             }
         }
@@ -696,7 +701,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 startSync()
                 viewModelScope.launch {
                     firebaseAuthManager.fetchAndMergeFirestoreProfile()
-                    showRestorePrompt.value = true
+                    _showRestorePrompt.value = true
                 }
             }
         }
@@ -729,7 +734,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 startSync()
                 viewModelScope.launch {
                     firebaseAuthManager.fetchAndMergeFirestoreProfile()
-                    showRestorePrompt.value = true
+                    _showRestorePrompt.value = true
                 }
             }
             r.onFailure { _authError.value = it.message }
@@ -743,8 +748,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             _authError.value = null
             val r = firebaseAuthManager.sendOtp(phone, activity)
             r.onSuccess { verificationId ->
-                otpVerificationId.value = verificationId
-                authStep.value = AuthStep.OTP_SENT
+                _otpVerificationId.value = verificationId
+                _authStep.value = AuthStep.OTP_SENT
                 startOtpCountdown()
             }
             r.onFailure { _authError.value = it.message }
@@ -754,13 +759,13 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     fun verifyOtp(code: String) {
         viewModelScope.launch {
-            val vId = otpVerificationId.value ?: return@launch
+            val vId = _otpVerificationId.value ?: return@launch
             _authLoading.value = true
             _authError.value = null
             val r = firebaseAuthManager.verifyOtp(vId, code)
             r.onSuccess {
                 showLoginScreen.value = false
-                authStep.value = AuthStep.NONE
+                _authStep.value = AuthStep.NONE
                 startSync()
             }
             r.onFailure { _authError.value = it.message }
@@ -770,10 +775,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     private fun startOtpCountdown() {
         viewModelScope.launch {
-            otpCountdownSeconds.value = 60
+            _otpCountdownSeconds.value = 60
             repeat(60) {
                 kotlinx.coroutines.delay(1000)
-                otpCountdownSeconds.value--
+                _otpCountdownSeconds.value--
             }
         }
     }
@@ -806,6 +811,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             firebaseAuthManager.deleteAccount()
             showProfileScreen.value = false
         }
+    }
+
+    fun dismissRestorePrompt() {
+        _showRestorePrompt.value = false
     }
 
     // ── Phase 5: Cloud Backup ──────────────────────────────────────────────
@@ -1122,11 +1131,11 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     // FEAT-004: App re-lock / unlock
     fun lockApp() {
-        if (_appLockEnabled.value) isUnlocked.value = false
+        if (_appLockEnabled.value) _isUnlocked.value = false
     }
 
     fun unlockApp() {
-        isUnlocked.value = true
+        _isUnlocked.value = true
     }
 
     // ── Phase 3: F2 — Expiry Notification ─────────────────────────────────

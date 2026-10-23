@@ -39,6 +39,17 @@ interface TransactionDao {
     @Delete
     suspend fun delete(transaction: TransactionEntity)
 
+    /**
+     * Hard-deletes a transaction row by ID. DEPRECATED — bypasses the recycle bin.
+     * Use [softDeleteById] for all user-initiated deletes so the 30-day recovery
+     * window is preserved. This method is kept only as a fallback for internal
+     * maintenance (e.g., purging already-soft-deleted rows by ID). Do not call
+     * it from UI or repository code paths that handle user transactions.
+     */
+    @Deprecated(
+        message = "Bypasses the recycle bin. Use softDeleteById() for user-initiated deletes.",
+        replaceWith = ReplaceWith("softDeleteById(id, System.currentTimeMillis())")
+    )
     @Query("DELETE FROM transactions WHERE id = :id")
     suspend fun deleteById(id: Long)
 

@@ -1056,17 +1056,17 @@ fun MainAppContent(viewModel: MainViewModel) {
         val showRestorePrompt by viewModel.showRestorePrompt.collectAsStateWithLifecycle()
         if (showRestorePrompt) {
             androidx.compose.material3.AlertDialog(
-                onDismissRequest = { viewModel.showRestorePrompt.value = false },
+                onDismissRequest = { viewModel.dismissRestorePrompt() },
                 title = { androidx.compose.material3.Text(stringResource(R.string.restore_prompt_title)) },
                 text = { androidx.compose.material3.Text(stringResource(R.string.restore_prompt_message)) },
                 confirmButton = {
                     androidx.compose.material3.Button(onClick = {
                         viewModel.performCloudRestore()
-                        viewModel.showRestorePrompt.value = false
+                        viewModel.dismissRestorePrompt()
                     }) { androidx.compose.material3.Text(stringResource(R.string.restore_prompt_yes)) }
                 },
                 dismissButton = {
-                    androidx.compose.material3.TextButton(onClick = { viewModel.showRestorePrompt.value = false }) {
+                    androidx.compose.material3.TextButton(onClick = { viewModel.dismissRestorePrompt() }) {
                         androidx.compose.material3.Text(stringResource(R.string.restore_prompt_no))
                     }
                 }
